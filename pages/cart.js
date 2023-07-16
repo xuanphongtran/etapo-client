@@ -239,9 +239,7 @@ const CartPage = () => {
                 name="country"
                 onChange={(ev) => setCountry(ev.target.value)}
               />
-              <Button black block onClick={goToPayment}>
-                Continue to payment
-              </Button>
+              <Button onClick={goToPayment}>Continue to payment</Button>
             </Box>
           )}
         </ColumnsWrapper>

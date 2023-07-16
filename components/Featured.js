@@ -3,14 +3,15 @@ import Center from '@/components/Center'
 import styled from 'styled-components'
 import Button from '@/components/Button'
 import ButtonLink from '@/components/ButtonLink'
-import CartIcon from '@/components/icons/CartIcon'
 import { useContext } from 'react'
 import { CartContext } from '@/components/CartContext'
+import { CartIcon } from './icons/Icon'
 
 const Bg = styled.div`
   background-color: #222;
   color: #fff;
   padding: 50px 0;
+  margin-top: 64px;
 `
 const Title = styled.h1`
   margin: 0;
@@ -71,10 +72,10 @@ export default function Featured({ product }) {
               <Title>{product.title}</Title>
               <Desc>{product.description}</Desc>
               <ButtonsWrapper>
-                <ButtonLink href={'/product/' + product._id} outline={1} white={1}>
+                <ButtonLink href={'/product/' + product._id} outline="true" white={1}>
                   Read more
                 </ButtonLink>
-                <Button white onClick={addFeaturedToCart}>
+                <Button onClick={addFeaturedToCart}>
                   <CartIcon />
                   Add to cart
                 </Button>
