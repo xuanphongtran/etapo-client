@@ -69,6 +69,18 @@ const NavButton = styled.button`
     display: none;
   }
 `
+const HeaderOvelay = styled.div`
+  background: rgba(0, 0, 0, 0.53);
+  height: 100vh;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  top: 64px;
+  transition: 0.3s;
+  visibility: hidden;
+  width: 100%;
+  z-index: 30;
+`
 
 export default function Header() {
   const { cartProducts } = useContext(CartContext)
@@ -116,6 +128,7 @@ export default function Header() {
       <Center>
         <Wrapper>
           <Logo href={'/'}>E-Tapo</Logo>
+          {/* <Rating value={5} /> */}
           <MenuDropdown items={menuItems} />
           <Searchbar />
           {!mobileNavActive && (
@@ -142,6 +155,7 @@ export default function Header() {
             <BarsIcon />
           </NavButton>
         </Wrapper>
+        <HeaderOvelay />
       </Center>
     </StyledHeader>
   )

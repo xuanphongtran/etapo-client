@@ -16,7 +16,16 @@ const MenuButton = styled.button`
     height: 34px;
   }
 `
-
+const HeaderOvelay = styled.div`
+  background: rgba(0, 0, 0, 0.53);
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 64px;
+  transition: 0.3s;
+  width: 100%;
+  z-index: 30;
+`
 const MenuDropdown = ({ items }) => {
   const [isOpen, setIsOpen] = useState(false)
   const handleToggle = () => {
@@ -26,8 +35,9 @@ const MenuDropdown = ({ items }) => {
   return (
     <MenuButton onClick={handleToggle}>
       <BarsIcon />
-      Danh mục
+      Thương Hiệu
       {isOpen && <MenuTree items={items} />}
+      {isOpen && <HeaderOvelay />}
     </MenuButton>
   )
 }

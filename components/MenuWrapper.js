@@ -4,10 +4,14 @@ const { styled } = require('styled-components')
 
 const MenuTree = styled.div`
   position: absolute;
+  left: 250px;
   top: 100%;
   width: 200px;
   background-color: #f2f2f2;
   border-radius: 4px;
+  margin-top: 32px;
+  background-color: #fff;
+  z-index: 980;
 `
 
 const MenuItem = styled.a`
@@ -15,12 +19,11 @@ const MenuItem = styled.a`
   align-items: center;
   justify-content: space-between;
   color: #343a40;
-  padding: 16px;
+  padding: 4px 10px;
   text-decoration: none;
   cursor: pointer;
-
   svg {
-    height: 16px;
+    height: 12px;
   }
 
   &:hover {

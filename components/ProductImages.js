@@ -7,7 +7,7 @@ const Image = styled.img`
 `
 const BigImage = styled.img`
   max-width: 100%;
-  max-height: 200px;
+  max-height: 300px;
 `
 const ImageButtons = styled.div`
   display: flex;
@@ -37,7 +37,7 @@ const BigImageWrapper = styled.div`
 export default function ProductImages({ images }) {
   const [activeImage, setActiveImage] = useState(images?.[0])
   return (
-    <>
+    <div>
       <BigImageWrapper>
         <BigImage src={activeImage} />
       </BigImageWrapper>
@@ -52,6 +52,6 @@ export default function ProductImages({ images }) {
           </ImageButton>
         ))}
       </ImageButtons>
-    </>
+    </div>
   )
 }
