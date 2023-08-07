@@ -32,6 +32,9 @@ const ImageButton = styled.div`
 `
 const BigImageWrapper = styled.div`
   text-align: center;
+  border: 1px dashed;
+  border-color: #e5e5e5;
+  border-radius: 10px;
 `
 
 export default function ProductImages({ images }) {

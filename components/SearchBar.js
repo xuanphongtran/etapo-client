@@ -1,32 +1,47 @@
 import styled from 'styled-components'
+import { SearchIcon } from './icons/Icon'
 
-const SearchWrapper = styled.div`
-  width: 300px;
+const SearchBarContainer = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 22px;
+  background-color: #f5f5f5;
+  &:focus-within {
+    border: 1px solid #6839cc;
+  }
 `
+
 const SearchInput = styled.input`
   border: none;
-  padding: 6px;
-  width: 100%;
-  border-radius: 4px;
-  margin-right: 8px;
+  outline: none;
+  width: 220px;
+  background-color: #f5f5f5;
 `
 
-// const SearchButton = styled.button`
-//   background-color: #f28102;
-//   color: #1d273e;
-//   border: none;
-//   padding: 8px 16px;
-//   border-radius: 4px;
-//   cursor: pointer;
-// `
+const SearchButton = styled.button`
+  background-color: #6839cc;
+  border: none;
+  color: #ffffff;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  display: flex;
+  &:hover {
+    background-color: #ff782c;
+  }
+`
 
-const Searchbar = () => {
+const SearchBar = () => {
   return (
-    <SearchWrapper>
-      <SearchInput type="text" placeholder="Search" />
-      {/* <SearchButton>Search</SearchButton> */}
-    </SearchWrapper>
+    <SearchBarContainer>
+      <SearchInput type="text" placeholder="Search..." />
+      <SearchButton>
+        <SearchIcon />
+      </SearchButton>
+    </SearchBarContainer>
   )
 }
 
-export default Searchbar
+export default SearchBar

@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
 const StyledDiv = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 40px;
   padding: 0 20px;
+  background-color: #ffffff;
 `
 
 export default function Center({ children }) {

@@ -1,162 +1,158 @@
-import Link from 'next/link'
 import styled from 'styled-components'
-import Center from '@/components/Center'
 import { useContext, useState } from 'react'
 import { CartContext } from '@/components/CartContext'
+import Image from 'next/image'
+import logo from '../public/logo.svg'
+import { AccountIcon, CartIcon, HeartIcon, SearchIcon } from './icons/Icon'
 import Searchbar from './SearchBar'
-import { BarsIcon, CartIcon, PhoneIcon, TruckIcon } from './icons/Icon'
-import MenuDropdown from './MenuDropdown'
 
-const StyledHeader = styled.header`
-  background-color: #1d273e;
+const HeaderSection = styled.section`
+  top: 0;
   position: fixed;
   width: 100%;
-  top: 0;
+  padding: 1rem 0;
+  background-color: #ffffff;
+  z-index: 980;
+
+  /* box-shadow: 0 0 3px 0px rgba(0, 0, 0, 0.2); */
 `
-const Wrapper = styled.div`
-  height: 64px;
+const ElementRow = styled.div`
   display: flex;
+  height: 60px;
+  padding: 0 3rem;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
 `
-
-const Logo = styled(Link)`
-  display: flex;
-  color: #f28102;
-  text-decoration: none;
+const ElementColumn = styled.div`
   position: relative;
-  z-index: 3;
+  min-height: 1px;
+  display: flex;
 `
-const StyledNav = styled.nav`
-  gap: 15px;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 70px 20px 20px;
-  background-color: #1d273e;
-  @media screen and (min-width: 768px) {
-    display: flex;
-    position: static;
-    padding: 0;
-  }
+const LayoutMenu = styled.nav`
+  /* overflow: visible;
+  visibility: inherit; */
+  max-height: none;
+  font-size: 14px;
+  font-weight: 500px;
 `
-const NavLink = styled(Link)`
+const MenuUl = styled.ul`
+  margin: 0;
+  color: #949494;
+  display: flex;
+  list-style-type: none;
+`
+const MenuLi = styled.li`
+  padding: 10px 20px;
+  display: list-item;
+`
+const NavLink = styled.a`
+  text-decoration: none;
   svg {
-    height: 34px;
+    height: 25px;
   }
-  gap: 5px;
+  &:hover {
+    color: #ff782c !important;
+  }
+  &:visited {
+    color: #000000;
+  }
+`
+const LayoutItem = styled.div`
+  margin: 0 1rem;
   display: flex;
   align-items: center;
-  color: #f28102;
-  text-decoration: none;
-  padding: 10px 0;
-  @media screen and (min-width: 768px) {
-    padding: 0;
-  }
 `
-const NavButton = styled.button`
-  background-color: transparent;
-  width: 30px;
-  height: 30px;
-  border: 0;
-  color: white;
-  cursor: pointer;
-  position: relative;
-  z-index: 3;
-  @media screen and (min-width: 768px) {
-    display: none;
-  }
-`
-const HeaderOvelay = styled.div`
-  background: rgba(0, 0, 0, 0.53);
-  height: 100vh;
-  left: 0;
-  opacity: 0;
-  position: fixed;
-  top: 64px;
-  transition: 0.3s;
-  visibility: hidden;
-  width: 100%;
-  z-index: 30;
-`
-
 export default function Header() {
   const { cartProducts } = useContext(CartContext)
   const [mobileNavActive, setMobileNavActive] = useState(false)
-  const menuItems = [
-    {
-      label: 'Home',
-      url: '/#',
-      child: [
-        { title: '1', content: ['Home1', 'About3', 'Contact3'] },
-        { title: '2', content: ['Home2', 'About3', 'Contact3'] },
-      ],
-    },
-    {
-      label: 'About',
-      url: '/#',
-      child: [
-        { title: '3', content: ['Home3', 'About3', 'Contact3'] },
-        { title: '4', content: ['Home4', 'About3', 'Contact3'] },
-      ],
-    },
-    {
-      label: 'Services',
-      url: '/#',
-      child: [
-        { title: '5', content: ['Home5', 'About3', 'Contact3'] },
-        { title: '6', content: ['Home6', 'About3', 'Contact3'] },
-      ],
-    },
-    {
-      label: 'Contact',
-      url: '/#',
-      child: [
-        { title: '7', content: ['Home7', 'About3', 'Contact3'] },
-        { title: '8', content: ['Home8', 'About3', 'Contact3'] },
-        { title: '8', content: ['Home8', 'About3', 'Contact3'] },
-        { title: '8', content: ['Home8', 'About3', 'Contact3'] },
-        { title: '8', content: ['Home8', 'About3', 'Contact3'] },
-        { title: '8', content: ['Home8', 'About3', 'Contact3'] },
-      ],
-    },
-  ]
+  // const menuItems = [
+  //   {
+  //     label: 'Home',
+  //     url: '/#',
+  //     child: [
+  //       { title: '1', content: ['Home1', 'About3', 'Contact3'] },
+  //       { title: '2', content: ['Home2', 'About3', 'Contact3'] },
+  //     ],
+  //   },
+  //   {
+  //     label: 'About',
+  //     url: '/#',
+  //     child: [
+  //       { title: '3', content: ['Home3', 'About3', 'Contact3'] },
+  //       { title: '4', content: ['Home4', 'About3', 'Contact3'] },
+  //     ],
+  //   },
+  //   {
+  //     label: 'Services',
+  //     url: '/#',
+  //     child: [
+  //       { title: '5', content: ['Home5', 'About3', 'Contact3'] },
+  //       { title: '6', content: ['Home6', 'About3', 'Contact3'] },
+  //     ],
+  //   },
+  //   {
+  //     label: 'Contact',
+  //     url: '/#',
+  //     child: [
+  //       { title: '7', content: ['Home7', 'About3', 'Contact3'] },
+  //       { title: '8', content: ['Home8', 'About3', 'Contact3'] },
+  //       { title: '8', content: ['Home8', 'About3', 'Contact3'] },
+  //       { title: '8', content: ['Home8', 'About3', 'Contact3'] },
+  //       { title: '8', content: ['Home8', 'About3', 'Contact3'] },
+  //       { title: '8', content: ['Home8', 'About3', 'Contact3'] },
+  //     ],
+  //   },
+  // ]
   return (
-    <StyledHeader>
-      <Center>
-        <Wrapper>
-          <Logo href={'/'}>E-Tapo</Logo>
-          {/* <Rating value={5} /> */}
-          <MenuDropdown items={menuItems} />
+    <HeaderSection>
+      <ElementRow>
+        <ElementColumn>
+          <NavLink href={'/'}>
+            <Image src={logo} width={120} height={40} />
+          </NavLink>
+        </ElementColumn>
+        <ElementColumn>
+          <LayoutMenu>
+            <MenuUl>
+              <MenuLi>
+                <NavLink href="#">HOME</NavLink>
+              </MenuLi>
+              <MenuLi>
+                <NavLink href="#">SHOP</NavLink>
+              </MenuLi>
+              <MenuLi>
+                <NavLink href="#">PAGES</NavLink>
+              </MenuLi>
+              <MenuLi>
+                <NavLink href="#">BLOG</NavLink>
+              </MenuLi>
+              <MenuLi>
+                <NavLink href="#">CONTACT US</NavLink>
+              </MenuLi>
+            </MenuUl>
+          </LayoutMenu>
+        </ElementColumn>
+        <ElementColumn>
           <Searchbar />
-          {!mobileNavActive && (
-            <StyledNav>
-              {/* <NavLink href={'/'}>Home</NavLink>
-            <NavLink href={'/products'}>All products</NavLink>
-            <NavLink href={'/categories'}>Categories</NavLink>
-            <NavLink href={'/account'}>Account</NavLink> */}
-              <NavLink href={'/#'}>
-                <PhoneIcon />
-                Gọi mua hàng
-              </NavLink>
-              <NavLink target="_blank" href={'/#'}>
-                <TruckIcon />
-                Tra cứu đơn hàng
-              </NavLink>
-              <NavLink href={'/cart'}>
-                <CartIcon />
-                Giỏ hàng ({cartProducts.length})
-              </NavLink>
-            </StyledNav>
-          )}
-          <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
-            <BarsIcon />
-          </NavButton>
-        </Wrapper>
-        <HeaderOvelay />
-      </Center>
-    </StyledHeader>
+        </ElementColumn>
+        <ElementColumn>
+          <LayoutItem>
+            <NavLink href="#">
+              <AccountIcon />
+            </NavLink>
+          </LayoutItem>
+          <LayoutItem>
+            <NavLink href="#">
+              <HeartIcon />
+            </NavLink>
+          </LayoutItem>
+          <LayoutItem>
+            <NavLink href="#">
+              <CartIcon />
+            </NavLink>
+          </LayoutItem>
+        </ElementColumn>
+      </ElementRow>
+    </HeaderSection>
   )
 }

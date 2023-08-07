@@ -1,20 +1,22 @@
 import React from 'react'
 import styled from 'styled-components'
-import { RightIcon } from './icons/Icon'
 import Link from 'next/link'
+import { RightIcon } from './icons/Icon'
 
 const BreadcrumbWrapper = styled.ul`
   list-style-type: none;
   display: flex;
-  padding: 0 160px;
+  padding: 10px 160px;
   margin: 0;
   align-items: center;
   background-color: #fff;
   width: 100%;
   height: 30px;
-  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.1), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
+  border-top: 1px dashed;
+  border-color: #e5e5e5;
   position: fixed;
-  top: 64px;
+  top: 92px;
+  z-index: 980;
 `
 
 const BreadcrumbItem = styled.li`
@@ -25,9 +27,8 @@ const BreadcrumbLink = styled(Link)`
   text-decoration: none;
   color: #000000;
   cursor: pointer;
-
   &:hover {
-    text-decoration: underline;
+    color: #ff782c;
   }
 `
 
@@ -39,9 +40,10 @@ const BreadcrumbSeparator = styled.span`
 `
 
 const Breadcrumb = ({ items }) => {
+  const otherItems = items[items.length - 1]
   return (
     <BreadcrumbWrapper>
-      {items.map((item, index) => (
+      {items.slice(0, -1).map((item, index) => (
         <React.Fragment key={item.label}>
           <BreadcrumbItem>
             <BreadcrumbLink href={item.url}>{item.label}</BreadcrumbLink>
@@ -53,6 +55,9 @@ const Breadcrumb = ({ items }) => {
           )}
         </React.Fragment>
       ))}
+      <BreadcrumbItem>
+        <div href={otherItems.url}>{otherItems.label}</div>
+      </BreadcrumbItem>
     </BreadcrumbWrapper>
   )
 }
