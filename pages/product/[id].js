@@ -4,10 +4,10 @@ import { mongooseConnect } from '@/lib/mongoose'
 import { Product } from '@/models/Product'
 import styled from 'styled-components'
 import ProductImages from '@/components/ProductImages'
-import { useContext } from 'react'
-import { CartContext } from '@/components/CartContext'
 import Breadcrumb from '@/components/BreakCrumb'
 import EntrySummary from '@/components/EntrySummary'
+import { ElementorShapeBottom, ElementorShapeTop } from '@/components/icons/ElementorShape'
+import RelatedProducts from '@/components/RelatedProducts'
 
 const ColWrapper = styled.div`
   display: grid;
@@ -26,9 +26,24 @@ const WhiteBox = styled.div`
     `margin-top: 114px;
     `}
 `
+const TabsWrapper = styled.div`
+  background-color: #f2eaea;
+
+  svg {
+    color: #ffffff;
+  }
+  svg:last-child {
+    transform: rotate(180deg);
+  }
+`
+const TabsContent = styled.div`
+  background-color: #ffffff;
+  height: 200px;
+  max-width: 1290px;
+  margin: 120px auto;
+`
 
 export default function ProductPage({ product }) {
-  const { addProduct } = useContext(CartContext)
   const breadcrumbItems = [
     { label: 'Trang chủ', url: '/' },
     { label: 'Products', url: '/products' },
@@ -46,11 +61,13 @@ export default function ProductPage({ product }) {
             <EntrySummary product={product} />
           </ColWrapper>
         </WhiteBox>
-        <WhiteBox>Thông tin chi tiết</WhiteBox>
-        <WhiteBox>Sản phẩm tương tự</WhiteBox>
-        <WhiteBox>Mô tả sản phẩm </WhiteBox>
-        <WhiteBox>Đánh giá - Nhận xét từ khách hàng </WhiteBox>
       </Center>
+      <TabsWrapper>
+        <ElementorShapeTop />
+        <TabsContent>Thông tin chi tiết</TabsContent>
+        <ElementorShapeBottom />
+      </TabsWrapper>
+      <RelatedProducts />
     </>
   )
 }

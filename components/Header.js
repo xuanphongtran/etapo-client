@@ -57,6 +57,19 @@ const NavLink = styled.a`
     color: #000000;
   }
 `
+const IconSpan = styled.span`
+  line-height: 1.5;
+  font-size: 12px;
+  text-align: center;
+  position: absolute;
+  top: -6px;
+  right: 62px;
+  color: #fff;
+  width: 18px;
+  height: 18px;
+  background-color: #ff782c;
+  border-radius: 50%;
+`
 const LayoutItem = styled.div`
   margin: 0 1rem;
   display: flex;
@@ -144,11 +157,13 @@ export default function Header() {
           <LayoutItem>
             <NavLink href="#">
               <HeartIcon />
+              <IconSpan class="count">17</IconSpan>
             </NavLink>
           </LayoutItem>
           <LayoutItem>
             <NavLink href="#">
               <CartIcon />
+              <IconSpan class="count">17</IconSpan>
             </NavLink>
           </LayoutItem>
         </ElementColumn>
