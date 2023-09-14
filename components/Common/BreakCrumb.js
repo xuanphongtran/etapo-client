@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
-import { RightIcon } from './icons/Icon'
+import { RightIcon } from '../icons/Icon'
 
 const BreadcrumbWrapper = styled.ul`
   list-style-type: none;

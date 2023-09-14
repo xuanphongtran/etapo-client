@@ -1,13 +1,17 @@
-import Center from '@/components/Center'
-import Header from '@/components/Header'
+import Header from '@/components/Common/Header'
+import Center from '@/components/Common/Center'
 import { mongooseConnect } from '@/lib/mongoose'
 import { Product } from '@/models/Product'
 import styled from 'styled-components'
 import ProductImages from '@/components/ProductImages'
-import Breadcrumb from '@/components/BreakCrumb'
-import EntrySummary from '@/components/EntrySummary'
+import Breadcrumb from '@/components/Common/BreakCrumb'
+import EntrySummary from '@/components/ProductInfor/EntrySummary'
 import { ElementorShapeBottom, ElementorShapeTop } from '@/components/icons/ElementorShape'
 import RelatedProducts from '@/components/RelatedProducts'
+import Button from '@/components/Common/Button'
+import { ScrollUp } from '@/components/Common/ScrollUp'
+import { TabsContent } from '@/components/ProductInfor/TabsContent'
+import { useState } from 'react'
 
 const ColWrapper = styled.div`
   display: grid;
@@ -36,14 +40,16 @@ const TabsWrapper = styled.div`
     transform: rotate(180deg);
   }
 `
-const TabsContent = styled.div`
-  background-color: #ffffff;
-  height: 200px;
-  max-width: 1290px;
-  margin: 120px auto;
+const TabsButton = styled.div`
+  max-width: 500px;
+  margin: 40px auto;
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
 `
 
 export default function ProductPage({ product }) {
+  const [activeTab, setActiveTab] = useState(1)
   const breadcrumbItems = [
     { label: 'Trang chủ', url: '/' },
     { label: 'Products', url: '/products' },
@@ -64,10 +70,16 @@ export default function ProductPage({ product }) {
       </Center>
       <TabsWrapper>
         <ElementorShapeTop />
-        <TabsContent>Thông tin chi tiết</TabsContent>
+        <TabsButton>
+          <Button onClick={() => setActiveTab(1)}>Description</Button>
+          <Button onClick={() => setActiveTab(2)}>Additional Information</Button>
+          <Button onClick={() => setActiveTab(3)}>Review</Button>
+        </TabsButton>
+        <TabsContent activeTab={activeTab}></TabsContent>
         <ElementorShapeBottom />
       </TabsWrapper>
       <RelatedProducts />
+      <ScrollUp />
     </>
   )
 }

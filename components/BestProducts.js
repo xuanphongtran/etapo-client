@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import Center from '@/components/Center'
-import ProductBox from './ProductBox'
-import Rating from './Rating'
+import Center from '@/components/Common/Center'
+import Rating from './Common/Rating'
+import Link from 'next/link'
 
 const Title = styled.h2`
   font-size: 2rem;
@@ -24,7 +24,7 @@ const ProductBlock = styled.div`
   align-items: center;
   height: 100%;
 `
-const ProductImage = styled.div`
+const ProductImage = styled(Link)`
   max-width: 80px;
   margin-right: 15px;
   img {
@@ -33,8 +33,9 @@ const ProductImage = styled.div`
     width: 100%;
   }
 `
-const ProductTitle = styled.h3`
-  margin-bottom: 6px;
+const ProductTitle = styled(Link)`
+  text-decoration: none;
+  font-size: 16px;
   &:hover {
     color: #ff782c !important;
   }
@@ -46,7 +47,7 @@ const Price = styled.div`
   color: #6839cc;
   font-size: 16px;
   font-weight: 700;
-  margin-bottom: 6px;
+  margin: 8px 0;
 `
 
 export default function BestProducts({ products }) {
@@ -57,11 +58,11 @@ export default function BestProducts({ products }) {
         {products?.length > 0 &&
           products.map((product) => (
             <ProductBlock key={product._id}>
-              <ProductImage>
+              <ProductImage href={'/product/' + product._id}>
                 <img src={product.images?.[0]} alt="" />
               </ProductImage>
               <div>
-                <ProductTitle>{product.name}</ProductTitle>
+                <ProductTitle href={'/product/' + product._id}>{product.name}</ProductTitle>
                 <Price>{product.price?.toLocaleString()}đ</Price>
                 <Rating value={4} />
               </div>

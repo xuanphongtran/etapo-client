@@ -2,15 +2,15 @@ import styled from 'styled-components'
 import { useContext, useState } from 'react'
 import { CartContext } from '@/components/CartContext'
 import Image from 'next/image'
-import logo from '../public/logo.svg'
-import { AccountIcon, CartIcon, HeartIcon, SearchIcon } from './icons/Icon'
-import Searchbar from './SearchBar'
+import logo from 'public/logo.svg'
+import { AccountIcon, CartIcon, HeartIcon, SearchIcon } from '../icons/Icon'
+import Searchbar from '../SearchBar'
 
 const HeaderSection = styled.section`
   top: 0;
   position: fixed;
   width: 100%;
-  padding: 1rem 0;
+  padding: 0.75rem 0;
   background-color: #ffffff;
   z-index: 980;
 
@@ -58,15 +58,13 @@ const NavLink = styled.a`
   }
 `
 const IconSpan = styled.span`
-  line-height: 1.5;
   font-size: 12px;
+  padding: 2px;
   text-align: center;
-  position: absolute;
-  top: -6px;
-  right: 62px;
+  position: relative;
+  top: -16px;
+  right: 4px;
   color: #fff;
-  width: 18px;
-  height: 18px;
   background-color: #ff782c;
   border-radius: 50%;
 `
@@ -121,14 +119,14 @@ export default function Header() {
       <ElementRow>
         <ElementColumn>
           <NavLink href={'/'}>
-            <Image src={logo} width={120} height={40} />
+            <Image src={logo} width={120} height={40} alt="Logo" />
           </NavLink>
         </ElementColumn>
         <ElementColumn>
           <LayoutMenu>
             <MenuUl>
               <MenuLi>
-                <NavLink href="#">HOME</NavLink>
+                <NavLink href={'/categories'}>CATEGORIES</NavLink>
               </MenuLi>
               <MenuLi>
                 <NavLink href="#">SHOP</NavLink>
@@ -157,13 +155,13 @@ export default function Header() {
           <LayoutItem>
             <NavLink href="#">
               <HeartIcon />
-              <IconSpan class="count">17</IconSpan>
+              <IconSpan>17</IconSpan>
             </NavLink>
           </LayoutItem>
           <LayoutItem>
             <NavLink href="#">
               <CartIcon />
-              <IconSpan class="count">17</IconSpan>
+              <IconSpan>17</IconSpan>
             </NavLink>
           </LayoutItem>
         </ElementColumn>

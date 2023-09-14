@@ -1,4 +1,4 @@
-import Header from '@/components/Header'
+import Header from '@/components/Common/Header'
 import Center from '@/components/Center'
 import { mongooseConnect } from '@/lib/mongoose'
 import { Product } from '@/models/Product'

@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import styled from 'styled-components'
-import Button from '@/components/Button'
+import Button from '@/components/Common/Button'
 import Link from 'next/link'
 import { useContext } from 'react'
 import { CartContext } from '@/components/CartContext'

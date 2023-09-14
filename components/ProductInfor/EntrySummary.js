@@ -1,9 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { styled } from 'styled-components'
-import { CartIcon } from './icons/Icon'
-import Button from './Button'
-import Rating from './Rating'
-import { CartContext } from './CartContext'
+import { CartIcon, HeartIcon } from '../icons/Icon'
+import Button from '../Common/Button'
+import Rating from '../Common/Rating'
+import { CartContext } from '../CartContext'
+import { NavLink } from '../Common/NavLink'
 
 const EntrySummaryTop = styled.div`
   display: flex;
@@ -48,15 +49,7 @@ const ProductBrand = styled.div`
   position: relative;
   color: #999999;
 `
-const NavLink = styled.a`
-  text-decoration: none;
-  &:hover {
-    color: #ff782c !important;
-  }
-  &:visited {
-    color: #000000;
-  }
-`
+
 const PriceRow = styled.div`
   display: flex;
   gap: 16px;
@@ -76,16 +69,43 @@ const ListPrice = styled.div`
   font-size: 30px;
 `
 const DiscountRate = styled.div`
-  font-weight: 500;
-  margin-left: 4px;
-  color: #ff424e;
-  margin-top: 3px;
-  line-height: 30px;
-  font-size: 14px;
+  margin: 3px 0 0 4px;
   padding: 0px 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ff424e;
+  line-height: 30px;
 `
-const EntrySummary = ({ product }) => {
+const CartForm = styled.form`
+  border: 1px dashed #e5e5e5;
+  border-radius: 4px;
+  padding: 20px 30px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`
+const CounterContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #e5e5e5;
+  border-radius: 50px;
+`
+const Count = styled.span`
+  font-size: 18px;
+`
+
+export default function EntrySummary({ product }) {
   const { addProduct } = useContext(CartContext)
+  const [count, setCount] = useState(0)
+  const increment = () => {
+    setCount(count + 1)
+  }
+  const decrement = () => {
+    if (count > 0) {
+      setCount(count - 1)
+    }
+  }
 
   return (
     <div>
@@ -105,13 +125,32 @@ const EntrySummary = ({ product }) => {
         <DiscountRate>10%</DiscountRate>
       </PriceRow>
       <Rating value={4} />
-
-      <Button onClick={() => addProduct(product._id)}>
-        <CartIcon />
-        Add to cart
-      </Button>
+      <CartForm>
+        <CounterContainer>
+          <Button decrement onClick={() => console.log(count + 1)}>
+            -
+          </Button>
+          <Count>{count}</Count>
+          <Button
+            increment
+            onClick={() => {
+              if (count > 0) {
+                setCount(count - 1)
+              }
+            }}
+          >
+            +
+          </Button>
+        </CounterContainer>
+        <Button primary onClick={() => addProduct(product._id)}>
+          <CartIcon />
+          Add to cart
+        </Button>
+        <Button>
+          <HeartIcon />
+          Add to whislist
+        </Button>
+      </CartForm>
     </div>
   )
 }
-
-export default EntrySummary

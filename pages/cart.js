@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import Header from '@/components/Header'
+import Header from '@/components/Common/Header'
 import styled from 'styled-components'
 import Center from '@/components/Center'
-import Button from '@/components/Button'
+import Button from '@/components/Common/Button'
 import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '@/components/CartContext'
 import Table from '@/components/Table'

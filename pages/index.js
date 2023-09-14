@@ -1,9 +1,12 @@
+import { Banner } from '@/components/Banner'
 import BestProducts from '@/components/BestProducts'
 import Featured from '@/components/Featured'
-import Header from '@/components/Header'
+import Header from '@/components/Common/Header'
+import { ScrollUp } from '@/components/Common/ScrollUp'
 import { mongooseConnect } from '@/lib/mongoose'
 import { Product } from '@/models/Product'
 import { styled } from 'styled-components'
+import { Footer } from '@/components/Common/Footer'
 
 export default function HomePage({ featuredProduct, bestProducts }) {
   const HomeSection = styled.div`
@@ -15,7 +18,11 @@ export default function HomePage({ featuredProduct, bestProducts }) {
       <HomeSection>
         <Featured product={featuredProduct} />
         <BestProducts products={bestProducts} />
+        <Banner columne={3} />
+        <Banner columne={2} />
       </HomeSection>
+      <Footer />
+      <ScrollUp />
     </div>
   )
 }
