@@ -1,18 +1,22 @@
-import mongoose, { model, Schema, models } from 'mongoose'
+// import mongoose, { model, Schema, models } from 'mongoose'
 
-const ProductSchema = new Schema(
-  {
-    name: { type: String, required: true },
-    description: String,
-    price: { type: Number, required: true },
-    images: [{ type: String }],
-    category: { type: mongoose.Types.ObjectId, ref: 'Category' },
-    properties: { type: Object },
-    discount: { type: Number },
-  },
-  {
-    timestamps: true,
-  },
-)
+// const ProductSchema = new Schema(
+//   {
+//     name: { type: String, required: true },
+//     price: { type: String, required: true },
+//     description: String,
+//     images: [{ type: String }],
+//     category: String,
+//     rating: Number,
+//     discount: Number,
+//     gender: Number,
+//     tag: String,
+//     delFlag: Boolean,
+//     properties: [{ type: Object }],
+//   },
+//   {
+//     timestamps: true,
+//   },
+// )
 
-export const Product = models.Product || model('Product', ProductSchema)
+// export const Product = models.Product || model('Product', ProductSchema)

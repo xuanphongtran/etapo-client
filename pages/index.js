@@ -7,6 +7,7 @@ import { mongooseConnect } from '@/lib/mongoose'
 import { Product } from '@/models/Product'
 import { styled } from 'styled-components'
 import { Footer } from '@/components/Common/Footer'
+import { AXIOS } from '@/lib/axios'
 
 export default function HomePage({ featuredProduct, bestProducts }) {
   const HomeSection = styled.div`
@@ -28,14 +29,15 @@ export default function HomePage({ featuredProduct, bestProducts }) {
 }
 
 export async function getServerSideProps() {
-  const featuredProductId = '64a316c9384b74c2b1a72f71'
-  await mongooseConnect()
-  const featuredProduct = await Product.findById(featuredProductId)
-  const bestProducts = await Product.find({}, null, { sort: { _id: -1 }, limit: 10 })
+  const id = '64cdb3eed08ed00f3f057af5'
+  const featuredProduct = await AXIOS.get(`/client/products/${id}`).then(
+    (response) => response.data,
+  )
+  const bestProducts = await AXIOS.get(`/client/products`).then((response) => response.data)
   return {
     props: {
-      featuredProduct: JSON.parse(JSON.stringify(featuredProduct)),
-      bestProducts: JSON.parse(JSON.stringify(bestProducts)),
+      featuredProduct,
+      bestProducts,
     },
   }
 }

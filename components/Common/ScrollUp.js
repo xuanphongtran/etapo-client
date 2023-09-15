@@ -4,7 +4,7 @@ import { ArrowUpIcon } from '../icons/Icon'
 import styled from 'styled-components'
 
 const Wrapper = styled(Link)`
-  display: ${(props) => (props.showButton ? 'inline-flex' : 'none')};
+  display: ${(props) => (props.showbutton ? 'inline-flex' : 'none')};
   position: fixed;
   bottom: 24px;
   right: 24px;
@@ -44,7 +44,7 @@ export const ScrollUp = () => {
     }
   }, [])
   return (
-    <Wrapper href="#" showButton={showButton} onClick={scrollToTop}>
+    <Wrapper href="#" showbutton={showButton.toString()} onClick={scrollToTop}>
       <ArrowUpIcon />
     </Wrapper>
   )

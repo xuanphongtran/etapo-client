@@ -18,7 +18,7 @@ export default function Featured({ product }) {
   }
   return (
     <Bg>
-      <div>AAA</div>
+      <div>{product.name}</div>
     </Bg>
   )
 }
