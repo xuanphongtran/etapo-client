@@ -1,4 +1,6 @@
-import React, { useContext, useState } from 'react'
+'use client'
+
+import { useContext, useState } from 'react'
 import { styled } from 'styled-components'
 import { CartIcon, HeartIcon } from '../icons/Icon'
 import Button from '../Common/Button'
@@ -95,7 +97,7 @@ const Count = styled.span`
   font-size: 18px;
 `
 
-export default function EntrySummary({ product }) {
+const EntrySummary = ({ product }) => {
   const { addProduct } = useContext(CartContext)
   const [count, setCount] = useState(0)
   const increment = () => {
@@ -127,22 +129,15 @@ export default function EntrySummary({ product }) {
       <Rating value={4} />
       <CartForm>
         <CounterContainer>
-          <Button decrement onClick={() => console.log(count + 1)}>
+          <Button $decrement="true" onClick={decrement}>
             -
           </Button>
           <Count>{count}</Count>
-          <Button
-            increment
-            onClick={() => {
-              if (count > 0) {
-                setCount(count - 1)
-              }
-            }}
-          >
+          <Button $increment="true" onClick={increment}>
             +
           </Button>
         </CounterContainer>
-        <Button primary onClick={() => addProduct(product._id)}>
+        <Button primary="true" onClick={() => addProduct(product._id)}>
           <CartIcon />
           Add to cart
         </Button>
@@ -154,3 +149,5 @@ export default function EntrySummary({ product }) {
     </div>
   )
 }
+
+export default EntrySummary

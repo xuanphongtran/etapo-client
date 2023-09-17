@@ -34,7 +34,7 @@ const Rating = ({ value }) => {
     for (let i = 1; i <= 5; i++) {
       const active = i <= value
       stars.push(
-        <Star key={i} active={active}>
+        <Star key={i} active={active.toString()}>
           <StarIcon />
         </Star>,
       )

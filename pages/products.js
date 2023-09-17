@@ -1,9 +1,8 @@
 import Header from '@/components/Common/Header'
-import Center from '@/components/Center'
+import Center from '@/components/Common/Center'
 import { mongooseConnect } from '@/lib/mongoose'
 import { Product } from '@/models/Product'
 import ProductsGrid from '@/components/ProductsGrid'
-// import Title from '@/components/Title'
 
 export default function ProductsPage({ products }) {
   return (

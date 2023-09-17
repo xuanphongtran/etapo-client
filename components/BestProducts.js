@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import Center from '@/components/Common/Center'
 import Rating from './Common/Rating'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const Title = styled.h2`
   font-size: 2rem;
@@ -59,11 +60,11 @@ export default function BestProducts({ products }) {
           products.map((product) => (
             <ProductBlock key={product._id}>
               <ProductImage href={'/product/' + product._id}>
-                <img src={product.images?.[0]} alt="" />
+                <Image src={product.images?.[0]} width={80} height={80} alt="Image" />
               </ProductImage>
               <div>
                 <ProductTitle href={'/product/' + product._id}>{product.name}</ProductTitle>
-                <Price>{product.price?.toLocaleString()}đ</Price>
+                <Price>{product.price?.toLocaleString()} đ</Price>
                 <Rating value={4} />
               </div>
             </ProductBlock>

@@ -27,12 +27,12 @@ export const ButtonStyle = css`
     `};
 
   ${(props) =>
-    props.decrement &&
+    props.$decrement &&
     css`
       border-radius: 50px 0 0 50px;
     `};
   ${(props) =>
-    props.increment &&
+    props.$increment &&
     css`
       border-radius: 0 50px 50px 0;
     `};

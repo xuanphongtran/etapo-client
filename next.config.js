@@ -5,14 +5,7 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'res.cloudinary.com',
-        port: '',
-        pathname: '/image/upload/**',
-      },
-    ],
+    domains: ['res.cloudinary.com'],
   },
 }
 

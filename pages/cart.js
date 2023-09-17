@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Header from '@/components/Common/Header'
 import styled from 'styled-components'
-import Center from '@/components/Center'
+import Center from '@/components/Common/Center'
 import Button from '@/components/Common/Button'
 import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '@/components/CartContext'

@@ -1,7 +1,5 @@
 import Header from '@/components/Common/Header'
 import Center from '@/components/Common/Center'
-import { mongooseConnect } from '@/lib/mongoose'
-import { Product } from '@/models/Product'
 import styled from 'styled-components'
 import ProductImages from '@/components/ProductImages'
 import Breadcrumb from '@/components/Common/BreakCrumb'
@@ -12,6 +10,7 @@ import Button from '@/components/Common/Button'
 import { ScrollUp } from '@/components/Common/ScrollUp'
 import { TabsContent } from '@/components/ProductInfor/TabsContent'
 import { useState } from 'react'
+import { AXIOS } from '@/lib/axios'
 
 const ColWrapper = styled.div`
   display: grid;
@@ -26,7 +25,7 @@ const WhiteBox = styled.div`
   border-radius: 10px;
   padding: 30px;
   ${(props) =>
-    props.first &&
+    props.$first &&
     `margin-top: 114px;
     `}
 `
@@ -48,12 +47,12 @@ const TabsButton = styled.div`
   align-items: flex-end;
 `
 
-export default function ProductPage({ product }) {
+const ProductPage = ({ product }) => {
   const [activeTab, setActiveTab] = useState(1)
   const breadcrumbItems = [
     { label: 'Trang chủ', url: '/' },
     { label: 'Products', url: '/products' },
-    { label: 'Category', url: '/products/category' },
+    { label: 'Category', url: '/categories' },
     { label: '1', url: `/product/${product._id}` },
   ]
   return (
@@ -61,7 +60,7 @@ export default function ProductPage({ product }) {
       <Header />
       <Breadcrumb items={breadcrumbItems} />
       <Center>
-        <WhiteBox first={true}>
+        <WhiteBox $first>
           <ColWrapper>
             <ProductImages images={product.images} />
             <EntrySummary product={product} />
@@ -84,10 +83,11 @@ export default function ProductPage({ product }) {
   )
 }
 
+export default ProductPage
+
 export async function getServerSideProps(context) {
-  await mongooseConnect()
   const { id } = context.query
-  const product = await Product.findById(id)
+  const product = await AXIOS.get(`/client/products/${id}`).then((response) => response.data)
   return {
     props: {
       product: JSON.parse(JSON.stringify(product)),

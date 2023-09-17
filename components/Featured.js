@@ -2,6 +2,7 @@
 import styled from 'styled-components'
 import { useContext } from 'react'
 import { CartContext } from '@/components/CartContext'
+import Button from './Common/Button'
 
 const Bg = styled.div`
   background-color: #949494;
@@ -13,9 +14,10 @@ const Bg = styled.div`
 
 export default function Featured({ product }) {
   const { addProduct } = useContext(CartContext)
-  function addFeaturedToCart() {
+  const addFeaturedToCart = () => {
     addProduct(product._id)
   }
+
   return (
     <Bg>
       <div>{product.name}</div>
