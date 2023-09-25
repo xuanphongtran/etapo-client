@@ -8,16 +8,18 @@ export const ButtonStyle = css`
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   text-decoration: none;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
-  background: transparent;
+  background: ${(props) => props.$background || 'transparent'};
+  color: ${(props) => props.$color || '#000000'};
   svg {
     height: 16px;
     margin-right: 5px;
   }
   &:hover {
-    background-color: #ff782c;
+    background-color: ${(props) => props.$hover || '#ff782c'};
   }
   ${(props) =>
     props.primary &&

@@ -20,7 +20,7 @@ export default function Featured({ product }) {
 
   return (
     <Bg>
-      <div>{product.name}</div>
+      <div>{product?.name}</div>
     </Bg>
   )
 }

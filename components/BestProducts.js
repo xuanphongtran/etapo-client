@@ -64,7 +64,7 @@ export default function BestProducts({ products }) {
               </ProductImage>
               <div>
                 <ProductTitle href={'/product/' + product._id}>{product.name}</ProductTitle>
-                <Price>{product.price?.toLocaleString()} đ</Price>
+                <Price>{product.price} đ</Price>
                 <Rating value={4} />
               </div>
             </ProductBlock>

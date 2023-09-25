@@ -5,6 +5,8 @@ import Image from 'next/image'
 import logo from 'public/logo.svg'
 import { AccountIcon, CartIcon, HeartIcon, SearchIcon } from '../icons/Icon'
 import Searchbar from '../SearchBar'
+import ShoppingCart from './ShoppingCart'
+import Link from 'next/link'
 
 const HeaderSection = styled.section`
   top: 0;
@@ -57,25 +59,42 @@ const NavLink = styled.a`
     color: #000000;
   }
 `
-const IconSpan = styled.span`
+const HeaderButton = styled(Link)`
+  background: transparent;
+  border: none;
+  margin: 0 1rem;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+
+  svg {
+    height: 25px;
+  }
+  &:hover {
+    color: #ff782c !important;
+  }
+  &:visited {
+    color: #000000;
+  }
+`
+const IconSpan = styled.div`
   font-size: 12px;
-  padding: 2px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 4px;
   position: relative;
-  top: -16px;
+  top: -12px;
   right: 4px;
   color: #fff;
   background-color: #ff782c;
   border-radius: 50%;
 `
-const LayoutItem = styled.div`
-  margin: 0 1rem;
-  display: flex;
-  align-items: center;
-`
+
 export default function Header() {
-  const { cartProducts } = useContext(CartContext)
+  const { cartProducts, wishlist } = useContext(CartContext)
   const [mobileNavActive, setMobileNavActive] = useState(false)
+  const [cartActive, setCartActive] = useState(false)
   // const menuItems = [
   //   {
   //     label: 'Home',
@@ -147,25 +166,20 @@ export default function Header() {
           <Searchbar />
         </ElementColumn>
         <ElementColumn>
-          <LayoutItem>
-            <NavLink href="#">
-              <AccountIcon />
-            </NavLink>
-          </LayoutItem>
-          <LayoutItem>
-            <NavLink href="#">
-              <HeartIcon />
-              <IconSpan>17</IconSpan>
-            </NavLink>
-          </LayoutItem>
-          <LayoutItem>
-            <NavLink href="#">
-              <CartIcon />
-              <IconSpan>17</IconSpan>
-            </NavLink>
-          </LayoutItem>
+          <HeaderButton href="#">
+            <AccountIcon />
+          </HeaderButton>
+          <HeaderButton href={'/wishlist'}>
+            <HeartIcon />
+            <IconSpan>{wishlist.length}</IconSpan>
+          </HeaderButton>
+          <HeaderButton href="#" onClick={() => setCartActive(true)}>
+            <CartIcon />
+            <IconSpan>{cartProducts.length}</IconSpan>
+          </HeaderButton>
         </ElementColumn>
       </ElementRow>
+      {cartActive && <ShoppingCart setCartActive={setCartActive} />}
     </HeaderSection>
   )
 }

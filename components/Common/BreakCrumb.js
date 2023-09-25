@@ -15,8 +15,8 @@ const BreadcrumbWrapper = styled.ul`
   border-top: 1px dashed;
   border-color: #e5e5e5;
   position: fixed;
-  top: 92px;
-  z-index: 980;
+  top: 84px;
+  /* z-index: 980; */
 `
 
 const BreadcrumbItem = styled.li`

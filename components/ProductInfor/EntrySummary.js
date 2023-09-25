@@ -78,7 +78,7 @@ const DiscountRate = styled.div`
   color: #ff424e;
   line-height: 30px;
 `
-const CartForm = styled.form`
+const CartForm = styled.div`
   border: 1px dashed #e5e5e5;
   border-radius: 4px;
   padding: 20px 30px;
@@ -98,13 +98,13 @@ const Count = styled.span`
 `
 
 const EntrySummary = ({ product }) => {
-  const { addProduct } = useContext(CartContext)
-  const [count, setCount] = useState(0)
+  const { addProduct, addWishlist } = useContext(CartContext)
+  const [count, setCount] = useState(1)
   const increment = () => {
     setCount(count + 1)
   }
   const decrement = () => {
-    if (count > 0) {
+    if (count > 1) {
       setCount(count - 1)
     }
   }
@@ -122,9 +122,9 @@ const EntrySummary = ({ product }) => {
         <ProductBrand>SKU: {product._id?.toUpperCase()}</ProductBrand>
       </ProductAfterTitle>
       <PriceRow>
-        <CurrentPrice>{product.price?.toLocaleString()}đ</CurrentPrice>
-        <ListPrice>{product.price?.toLocaleString()}đ</ListPrice>
-        <DiscountRate>10%</DiscountRate>
+        <CurrentPrice>{product.price}đ</CurrentPrice>
+        <ListPrice>{product.price}đ</ListPrice>
+        <DiscountRate>{product.discount}%</DiscountRate>
       </PriceRow>
       <Rating value={4} />
       <CartForm>
@@ -137,13 +137,13 @@ const EntrySummary = ({ product }) => {
             +
           </Button>
         </CounterContainer>
-        <Button primary="true" onClick={() => addProduct(product._id)}>
+        <Button primary="true" onClick={() => addProduct(product._id, count)}>
           <CartIcon />
           Add to cart
         </Button>
-        <Button>
+        <Button onClick={() => addWishlist(product._id)}>
           <HeartIcon />
-          Add to whislist
+          Add to wishlist
         </Button>
       </CartForm>
     </div>
