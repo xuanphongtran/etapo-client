@@ -15,8 +15,7 @@ const HeaderSection = styled.section`
   padding: 0.75rem 0;
   background-color: #ffffff;
   z-index: 980;
-
-  /* box-shadow: 0 0 3px 0px rgba(0, 0, 0, 0.2); */
+  border-bottom: 1px dashed #e5e5e5;
 `
 const ElementRow = styled.div`
   display: flex;
@@ -47,7 +46,7 @@ const MenuLi = styled.li`
   padding: 10px 20px;
   display: list-item;
 `
-const NavLink = styled.a`
+const NavLink = styled(Link)`
   text-decoration: none;
   svg {
     height: 25px;

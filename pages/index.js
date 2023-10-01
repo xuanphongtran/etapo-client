@@ -1,4 +1,4 @@
-import { Banner } from '@/components/Banner'
+import { Banner } from '@/components/Common/Banner'
 import BestProducts from '@/components/BestProducts'
 import Featured from '@/components/Featured'
 import Header from '@/components/Common/Header'
@@ -6,6 +6,7 @@ import { ScrollUp } from '@/components/Common/ScrollUp'
 import { styled } from 'styled-components'
 import { Footer } from '@/components/Common/Footer'
 import { AXIOS } from '@/lib/axios'
+import Head from 'next/head'
 
 export default function HomePage({ featuredProduct, bestProducts }) {
   const HomeSection = styled.div`
@@ -13,6 +14,9 @@ export default function HomePage({ featuredProduct, bestProducts }) {
   `
   return (
     <div>
+      <Head>
+        <title>Ziggy</title>
+      </Head>
       <Header />
       <HomeSection>
         <Featured product={featuredProduct} />

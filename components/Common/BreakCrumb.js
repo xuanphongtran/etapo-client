@@ -6,17 +6,12 @@ import { RightIcon } from '../icons/Icon'
 const BreadcrumbWrapper = styled.ul`
   list-style-type: none;
   display: flex;
-  padding: 10px 160px;
+  padding: 10px 0;
   margin: 0;
   align-items: center;
   background-color: #fff;
   width: 100%;
   height: 30px;
-  border-top: 1px dashed;
-  border-color: #e5e5e5;
-  position: fixed;
-  top: 84px;
-  /* z-index: 980; */
 `
 
 const BreadcrumbItem = styled.li`
@@ -25,7 +20,7 @@ const BreadcrumbItem = styled.li`
 
 const BreadcrumbLink = styled(Link)`
   text-decoration: none;
-  color: #000000;
+  color: #999;
   cursor: pointer;
   &:hover {
     color: #ff782c;

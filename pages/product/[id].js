@@ -11,6 +11,7 @@ import { ScrollUp } from '@/components/Common/ScrollUp'
 import { TabsContent } from '@/components/ProductInfor/TabsContent'
 import { useState } from 'react'
 import { AXIOS } from '@/lib/axios'
+import Head from 'next/head'
 
 const ColWrapper = styled.div`
   display: grid;
@@ -23,11 +24,7 @@ const ColWrapper = styled.div`
 const WhiteBox = styled.div`
   background-color: #fff;
   border-radius: 10px;
-  padding: 30px;
-  ${(props) =>
-    props.$first &&
-    `margin-top: 114px;
-    `}
+  padding: 10px 30px 30px 30px;
 `
 const TabsWrapper = styled.div`
   background-color: #f2eaea;
@@ -46,7 +43,9 @@ const TabsButton = styled.div`
   gap: 16px;
   align-items: flex-end;
 `
-
+const BreadcrumbId = styled.div`
+  margin-top: 95px;
+`
 const ProductPage = ({ product }) => {
   const [activeTab, setActiveTab] = useState(1)
   const breadcrumbItems = [
@@ -57,10 +56,15 @@ const ProductPage = ({ product }) => {
   ]
   return (
     <>
+      <Head>
+        <title>{product.name}</title>
+      </Head>
       <Header />
-      <Breadcrumb items={breadcrumbItems} />
       <Center>
-        <WhiteBox $first>
+        <BreadcrumbId>
+          <Breadcrumb $borderTop items={breadcrumbItems} />
+        </BreadcrumbId>
+        <WhiteBox>
           <ColWrapper>
             <ProductImages images={product.images} />
             <EntrySummary product={product} />

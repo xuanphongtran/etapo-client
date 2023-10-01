@@ -155,6 +155,7 @@ const Empty = styled.div`
 const ShoppingCart = ({ setCartActive }) => {
   const { cartProducts, removeProduct, clearCart } = useContext(CartContext)
   const [products, setProducts] = useState([])
+  console.log(cartProducts)
   useEffect(() => {
     if (cartProducts.length > 0) {
       axios.post('/api/cart', { ids: cartProducts }).then((response) => {

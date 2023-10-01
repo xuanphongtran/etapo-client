@@ -208,6 +208,147 @@ const CloseIcon = () => {
     </svg>
   )
 }
+const PawPrint = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      data-name="Layer 1"
+      viewBox="20 20 60 60"
+      x="0px"
+      y="0px"
+    >
+      <path d="M60.22,56.17a15.68,15.68,0,0,1-4-4.31,7.07,7.07,0,0,0-12.42,0,15.68,15.68,0,0,1-4,4.31,10.1,10.1,0,0,0-1,.86c-3.23,3.24-3.54,8.16-.7,11,1.28,1.28,3.78,1.12,6.16.52a23.64,23.64,0,0,1,11.52,0c2.38.6,4.88.76,6.16-.52,2.84-2.84,2.53-7.76-.7-11A10.1,10.1,0,0,0,60.22,56.17Z" />
+      <ellipse
+        cx="42.46"
+        cy="38.18"
+        rx="5.13"
+        ry="7.23"
+        transform="translate(-5.69 7.48) rotate(-9.44)"
+      />
+      <ellipse
+        cx="32.4"
+        cy="48.64"
+        rx="4.39"
+        ry="6.18"
+        transform="translate(-19.98 22.72) rotate(-30)"
+      />
+      <ellipse
+        cx="57.54"
+        cy="38.18"
+        rx="7.23"
+        ry="5.13"
+        transform="matrix(0.16, -0.99, 0.99, 0.16, 10.44, 88.68)"
+      />
+      <ellipse
+        cx="67.6"
+        cy="48.64"
+        rx="6.18"
+        ry="4.39"
+        transform="translate(-8.32 82.86) rotate(-60)"
+      />
+    </svg>
+  )
+}
+const DoublePawPrint = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      data-name="Layer 1"
+      viewBox="20 20 60 80"
+      x="0px"
+      y="0px"
+    >
+      <path d="M67.07,61.48l-.06,0A10.2,10.2,0,0,0,63.51,60a5.22,5.22,0,0,0-5.48,2,10.31,10.31,0,0,0-1.73,3.39l0,.07a2.86,2.86,0,0,0,4.37,3.16,9,9,0,0,1,5.1-1.85A2.86,2.86,0,0,0,67.07,61.48Z" />
+      <ellipse
+        cx="51.96"
+        cy="62.02"
+        rx="1.79"
+        ry="2.68"
+        transform="translate(-28.61 54.6) rotate(-44.78)"
+      />
+      <ellipse
+        cx="68.21"
+        cy="56.11"
+        rx="2.68"
+        ry="1.79"
+        transform="translate(6.6 119.4) rotate(-85.22)"
+      />
+      <path d="M57.5,54.65c-1-1.89-2.82-2.88-4.08-2.21S52,55.17,53,57.05s2.82,2.87,4.08,2.21S58.49,56.53,57.5,54.65Z" />
+      <ellipse
+        cx="61.74"
+        cy="53.48"
+        rx="2.57"
+        ry="3.86"
+        transform="translate(-9.86 14.17) rotate(-12.13)"
+      />
+      <path d="M43.7,46.58A10.21,10.21,0,0,0,42,43.19a5.66,5.66,0,0,0-2.43-1.83,5.56,5.56,0,0,0-3-.16A10.37,10.37,0,0,0,33,42.68l-.06,0A2.86,2.86,0,0,0,34.25,48a11.06,11.06,0,0,1,2.69.53,11.14,11.14,0,0,1,2.41,1.32,2.86,2.86,0,0,0,4.37-3.16Z" />
+      <ellipse
+        cx="31.79"
+        cy="37.36"
+        rx="1.79"
+        ry="2.68"
+        transform="translate(-3 2.78) rotate(-4.78)"
+      />
+      <ellipse
+        cx="48.04"
+        cy="43.27"
+        rx="2.68"
+        ry="1.79"
+        transform="translate(-16.51 46.89) rotate(-45.22)"
+      />
+      <ellipse
+        cx="38.26"
+        cy="34.72"
+        rx="3.86"
+        ry="2.57"
+        transform="translate(-3.73 64.83) rotate(-77.87)"
+      />
+      <ellipse
+        cx="44.78"
+        cy="37.09"
+        rx="3.86"
+        ry="2.57"
+        transform="translate(-8.95 59.34) rotate(-62.13)"
+      />
+    </svg>
+  )
+}
+const SquareIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="w-6 h-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"
+      />
+    </svg>
+  )
+}
+const ListIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="w-6 h-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+      />
+    </svg>
+  )
+}
 export {
   CloseIcon,
   TruckIcon,
@@ -224,4 +365,8 @@ export {
   InstagramIcon,
   TwitterIcon,
   ZaloIcon,
+  PawPrint,
+  DoublePawPrint,
+  SquareIcon,
+  ListIcon,
 }
