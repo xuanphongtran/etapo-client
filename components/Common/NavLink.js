@@ -1,7 +1,8 @@
+import Link from 'next/link'
 import React from 'react'
 import styled from 'styled-components'
 
-const Nav = styled.a`
+const Nav = styled(Link)`
   text-decoration: none;
   &:hover {
     color: #ff782c !important;
@@ -12,7 +13,8 @@ const Nav = styled.a`
   svg {
     height: 20px;
   }
+  cursor: pointer;
 `
-export const NavLink = ({ children }) => {
-  return <Nav>{children}</Nav>
+export const NavLink = ({ children, href }) => {
+  return <Nav href={href}>{children}</Nav>
 }

@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../CartContext'
 import axios from 'axios'
 import Image from 'next/image'
-import Link from 'next/link'
 import { CloseIcon } from '../icons/Icon'
 import ButtonLink from './ButtonLink'
 
@@ -153,9 +152,8 @@ const Empty = styled.div`
   color: #999999;
 `
 const ShoppingCart = ({ setCartActive }) => {
-  const { cartProducts, removeProduct, clearCart } = useContext(CartContext)
+  const { cartProducts, removeProduct } = useContext(CartContext)
   const [products, setProducts] = useState([])
-  console.log(cartProducts)
   useEffect(() => {
     if (cartProducts.length > 0) {
       axios.post('/api/cart', { ids: cartProducts }).then((response) => {

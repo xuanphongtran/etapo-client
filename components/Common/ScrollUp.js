@@ -44,7 +44,7 @@ export const ScrollUp = () => {
     }
   }, [])
   return (
-    <Wrapper href="#" showbutton={showButton.toString()} onClick={scrollToTop}>
+    <Wrapper href="#" showbutton={showButton} onClick={scrollToTop}>
       <ArrowUpIcon />
     </Wrapper>
   )

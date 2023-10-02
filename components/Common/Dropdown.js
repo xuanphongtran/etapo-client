@@ -29,12 +29,13 @@ const DropdownList = styled.ul`
   left: 0;
   list-style: none;
   padding: 0;
+  z-index: 10;
   min-width: 180px;
   margin: 5px 0 0;
   border-radius: 0 0 5px 5px;
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
 `
 
 const DropdownItem = styled.li`
@@ -66,7 +67,7 @@ const Dropdown = ({ options }) => {
         {selectedOption || 'Defaul sorting'} <ArrowUpIcon />
       </DropdownButton>
 
-      <DropdownList isOpen={isOpen}>
+      <DropdownList $isOpen={isOpen}>
         {options.map((option) => (
           <DropdownItem key={option} onClick={() => handleSelect(option)}>
             {option}

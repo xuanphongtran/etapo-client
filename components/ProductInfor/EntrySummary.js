@@ -14,7 +14,7 @@ const EntrySummaryTop = styled.div`
   justify-content: space-between;
   margin-bottom: 14px;
 `
-const InventoryStatus = styled.span`
+const Status = styled.span`
   font-weight: 600;
   font-size: 14px;
   text-transform: capitalize;
@@ -57,7 +57,7 @@ const PriceRow = styled.div`
   gap: 16px;
   align-items: flex-end;
   border-radius: 10px;
-  margin: 16px 0;
+  margin: 16px 0 10px;
 `
 const CurrentPrice = styled.div`
   color: #ff782c;
@@ -93,7 +93,7 @@ const CounterContainer = styled.div`
   border: 1px solid #e5e5e5;
   border-radius: 50px;
 `
-const Count = styled.span`
+export const Count = styled.span`
   font-size: 18px;
 `
 
@@ -112,7 +112,7 @@ const EntrySummary = ({ product }) => {
   return (
     <div>
       <EntrySummaryTop>
-        <InventoryStatus>In-stock</InventoryStatus>
+        <Status>In-stock</Status>
       </EntrySummaryTop>
       <Title>{product.name}</Title>
       <ProductAfterTitle>

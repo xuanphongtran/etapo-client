@@ -1,6 +1,6 @@
+'use client'
 import { Banner } from '@/components/Common/Banner'
 import Breadcrumb from '@/components/Common/BreakCrumb'
-import Button from '@/components/Common/Button'
 import Dropdown from '@/components/Common/Dropdown'
 import { Footer } from '@/components/Common/Footer'
 import Header from '@/components/Common/Header'
@@ -9,6 +9,7 @@ import { ProductBlock } from '@/components/ProductBlock'
 import { ListIcon, PawPrint, RightIcon, SquareIcon } from '@/components/icons/Icon'
 import { AXIOS } from '@/lib/axios'
 import Head from 'next/head'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 const CategoriesContainer = styled.div`
@@ -75,8 +76,9 @@ const ResultCount = styled.p`
 `
 const ProductSpacing = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
   grid-gap: 20px;
+  justify-content: space-between;
   margin: 0 auto;
 `
 const Pagination = styled.ul`
@@ -104,7 +106,14 @@ const PaginationNumber = styled.li`
     height: 14px;
   }
 `
-const categories = ({ products }) => {
+const Categories = () => {
+  const [products, setProducts] = useState()
+  const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(12)
+  const [sort, setSort] = useState({})
+  const [search, setSearch] = useState('')
+  const [total, setTotal] = useState(0)
+
   const breadcrumbItems = [
     { label: 'Trang chủ', url: '/' },
     { label: 'Category', url: '/categories' },
@@ -117,6 +126,15 @@ const categories = ({ products }) => {
     'Sort by price: low to hight',
     'Sort by price: hight to low',
   ]
+  useEffect(() => {
+    AXIOS.get('/client/products', {
+      params: { page, pageSize, sort: JSON.stringify(sort), search },
+    }).then((response) => {
+      setProducts(response.data?.productWithStats)
+      setTotal(response.data?.total)
+    })
+  }, [page, pageSize, sort, search])
+
   return (
     <>
       <Head>
@@ -166,12 +184,16 @@ const categories = ({ products }) => {
               <SquareIcon $active />
               <ListIcon />
               <Dropdown options={options} />
-              <ResultCount>Showing all 5 results</ResultCount>
+              <ResultCount>Showing all {total} results</ResultCount>
             </Sorting>
             <ProductSpacing>
-              {products.map((product, index) => (
-                <ProductBlock product={product} key={index} />
-              ))}
+              {products?.length > 0 && (
+                <>
+                  {products.map((product, index) => (
+                    <ProductBlock product={product} key={index} />
+                  ))}
+                </>
+              )}
             </ProductSpacing>
             <Pagination>
               <PaginationNumber>1</PaginationNumber>
@@ -190,17 +212,17 @@ const categories = ({ products }) => {
   )
 }
 
-export default categories
+export default Categories
 
-export async function getServerSideProps() {
-  // const id = '64cdb3eed08ed00f3f057af5'
-  // const featuredProduct = await AXIOS.get(`/client/products/${id}`).then(
-  //   (response) => response.data,
-  // )
-  const products = await AXIOS.get(`/client/products`).then((response) => response.data)
-  return {
-    props: {
-      products,
-    },
-  }
-}
+// export async function getServerSideProps() {
+//   // const id = '64cdb3eed08ed00f3f057af5'
+//   // const featuredProduct = await AXIOS.get(`/client/products/${id}`).then(
+//   //   (response) => response.data,
+//   // )
+//   const products = await AXIOS.get(`/client/products`).then((response) => response.data)
+//   return {
+//     props: {
+//       products,
+//     },
+//   }
+// }

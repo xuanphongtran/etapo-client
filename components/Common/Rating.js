@@ -6,14 +6,14 @@ const StarContainer = styled.div`
   display: flex;
   color: #ffc107;
   align-items: center;
-  margin-bottom: 10px;
+  margin: 5px 0 10px;
 `
 
 const Star = styled.span`
   width: 18px;
   height: 18px;
   margin-right: 4px;
-  color: ${(props) => (props.active ? '#ffc107' : '#e4e4e4')};
+  color: ${(props) => (props.$active ? '#ffc107' : '#e4e4e4')};
 `
 const ReviewLink = styled.a`
   font-size: 0.875rem;
@@ -34,7 +34,7 @@ const Rating = ({ value }) => {
     for (let i = 1; i <= 5; i++) {
       const active = i <= value
       stars.push(
-        <Star key={i} active={active.toString()}>
+        <Star key={i} $active={active}>
           <StarIcon />
         </Star>,
       )

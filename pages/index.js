@@ -35,7 +35,9 @@ export async function getServerSideProps() {
   const featuredProduct = await AXIOS.get(`/client/products/${id}`).then(
     (response) => response.data,
   )
-  const bestProducts = await AXIOS.get(`/client/products`).then((response) => response.data)
+  const bestProducts = await AXIOS.get(`/client/products`).then(
+    (response) => response.data.productWithStats,
+  )
   return {
     props: {
       featuredProduct,
