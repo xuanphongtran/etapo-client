@@ -10,7 +10,7 @@ import Button from '@/components/Common/Button'
 import { ScrollUp } from '@/components/Common/ScrollUp'
 import { TabsContent } from '@/components/ProductInfor/TabsContent'
 import { useState } from 'react'
-import { AXIOS } from '@/lib/axios'
+import AXIOS from '@/lib/axios'
 import Head from 'next/head'
 
 const ColWrapper = styled.div`

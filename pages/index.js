@@ -5,8 +5,8 @@ import Header from '@/components/Common/Header'
 import { ScrollUp } from '@/components/Common/ScrollUp'
 import { styled } from 'styled-components'
 import { Footer } from '@/components/Common/Footer'
-import { AXIOS } from '@/lib/axios'
 import Head from 'next/head'
+import AXIOS from '@/lib/axios'
 
 export default function HomePage({ featuredProduct, bestProducts }) {
   const HomeSection = styled.div`

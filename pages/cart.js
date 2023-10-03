@@ -2,12 +2,10 @@
 /* eslint-disable @next/next/no-img-element */
 import Header from '@/components/Common/Header'
 import styled from 'styled-components'
-import Center from '@/components/Common/Center'
 import Button, { ButtonStyle } from '@/components/Common/Button'
 import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '@/components/CartContext'
 import Table from '@/components/Table'
-import Input from '@/components/Input'
 import axios from 'axios'
 import Breadcrumb from '@/components/Common/BreakCrumb'
 import { CloseIcon } from '@/components/icons/Icon'

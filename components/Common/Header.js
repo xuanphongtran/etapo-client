@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '@/components/CartContext'
 import Image from 'next/image'
 import logo from 'public/logo.svg'
@@ -7,6 +7,8 @@ import { AccountIcon, CartIcon, HeartIcon, SearchIcon } from '../icons/Icon'
 import Searchbar from '../SearchBar'
 import ShoppingCart from './ShoppingCart'
 import Link from 'next/link'
+import Login from './Login'
+import AccountDialog from '../AccountDialog'
 
 const HeaderSection = styled.section`
   top: 0;
@@ -92,8 +94,10 @@ const IconSpan = styled.div`
 
 export default function Header() {
   const { cartProducts, wishlist } = useContext(CartContext)
-  const [mobileNavActive, setMobileNavActive] = useState(false)
+  const [login, setLogin] = useState(false)
   const [cartActive, setCartActive] = useState(false)
+  const [loginActive, setLoginActive] = useState(false)
+  const [accountActive, setAccountActive] = useState(false)
   // const menuItems = [
   //   {
   //     label: 'Home',
@@ -132,6 +136,10 @@ export default function Header() {
   //     ],
   //   },
   // ]
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken')
+    if (token) setLogin(true)
+  }, [])
   return (
     <HeaderSection>
       <ElementRow>
@@ -165,14 +173,22 @@ export default function Header() {
           <Searchbar />
         </ElementColumn>
         <ElementColumn>
-          <HeaderButton href="#">
-            <AccountIcon />
-          </HeaderButton>
+          {login ? (
+            <HeaderButton href="" onClick={() => setAccountActive(!accountActive)}>
+              <AccountIcon />
+            </HeaderButton>
+          ) : (
+            <HeaderButton href="" onClick={() => setLoginActive(!loginActive)}>
+              <AccountIcon />
+            </HeaderButton>
+          )}
+          {accountActive && <AccountDialog />}
+          {loginActive && <Login setLoginActive={setLoginActive} />}
           <HeaderButton href={'/wishlist'}>
             <HeartIcon />
             <IconSpan>{wishlist.length}</IconSpan>
           </HeaderButton>
-          <HeaderButton href="#" onClick={() => setCartActive(true)}>
+          <HeaderButton href="" onClick={() => setCartActive(true)}>
             <CartIcon />
             <IconSpan>{cartProducts.length}</IconSpan>
           </HeaderButton>

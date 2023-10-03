@@ -14,6 +14,7 @@ export const ButtonStyle = css`
   font-weight: 600;
   background: ${(props) => props.$background || 'transparent'};
   color: ${(props) => props.$color || '#000000'};
+  width: ${(props) => props.$width && props.$width};
   svg {
     height: 16px;
     margin-right: 5px;
@@ -25,6 +26,12 @@ export const ButtonStyle = css`
     props.primary &&
     css`
       background-color: #6839cc;
+      color: #ffffff;
+    `};
+  ${(props) =>
+    props.$orange &&
+    css`
+      background-color: #ff782c;
       color: #ffffff;
     `};
 
