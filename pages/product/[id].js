@@ -8,7 +8,7 @@ import { ElementorShapeBottom, ElementorShapeTop } from '@/components/icons/Elem
 import RelatedProducts from '@/components/RelatedProducts'
 import Button from '@/components/Common/Button'
 import { ScrollUp } from '@/components/Common/ScrollUp'
-import { TabsContent } from '@/components/ProductInfor/TabsContent'
+import TabsContent from '@/components/ProductInfor/TabsContent'
 import { useState } from 'react'
 import AXIOS from '@/lib/axios'
 import Head from 'next/head'
@@ -29,22 +29,23 @@ const WhiteBox = styled.div`
 const TabsWrapper = styled.div`
   background-color: #f2eaea;
 
-  svg {
+  & > svg {
     color: #ffffff;
   }
-  svg:last-child {
+  & > svg:last-child {
     transform: rotate(180deg);
   }
 `
 const TabsButton = styled.div`
-  max-width: 500px;
+  max-width: 450px;
+  justify-content: space-between;
   margin: 40px auto;
   display: flex;
-  gap: 16px;
   align-items: flex-end;
 `
 const BreadcrumbId = styled.div`
   margin-top: 95px;
+  padding: 0 30px;
 `
 const ProductPage = ({ product }) => {
   const [activeTab, setActiveTab] = useState(1)
@@ -74,11 +75,17 @@ const ProductPage = ({ product }) => {
       <TabsWrapper>
         <ElementorShapeTop />
         <TabsButton>
-          <Button onClick={() => setActiveTab(1)}>Description</Button>
-          <Button onClick={() => setActiveTab(2)}>Additional Information</Button>
-          <Button onClick={() => setActiveTab(3)}>Review</Button>
+          <Button $orange={activeTab === 1} onClick={() => setActiveTab(1)}>
+            Mô tả
+          </Button>
+          <Button $orange={activeTab === 2} onClick={() => setActiveTab(2)}>
+            Thông tin chi tiết
+          </Button>
+          <Button $orange={activeTab === 3} onClick={() => setActiveTab(3)}>
+            Đánh giá từ khách hàng
+          </Button>
         </TabsButton>
-        <TabsContent activeTab={activeTab}></TabsContent>
+        <TabsContent activeTab={activeTab} product={product}></TabsContent>
         <ElementorShapeBottom />
       </TabsWrapper>
       <RelatedProducts />

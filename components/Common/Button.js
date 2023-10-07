@@ -21,6 +21,7 @@ export const ButtonStyle = css`
   }
   &:hover {
     background-color: ${(props) => props.$hover || '#ff782c'};
+    color: ${(props) => props.$color || '#ffffff'};
   }
   ${(props) =>
     props.primary &&

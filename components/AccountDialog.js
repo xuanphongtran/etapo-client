@@ -49,24 +49,24 @@ const AccountDialog = () => {
     localStorage.removeItem('refreshToken')
     window.location.reload()
   }
+  const ItemValue = [
+    { label: 'Tài khoản của tôi', value: 'dashboard', tab: 1 },
+    { label: 'Đơn hàng', value: 'orders', tab: 2 },
+    { label: 'Tải xuống', value: 'dowloads', tab: 3 },
+    { label: 'Chỉnh sửa địa chỉ', value: 'addresses', tab: 3 },
+    { label: 'Chi tiết tài khoản', value: 'accountdetails', tab: 4 },
+  ]
   return (
     <AccountContainer>
       <AccountDashboard>
-        <Item>
-          <ItemLink href="/account">Tài khoản của tôi </ItemLink>
-        </Item>
-        <Item>
-          <ItemLink href="">Đơn hàng</ItemLink>
-        </Item>
-        <Item>
-          <ItemLink href="">Tải xuống</ItemLink>
-        </Item>
-        <Item>
-          <ItemLink href="">Chỉnh sửa địa chỉ</ItemLink>
-        </Item>
-        <Item>
-          <ItemLink href="">Chi tiết tài khoản</ItemLink>
-        </Item>
+        {ItemValue.map((item, index) => (
+          <Item key={index}>
+            <ItemLink href={{ pathname: '/account', query: { tab: `${item.tab}` } }}>
+              {item.label}
+            </ItemLink>
+          </Item>
+        ))}
+
         <Item>
           <ItemLink href="" onClick={handleLogout}>
             Đăng xuất <LogOutIcon />

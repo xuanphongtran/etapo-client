@@ -12,17 +12,22 @@ export default function HomePage({ featuredProduct, bestProducts }) {
   const HomeSection = styled.div`
     background-color: #ffffff;
   `
+  const BannerContainer = styled.div`
+    margin: 0 100px;
+  `
   return (
     <div>
       <Head>
         <title>Ziggy</title>
       </Head>
-      <Header />
+      <Header showHeader="static" />
       <HomeSection>
         <Featured product={featuredProduct} />
         <BestProducts products={bestProducts} />
-        <Banner columne={3} />
-        <Banner columne={2} />
+        <BannerContainer>
+          <Banner column={3} />
+          <Banner column={2} />
+        </BannerContainer>
       </HomeSection>
       <Footer />
       <ScrollUp />

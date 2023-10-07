@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '@/components/CartContext'
 import Image from 'next/image'
 import logo from 'public/logo.svg'
-import { AccountIcon, CartIcon, HeartIcon, SearchIcon } from '../icons/Icon'
+import { AccountIcon, CartIcon, HeartIcon } from '../icons/Icon'
 import Searchbar from '../SearchBar'
 import ShoppingCart from './ShoppingCart'
 import Link from 'next/link'
@@ -12,7 +12,7 @@ import AccountDialog from '../AccountDialog'
 
 const HeaderSection = styled.section`
   top: 0;
-  position: fixed;
+  position: ${(props) => props.$showheader || 'fixed'};
   width: 100%;
   padding: 0.75rem 0;
   background-color: #ffffff;
@@ -22,7 +22,7 @@ const HeaderSection = styled.section`
 const ElementRow = styled.div`
   display: flex;
   height: 60px;
-  padding: 0 3rem;
+  padding: 0 100px;
   align-items: center;
   justify-content: space-between;
 `
@@ -92,12 +92,13 @@ const IconSpan = styled.div`
   border-radius: 50%;
 `
 
-export default function Header() {
+export default function Header({ showHeader }) {
   const { cartProducts, wishlist } = useContext(CartContext)
   const [login, setLogin] = useState(false)
   const [cartActive, setCartActive] = useState(false)
   const [loginActive, setLoginActive] = useState(false)
   const [accountActive, setAccountActive] = useState(false)
+
   // const menuItems = [
   //   {
   //     label: 'Home',
@@ -136,12 +137,14 @@ export default function Header() {
   //     ],
   //   },
   // ]
+
   useEffect(() => {
     const token = localStorage.getItem('accessToken')
     if (token) setLogin(true)
   }, [])
+
   return (
-    <HeaderSection>
+    <HeaderSection $showheader={showHeader}>
       <ElementRow>
         <ElementColumn>
           <NavLink href={'/'}>
@@ -174,11 +177,11 @@ export default function Header() {
         </ElementColumn>
         <ElementColumn>
           {login ? (
-            <HeaderButton href="" onClick={() => setAccountActive(!accountActive)}>
+            <HeaderButton href="#" onClick={() => setAccountActive(!accountActive)}>
               <AccountIcon />
             </HeaderButton>
           ) : (
-            <HeaderButton href="" onClick={() => setLoginActive(!loginActive)}>
+            <HeaderButton href="#" onClick={() => setLoginActive(!loginActive)}>
               <AccountIcon />
             </HeaderButton>
           )}
