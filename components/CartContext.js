@@ -56,7 +56,9 @@ export function CartContextProvider({ children }) {
   }, [])
 
   const addWishlist = (productId) => {
-    setWishList((prev) => [...prev, productId])
+    if (!wishlist.includes(productId)) {
+      setWishList((prev) => [...prev, productId])
+    }
   }
   const removeWishlist = (productId) => {
     setWishList((prev) => {

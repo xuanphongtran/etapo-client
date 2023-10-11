@@ -10,6 +10,7 @@ import {
   AccountIcon,
   BoxIcon,
   ChartIcon,
+  CloseIcon,
   HeartIcon,
   HomeIcon,
   LogOutIcon,
@@ -21,6 +22,9 @@ import Orders from '@/components/Account/Orders'
 import Dowloads from '@/components/Account/Dowloads'
 import Addresses from '@/components/Account/Addresses'
 import AccountDetails from '@/components/Account/AccountDetails'
+import { Title } from '@/components/AddressForm'
+import RegisterForm from '@/components/RegisterForm'
+import { LoginForm } from '@/components/Common/Login'
 
 const breadcrumbItems = [
   { label: 'Trang chủ', url: '/' },
@@ -34,10 +38,11 @@ const ItemValue = [
   { label: 'Chi tiết tài khoản', value: 'accountdetails', tab: 5, icon: <AccountIcon /> },
   { label: 'Danh sách yêu thích', value: 'wishlist', tab: 6, icon: <HeartIcon /> },
 ]
-const Columns = styled.div`
+export const Columns = styled.div`
   display: grid;
-  grid-template-columns: 0.4fr 1fr;
-  gap: 40px;
+  justify-content: center;
+  grid-template-columns: ${(props) => props.$column || '0.4fr 1fr'};
+  gap: 80px;
 `
 const Navigation = styled.ul`
   margin-left: 0;
@@ -66,32 +71,52 @@ const Content = styled.div`
   margin-top: 14px;
   /* Thêm các style khác cho phần content của bạn */
 `
+const AccountLogin = styled.div``
 const Account = () => {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState(1)
+  const [isLogin, setIsLogin] = useState(false)
 
   useEffect(() => {
     setActiveTab(router.query.tab)
   }, [router])
 
   const handleLogout = () => {
-    // localStorage.removeItem('accessToken')
-    // localStorage.removeItem('refreshToken')
-    // window.location.reload()
-    console.log('logout')
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
+    window.location.reload()
   }
   useEffect(() => {
-    let token
-    if (typeof window !== 'undefined') {
-      // Perform localStorage action
-      token = localStorage.getItem('accessToken')
+    const token = localStorage.getItem('accessToken')
+    if (token) {
+      setIsLogin(true)
+    } else {
+      setIsLogin(false)
     }
-    // if (token) {
-    //   console.log(token)
-    // } else {
-    //   console.log(1)
-    // }
   }, [])
+
+  if (!isLogin) {
+    return (
+      <>
+        <Head>
+          <title>Tài khoản</title>
+        </Head>
+        <Header />
+        <Container>
+          <Breadcrumb items={breadcrumbItems} />
+          <Columns $column="1fr 0.8fr">
+            <RegisterForm width="100%" />
+            <AccountLogin>
+              <Title>Đăng ký tài khoản</Title>
+              <LoginForm />
+            </AccountLogin>
+          </Columns>
+        </Container>
+        <Footer />
+      </>
+    )
+  }
+
   return (
     <>
       <Head>

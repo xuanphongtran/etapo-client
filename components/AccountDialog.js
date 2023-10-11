@@ -53,8 +53,8 @@ const AccountDialog = () => {
     { label: 'Tài khoản của tôi', value: 'dashboard', tab: 1 },
     { label: 'Đơn hàng', value: 'orders', tab: 2 },
     { label: 'Tải xuống', value: 'dowloads', tab: 3 },
-    { label: 'Chỉnh sửa địa chỉ', value: 'addresses', tab: 3 },
-    { label: 'Chi tiết tài khoản', value: 'accountdetails', tab: 4 },
+    { label: 'Chỉnh sửa địa chỉ', value: 'addresses', tab: 4 },
+    { label: 'Chi tiết tài khoản', value: 'accountdetails', tab: 5 },
   ]
   return (
     <AccountContainer>

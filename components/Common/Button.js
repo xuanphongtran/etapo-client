@@ -3,7 +3,7 @@ import { primary } from '@/lib/colors'
 
 export const ButtonStyle = css`
   border: 0;
-  padding: 10px 15px;
+  padding: ${(props) => props.$padding || '10px 15px'};
   border-radius: 40px;
   cursor: pointer;
   display: inline-flex;
@@ -17,7 +17,6 @@ export const ButtonStyle = css`
   width: ${(props) => props.$width && props.$width};
   svg {
     height: 16px;
-    margin-right: 5px;
   }
   &:hover {
     background-color: ${(props) => props.$hover || '#ff782c'};
@@ -28,12 +27,18 @@ export const ButtonStyle = css`
     css`
       background-color: #6839cc;
       color: #ffffff;
+      svg {
+        margin-right: 5px;
+      }
     `};
   ${(props) =>
     props.$orange &&
     css`
       background-color: #ff782c;
       color: #ffffff;
+      &:hover {
+        background-color: #000000;
+      }
     `};
 
   ${(props) =>

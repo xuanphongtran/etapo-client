@@ -40,13 +40,13 @@ export const EmptyCartButton = styled(ButtonLink)`
   padding: 15px 30px !important;
   ${ButtonStyle}
 `
-export const ColumnsWrapper = styled.div`
+const ColumnsWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   @media screen and (min-width: 768px) {
-    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-columns: 1.2fr 0.6fr;
   }
-  gap: 40px;
+  gap: 80px;
 `
 const Box = styled.div`
   background-color: #fff;
@@ -106,37 +106,91 @@ const ProductImageBox = styled.div`
 const Price = styled.div`
   font-weight: 700;
 `
-
+export const CartTotal = styled.div`
+  padding: 30px 30px 40px;
+  position: relative;
+  border: 6px solid #e5e5e5;
+  border-radius: 5px;
+  h3 {
+    width: 100%;
+    display: flex;
+    font-size: 28px;
+    margin: 0 0 20px;
+  }
+`
+export const SubTotal = styled.div`
+  border-top: 1px dashed #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 20px 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  & > div,
+  span {
+    font-size: 18px;
+  }
+`
+export const Total = styled.div`
+  border-bottom: 1px dashed #e5e5e5;
+  padding: 24px 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  & > div {
+    font-size: 18px;
+  }
+  & > span {
+    font-size: 24px;
+    color: #ff782c;
+  }
+`
 const breadcrumbItems = [
   { label: 'Trang chủ', url: '/' },
   { label: 'Giỏ hàng', url: '/cart' },
 ]
 const CartPage = () => {
-  const { cartProducts, addProduct, removeProduct, clearCart } = useContext(CartContext)
+  const { cartProducts, removeProduct, clearCart } = useContext(CartContext)
   const [products, setProducts] = useState([])
-  const [count, setCount] = useState(1)
+  const [counts, setCounts] = useState(1)
   useEffect(() => {
     if (cartProducts.length > 0) {
       axios.post('/api/cart', { ids: cartProducts }).then((response) => {
         setProducts(response.data)
       })
+      const count = {}
+      cartProducts.forEach((id) => {
+        count[id] = (count[id] || 0) + 1
+      })
+      setCounts(count)
+      console.log(cartProducts)
     } else {
       setProducts([])
+      setCounts()
     }
   }, [cartProducts])
-  const increment = () => {
-    setCount(count + 1)
+
+  const increment = (productId) => {
+    setCounts((prevCounts) => ({
+      ...prevCounts,
+      [productId]: (prevCounts[productId] || 0) + 1,
+    }))
   }
-  const decrement = () => {
-    if (count > 0) {
-      setCount(count - 1)
+
+  const decrement = (productId) => {
+    if (counts[productId] > 0) {
+      setCounts((prevCounts) => ({
+        ...prevCounts,
+        [productId]: prevCounts[productId] - 1,
+      }))
     }
   }
 
   let total = 0
-  for (const productId of cartProducts) {
-    const price = products.find((p) => p._id === productId)?.price || 0
-    total += price
+  if (counts) {
+    for (const product of products) {
+      total += counts[product._id] * Number(product.price.replace(/,/g, ''))
+    }
   }
 
   return (
@@ -189,18 +243,21 @@ const CartPage = () => {
                       <td>{product.price} đ</td>
                       <td>
                         <CounterContainer>
-                          <Button $decrement="true" onClick={decrement}>
+                          <Button $decrement="true" onClick={() => decrement(product._id)}>
                             -
                           </Button>
-                          <Count>{count}</Count>
-                          <Button $increment="true" onClick={increment}>
+                          <Count>{counts[product._id]}</Count>
+                          <Button $increment="true" onClick={() => increment(product._id)}>
                             +
                           </Button>
                         </CounterContainer>
                       </td>
                       <td>
                         <Price>
-                          {(count * Number(product.price.replace(/,/g, ''))).toLocaleString()}đ
+                          {(
+                            counts[product._id] * Number(product.price.replace(/,/g, ''))
+                          ).toLocaleString()}
+                          đ
                         </Price>
                       </td>
                     </tr>
@@ -208,7 +265,22 @@ const CartPage = () => {
                 </tbody>
               </Table>
             </Box>
-            <Box></Box>
+            <Box>
+              <CartTotal>
+                <h3>Thanh toán</h3>
+                <SubTotal>
+                  <div>Tổng tiền hàng</div>
+                  <span>{total?.toLocaleString()}đ</span>
+                </SubTotal>
+                <Total>
+                  <div>Tổng thanh toán</div>
+                  <span>{total?.toLocaleString()}đ</span>
+                </Total>
+                <ButtonLink $orange $width="90%" $padding="15px 15px" href="/checkout">
+                  Mua hàng
+                </ButtonLink>
+              </CartTotal>
+            </Box>
           </ColumnsWrapper>
         )}
       </Container>

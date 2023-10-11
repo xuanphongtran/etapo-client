@@ -36,11 +36,9 @@ export default function HomePage({ featuredProduct, bestProducts }) {
 }
 
 export async function getServerSideProps() {
-  const id = '64cdb3eed08ed00f3f057af5'
-  const featuredProduct = await AXIOS.get(`/client/products/${id}`).then(
-    (response) => response.data,
-  )
-  const bestProducts = await AXIOS.get(`/client/products`).then(
+  const id = '6511a65749ad81f96d39b880'
+  const featuredProduct = await AXIOS.get(`/product/${id}`).then((response) => response.data)
+  const bestProducts = await AXIOS.get(`/product`).then(
     (response) => response.data.productWithStats,
   )
   return {

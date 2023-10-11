@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { AccountIcon } from '../icons/Icon'
 import Rating, { SelectedRating } from '../Common/Rating'
 import Button from '../Common/Button'
+import AXIOS from '@/lib/axios'
 
 const Wrapper = styled.div`
   background-color: #ffffff;
@@ -107,27 +108,33 @@ export default function TabsContent({ activeTab, product }) {
   const [startPoint, setStartPoint] = useState(0)
   const [commentText, setCommentText] = useState('')
   const [login, setLogin] = useState(false)
+  const [review, setReview] = useState([])
+
   useEffect(() => {
     const token = localStorage.getItem('accessToken')
     if (token) setLogin(true)
   }, [])
+
+  useEffect(() => {
+    AXIOS.get('/product/reviews', {
+      params: { productId: product._id },
+    }).then((response) => setReview(response.data))
+  }, [product._id])
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      // const response = await AXIOS.post('/auth/login', { email, password })
-      // if (response) {
-      //   const { accessToken, refreshToken } = response.data
-      //   // Lưu token vào localStorage hoặc sessionStorage
-      //   localStorage.setItem('accessToken', accessToken)
-      //   localStorage.setItem('refreshToken', refreshToken)
-      //   // Chuyển hướng hoặc cập nhật UI
-      //   // Refresh the entire page
-      //   window.location.reload()
-      // } else {
-      //   // Xử lý lỗi đăng nhập
-      //   setError(true)
-      //   console.error(data.message)
-      // }
+      const response = await AXIOS.post('/product/reviews', {
+        startPoint,
+        comment: commentText,
+        productId: product._id,
+      })
+      if (response) {
+        // window.location.reload()
+      } else {
+        // Xử lý lỗi
+        console.error(data.message)
+      }
       console.log(startPoint, commentText)
     } catch (error) {
       console.error('Lỗi kết nối:', error.message)
@@ -144,14 +151,12 @@ export default function TabsContent({ activeTab, product }) {
         <div>
           <Table>
             <tbody>
-              <ItemAttributes>
-                <ItemLabel>Weight</ItemLabel>
-                <ItemValue>196 kg</ItemValue>
-              </ItemAttributes>
-              <ItemAttributes>
-                <ItemLabel>Weight</ItemLabel>
-                <ItemValue>196 kg</ItemValue>
-              </ItemAttributes>
+              {product.properties?.map((pro, index) => (
+                <ItemAttributes key={index}>
+                  <ItemLabel>{pro.label}</ItemLabel>
+                  <ItemValue>{pro.value}</ItemValue>
+                </ItemAttributes>
+              ))}
             </tbody>
           </Table>
         </div>
@@ -159,41 +164,21 @@ export default function TabsContent({ activeTab, product }) {
       {activeTab === 3 && (
         <div>
           <CommentList>
-            <CommentContainer>
-              <Avatar>
-                <AccountIcon />
-              </Avatar>
-              <CommentText>
-                <Rating size="16px" $notReview />
-                <Meta>
-                  <div>L. Androws</div>
-                  <div>May 7, 2022</div>
-                </Meta>
-                <Description>
-                  DescriptionI am 6 feet tall and 220 lbs. This shirt fit me perfectly in the chest
-                  and shoulders. My only complaint is that it is so long! I like to wear polo shirts
-                  untucked. This shirt goes completely past my rear end. If I wore it with ordinary
-                  shorts, you probably wouldnt be able to see the shorts at all completely hidden by
-                  the shirt. It needs to be 4 to 5 inches shorter in terms of length to suit me. I
-                  have many RL polo shirts, and this one is by far the longest. I dont understand
-                  why DescriptionI am 6 feet tall and 220 lbs. This shirt fit me perfectly in the
-                  chest and shoulders. My only complaint is that it is so long! I like to wear polo
-                  shirts untucked. This shirt goes completely past my rear end. If I wore it with
-                  ordinary shorts, you probably wouldnt be able to see the shorts at all completely
-                  hidden by the shirt. It needs to be 4 to 5 inches shorter in terms of length to
-                  suit me. I have many RL polo shirts, and this one is by far the longest. I dont
-                  understand why
-                </Description>
-              </CommentText>
-            </CommentContainer>
-            <CommentContainer>
-              <Avatar>
-                <AccountIcon />
-              </Avatar>
-              <CommentText>
-                <Rating size="16px" $notReview value={4} />
-              </CommentText>
-            </CommentContainer>
+            {review?.map((a, index) => (
+              <CommentContainer key={index}>
+                <Avatar>
+                  <AccountIcon />
+                </Avatar>
+                <CommentText>
+                  <Rating size="16px" $notReview value={a?.startPoint} />
+                  <Meta>
+                    <div>{a.userId?.name}</div>
+                    <div>{a.updatedAt}</div>
+                  </Meta>
+                  <Description>{a?.comment}</Description>
+                </CommentText>
+              </CommentContainer>
+            ))}
           </CommentList>
           {login ? (
             <ReviewForm onSubmit={handleSubmit}>

@@ -28,7 +28,7 @@ const Title = styled.div`
   font-weight: 700;
   line-height: 17px;
 `
-const LoginForm = styled.form`
+const Form = styled.form`
   width: 100%;
   display: block;
 `
@@ -66,8 +66,7 @@ const LoginFooter = styled.div`
   justify-content: end;
   margin-top: 10px;
 `
-
-const Login = ({ setLoginActive }) => {
+export const LoginForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
@@ -95,6 +94,33 @@ const Login = ({ setLoginActive }) => {
     }
   }
   return (
+    <Form onSubmit={handleSubmit}>
+      {error && <Error>Email hoặc mật khẩu không chính xác. Vui lòng thử lại</Error>}
+      <Label htmlFor="email">Email</Label>
+      <Input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+
+      <Label htmlFor="password">Mật khẩu</Label>
+      <Input
+        type="password"
+        placeholder="Mật khẩu"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
+      <Button $orange $width="100%">
+        Đăng nhập
+      </Button>
+    </Form>
+  )
+}
+const Login = ({ setLoginActive }) => {
+  return (
     <LoginContainer>
       <LoginHeader>
         <Title>Đăng nhập</Title>
@@ -102,31 +128,7 @@ const Login = ({ setLoginActive }) => {
           Đăng ký tài khoản
         </NavLink>
       </LoginHeader>
-      <LoginForm onSubmit={handleSubmit}>
-        {error && <Error>Email hoặc mật khẩu không chính xác. Vui lòng thử lại</Error>}
-        <Label htmlFor="email">Email</Label>
-        <Input
-          type="text"
-          id="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-
-        <Label htmlFor="password">Mật khẩu</Label>
-        <Input
-          type="password"
-          id="password"
-          placeholder="Mật khẩu"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <Button $orange $width="100%">
-          Đăng nhập
-        </Button>
-      </LoginForm>
+      <LoginForm />
       <LoginFooter>
         <NavLink href={'/account'} $color="#999999">
           Quên mật khẩu ?

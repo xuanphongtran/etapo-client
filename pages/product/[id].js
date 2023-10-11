@@ -51,8 +51,7 @@ const ProductPage = ({ product }) => {
   const [activeTab, setActiveTab] = useState(1)
   const breadcrumbItems = [
     { label: 'Trang chủ', url: '/' },
-    { label: 'Products', url: '/products' },
-    { label: 'Category', url: '/categories' },
+    { label: 'Danh mục', url: '/categories' },
     { label: '1', url: `/product/${product._id}` },
   ]
   return (
@@ -98,7 +97,8 @@ export default ProductPage
 
 export async function getServerSideProps(context) {
   const { id } = context.query
-  const product = await AXIOS.get(`/client/products/${id}`).then((response) => response.data)
+  const product = await AXIOS.get(`/product/${id}`).then((response) => response.data)
+
   return {
     props: {
       product: JSON.parse(JSON.stringify(product)),

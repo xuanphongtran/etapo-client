@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { FacebookIcon, InstagramIcon, PhoneIcon, TwitterIcon, ZaloIcon } from '../icons/Icon'
 
 const FooterConteiner = styled.div`
-  background-image: url(https://res.cloudinary.com/danr1pj0e/image/upload/v1694487521/BG/footer-bg_vxxogs.jpg);
+  background-image: url(https://res.cloudinary.com/danr1pj0e/image/upload/v1696780052/footer-bg_hf2ntt.jpg);
   padding: 90px 110px 40px 110px;
   border-top: 1px dashed #e5e5e5;
   height: 260px;

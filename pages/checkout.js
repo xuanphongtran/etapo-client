@@ -1,34 +1,53 @@
-import Button from '@/components/Common/Button'
 import Header from '@/components/Common/Header'
-import Input from '@/components/Input'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Container, EmptyCart, EmptyCartButton, EmptyCartTitle } from './cart'
+import {
+  CartTotal,
+  Container,
+  EmptyCart,
+  EmptyCartButton,
+  EmptyCartTitle,
+  SubTotal,
+  Total,
+} from './cart'
 import { CloseIcon } from '@/components/icons/Icon'
 import { Footer } from '@/components/Common/Footer'
 import { ScrollUp } from '@/components/Common/ScrollUp'
 import Breadcrumb from '@/components/Common/BreakCrumb'
-const CityHolder = styled.div`
-  display: flex;
-  gap: 5px;
-`
-const Box = styled.div`
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 30px 0;
-`
+import AddressForm from '@/components/AddressForm'
+import Button from '@/components/Common/Button'
+import { CartContext } from '@/components/CartContext'
+import axios from 'axios'
+import AXIOS from '@/lib/axios'
+
 const breadcrumbItems = [
   { label: 'Trang chủ', url: '/' },
-  { label: 'Giỏ hàng', url: '/cart' },
+  { label: 'Thanh toán', url: '/' },
 ]
+const ColumnsWrapper = styled.div`
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 0.8fr 0.6fr;
+  }
+  gap: 80px;
+`
+const Product = styled.div`
+  border-top: 1px solid #e5e5e5;
+  padding: 14px 0;
+  color: #666666;
+  display: flex;
+  justify-content: space-between;
+`
+const Name = styled.div``
+const Price = styled.div``
 const Checkout = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [city, setCity] = useState('')
-  const [postalCode, setPostalCode] = useState('')
-  const [streetAddress, setStreetAddress] = useState('')
-  const [country, setCountry] = useState('')
   const [isSuccess, setIsSuccess] = useState(false)
+  const { cartProducts, removeProduct, clearCart } = useContext(CartContext)
+  const [products, setProducts] = useState([])
+  const [counts, setCounts] = useState(1)
+  const [info, setInfo] = useState({})
 
   const goToPayment = async () => {
     const response = await axios.post('/api/checkout', {
@@ -45,6 +64,40 @@ const Checkout = () => {
     }
   }
 
+  let total = 0
+  if (counts) {
+    for (const product of products) {
+      total += counts[product._id] * Number(product.price.replace(/,/g, ''))
+    }
+  }
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken')
+    if (token) {
+      AXIOS.get('/auth/userinfo')
+        .then((response) => {
+          setInfo(response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    } else setInfo({})
+  }, [])
+
+  useEffect(() => {
+    if (cartProducts.length > 0) {
+      axios.post('/api/cart', { ids: cartProducts }).then((response) => {
+        setProducts(response.data)
+      })
+      const count = {}
+      cartProducts.forEach((id) => {
+        count[id] = (count[id] || 0) + 1
+      })
+      setCounts(count)
+    } else {
+      setProducts([])
+      setCounts()
+    }
+  }, [cartProducts])
   useEffect(() => {
     console.log(window)
     if (typeof window === 'undefined') {
@@ -54,7 +107,7 @@ const Checkout = () => {
       setIsSuccess(true)
       clearCart()
     }
-  }, [])
+  }, [clearCart])
 
   if (isSuccess) {
     return (
@@ -78,54 +131,42 @@ const Checkout = () => {
       <Header />
       <Container>
         <Breadcrumb items={breadcrumbItems} />
-        <Box>
-          <h2>Order information</h2>
-          <Input
-            type="text"
-            placeholder="Name"
-            value={name}
-            name="name"
-            onChange={(ev) => setName(ev.target.value)}
-          />
-          <Input
-            type="text"
-            placeholder="Email"
-            value={email}
-            name="email"
-            onChange={(ev) => setEmail(ev.target.value)}
-          />
-          <CityHolder>
-            <Input
-              type="text"
-              placeholder="City"
-              value={city}
-              name="city"
-              onChange={(ev) => setCity(ev.target.value)}
-            />
-            <Input
-              type="text"
-              placeholder="Postal Code"
-              value={postalCode}
-              name="postalCode"
-              onChange={(ev) => setPostalCode(ev.target.value)}
-            />
-          </CityHolder>
-          <Input
-            type="text"
-            placeholder="Street Address"
-            value={streetAddress}
-            name="streetAddress"
-            onChange={(ev) => setStreetAddress(ev.target.value)}
-          />
-          <Input
-            type="text"
-            placeholder="Country"
-            value={country}
-            name="country"
-            onChange={(ev) => setCountry(ev.target.value)}
-          />
-          <Button onClick={goToPayment}>Continue to payment</Button>
-        </Box>
+        <ColumnsWrapper>
+          <AddressForm width="100%" info={info}></AddressForm>
+          <div>
+            <CartTotal>
+              <h3>Thanh toán</h3>
+              <SubTotal>
+                <div>Sản phẩm</div>
+                <span>Thành tiền</span>
+              </SubTotal>
+              {products.map((product, index) => (
+                <Product key={index}>
+                  <Name>
+                    {product.name} x {counts[product._id]}
+                  </Name>
+                  <Price>
+                    {(
+                      counts[product._id] * Number(product.price.replace(/,/g, ''))
+                    ).toLocaleString()}
+                    đ
+                  </Price>
+                </Product>
+              ))}
+              <SubTotal>
+                <div>Tổng tiền hàng</div>
+                <span>{total?.toLocaleString()} đ</span>
+              </SubTotal>
+              <Total>
+                <div>Tổng thanh toán</div>
+                <span>{total?.toLocaleString()} đ</span>
+              </Total>
+              <Button $orange $width="100%" $padding="15px 15px">
+                Đặt hàng
+              </Button>
+            </CartTotal>
+          </div>
+        </ColumnsWrapper>
       </Container>
       <Footer />
       <ScrollUp />

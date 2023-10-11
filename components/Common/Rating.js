@@ -29,7 +29,7 @@ const ReviewLink = styled.a`
     color: #999999;
   }
 `
-const Rating = ({ value, $notReview, size }) => {
+const Rating = ({ value, $notReview, size, reviewCount }) => {
   const renderStars = () => {
     const stars = []
     for (let i = 1; i <= 5; i++) {
@@ -45,12 +45,12 @@ const Rating = ({ value, $notReview, size }) => {
   return (
     <StarContainer>
       {renderStars()}
-      <ReviewLink $notReview={$notReview}>({value} Reviews)</ReviewLink>
+      <ReviewLink $notReview={$notReview}>({reviewCount} Đánh giá)</ReviewLink>
     </StarContainer>
   )
 }
 
-export const SelectedRating = ({ $notReview, size, onStarClick }) => {
+export const SelectedRating = ({ size, onStarClick }) => {
   const [selectedStars, setSelectedStars] = useState(0)
   const handleStarClick = (selectedValue) => {
     setSelectedStars(selectedValue)
@@ -71,12 +71,7 @@ export const SelectedRating = ({ $notReview, size, onStarClick }) => {
     }
     return stars
   }
-  return (
-    <StarContainer>
-      {renderStars()}
-      <ReviewLink $notReview={$notReview}>({selectedStars} Reviews)</ReviewLink>
-    </StarContainer>
-  )
+  return <StarContainer>{renderStars()}</StarContainer>
 }
 
 export default Rating

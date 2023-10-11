@@ -112,12 +112,12 @@ const EntrySummary = ({ product }) => {
   return (
     <div>
       <EntrySummaryTop>
-        <Status>In-stock</Status>
+        <Status>Còn hàng</Status>
       </EntrySummaryTop>
       <Title>{product.name}</Title>
       <ProductAfterTitle>
         <ProductBrand>
-          Brands: <NavLink href="#">Ark Knight</NavLink>
+          Thương hiệu: <NavLink href="#">{product?.brand?.name}</NavLink>
         </ProductBrand>
         <ProductBrand>SKU: {product._id?.toUpperCase()}</ProductBrand>
       </ProductAfterTitle>
@@ -126,7 +126,7 @@ const EntrySummary = ({ product }) => {
         <ListPrice>{product.price}đ</ListPrice>
         <DiscountRate>{product.discount}%</DiscountRate>
       </PriceRow>
-      <Rating value={4} />
+      <Rating value={product?.averageStarPoint} reviewCount={product?.reviewCount} />
       <CartForm>
         <CounterContainer>
           <Button $decrement="true" onClick={decrement}>
@@ -139,11 +139,10 @@ const EntrySummary = ({ product }) => {
         </CounterContainer>
         <Button primary="true" onClick={() => addProduct(product._id, count)}>
           <CartIcon />
-          Add to cart
+          Thêm vào giỏ hàng
         </Button>
         <Button onClick={() => addWishlist(product._id)}>
           <HeartIcon />
-          Add to wishlist
         </Button>
       </CartForm>
     </div>

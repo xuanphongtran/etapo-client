@@ -5,12 +5,14 @@ import Dropdown from '@/components/Common/Dropdown'
 import { Footer } from '@/components/Common/Footer'
 import Header from '@/components/Common/Header'
 import { ScrollUp } from '@/components/Common/ScrollUp'
+import Slider from '@/components/Common/Slider'
 import { ProductBlock } from '@/components/ProductBlock'
 import { ListIcon, PawPrint, RightIcon, SquareIcon } from '@/components/icons/Icon'
 import AXIOS from '@/lib/axios'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import css from 'styled-jsx/css'
 
 const CategoriesContainer = styled.div`
   margin-top: 84px;
@@ -41,8 +43,8 @@ const Item = styled.li`
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
-  color: #666666;
-  fill: #666666;
+  color: ${(props) => (props.isSelected ? '#ff782c' : '#666666')};
+  fill: ${(props) => (props.isSelected ? '#ff782c' : '#666666')};
   &:hover {
     color: #ff782c !important;
     fill: #ff782c;
@@ -78,7 +80,7 @@ const ProductSpacing = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
   grid-gap: 20px;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin: 0 auto;
 `
 const Pagination = styled.ul`
@@ -106,14 +108,15 @@ const PaginationNumber = styled.li`
     height: 14px;
   }
 `
-const Categories = () => {
+const Categories = ({ brands, categories }) => {
   const [products, setProducts] = useState()
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(12)
   const [sort, setSort] = useState({})
   const [search, setSearch] = useState('')
   const [total, setTotal] = useState(0)
-
+  const [category, setCategory] = useState()
+  const [brand, setBrand] = useState()
   const breadcrumbItems = [
     { label: 'Trang chủ', url: '/' },
     { label: 'Category', url: '/categories' },
@@ -127,13 +130,13 @@ const Categories = () => {
     'Sort by price: hight to low',
   ]
   useEffect(() => {
-    AXIOS.get('/client/products', {
-      params: { page, pageSize, sort: JSON.stringify(sort), search },
+    AXIOS.get('/product', {
+      params: { page, pageSize, sort: JSON.stringify(sort), search, category, brand },
     }).then((response) => {
       setProducts(response.data?.productWithStats)
       setTotal(response.data?.total)
     })
-  }, [page, pageSize, sort, search])
+  }, [page, pageSize, sort, search, category, brand])
 
   return (
     <>
@@ -150,31 +153,43 @@ const Categories = () => {
             <WidgetTitle>Product Categories</WidgetTitle>
             <WidgetContent>
               <WidgetUl>
-                <Item>
-                  <ItemLink href="#">
-                    <PawPrint />
-                    Uncategorized
-                  </ItemLink>
-                  <div>(1)</div>
-                </Item>
-                <Item>
-                  <ItemLink href="#">
-                    <PawPrint />
-                    Uncategorized
-                  </ItemLink>
-                  <div>(1)</div>
-                </Item>
-                <Item>
-                  <ItemLink href="#">
-                    <PawPrint />
-                    Uncategorized
-                  </ItemLink>
-                  <div>(1)</div>
-                </Item>
+                {categories?.map((cat) => (
+                  <Item
+                    key={cat._id}
+                    onClick={() => setCategory(cat._id)}
+                    isSelected={category === cat._id}
+                  >
+                    <ItemLink href="#">
+                      <PawPrint />
+                      {cat.name}
+                    </ItemLink>
+                    <div>({cat.productCount})</div>
+                  </Item>
+                ))}
               </WidgetUl>
             </WidgetContent>
             <WidgetTitle>Filter By Price</WidgetTitle>
+            <WidgetContent>
+              <Slider />
+            </WidgetContent>
             <WidgetTitle>Filter By Brands</WidgetTitle>
+            <WidgetContent>
+              <WidgetUl>
+                {brands?.map((cat) => (
+                  <Item
+                    key={cat._id}
+                    isSelected={brand === cat._id}
+                    onClick={() => setBrand(cat._id)}
+                  >
+                    <ItemLink href="">
+                      <PawPrint />
+                      {cat.name}
+                    </ItemLink>
+                    <div>({cat.productCount})</div>
+                  </Item>
+                ))}
+              </WidgetUl>
+            </WidgetContent>
             <WidgetTitle>Best Seller Products</WidgetTitle>
             <WidgetTitle>Filter By Tags</WidgetTitle>
           </div>
@@ -214,15 +229,15 @@ const Categories = () => {
 
 export default Categories
 
-// export async function getServerSideProps() {
-//   // const id = '64cdb3eed08ed00f3f057af5'
-//   // const featuredProduct = await AXIOS.get(`/client/products/${id}`).then(
-//   //   (response) => response.data,
-//   // )
-//   const products = await AXIOS.get(`/client/products`).then((response) => response.data)
-//   return {
-//     props: {
-//       products,
-//     },
-//   }
-// }
+export async function getServerSideProps() {
+  const categories = await AXIOS.get(`/client/categories`, { params: { level: 2 } }).then(
+    (response) => response.data,
+  )
+  const brands = await AXIOS.get(`/client/brands`).then((response) => response.data)
+  return {
+    props: {
+      categories,
+      brands,
+    },
+  }
+}
