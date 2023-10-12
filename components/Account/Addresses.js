@@ -15,7 +15,7 @@ const Addresses = () => {
   }, [])
   return (
     <div>
-      <AddressForm info={info}></AddressForm>
+      <AddressForm info={info} isCheckout={false}></AddressForm>
     </div>
   )
 }

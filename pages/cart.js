@@ -1,20 +1,19 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import Header from '@/components/Common/Header'
 import styled from 'styled-components'
 import Button, { ButtonStyle } from '@/components/Common/Button'
 import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '@/components/CartContext'
-import Table from '@/components/Table'
-import axios from 'axios'
-import Breadcrumb from '@/components/Common/BreakCrumb'
 import { CloseIcon } from '@/components/icons/Icon'
-import ButtonLink from '@/components/Common/ButtonLink'
-import { Footer } from '@/components/Common/Footer'
-import { ScrollUp } from '@/components/Common/ScrollUp'
-import Head from 'next/head'
 import { Count } from '@/components/ProductInfor/EntrySummary'
 import { NavLink } from '@/components/Common/NavLink'
+import Table from '@/components/Table'
+import Breadcrumb from '@/components/Common/BreakCrumb'
+import ButtonLink from '@/components/Common/ButtonLink'
+import Footer from '@/components/Common/Footer'
+import ScrollUp from '@/components/ScrollUp'
+import Head from 'next/head'
+import axios from 'axios'
 
 export const Container = styled.div`
   margin: 100px 40px 10px 40px;

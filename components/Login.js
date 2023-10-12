@@ -1,8 +1,8 @@
 import AXIOS from '@/lib/axios'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { NavLink } from './NavLink'
-import Button from './Button'
+import { NavLink } from './Common/NavLink'
+import Button from './Common/Button'
 
 const LoginContainer = styled.div`
   text-align: left;

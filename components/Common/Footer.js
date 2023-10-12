@@ -78,7 +78,7 @@ const Copyrights = styled.div`
   color: #666;
   font-size: 12px;
 `
-export const Footer = () => {
+const Footer = () => {
   return (
     <footer>
       <FooterConteiner>
@@ -154,3 +154,4 @@ export const Footer = () => {
     </footer>
   )
 }
+export default Footer

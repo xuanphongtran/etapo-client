@@ -5,9 +5,9 @@ import Image from 'next/image'
 import logo from 'public/logo.svg'
 import { AccountIcon, CartIcon, HeartIcon } from '../icons/Icon'
 import Searchbar from '../SearchBar'
-import ShoppingCart from './ShoppingCart'
+import ShoppingCart from '../ShoppingCart'
 import Link from 'next/link'
-import Login from './Login'
+import Login from '../Login'
 import AccountDialog from '../AccountDialog'
 
 const HeaderSection = styled.section`
@@ -67,7 +67,6 @@ const HeaderButton = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
-
   svg {
     height: 25px;
   }
@@ -191,7 +190,7 @@ export default function Header({ showHeader }) {
             <HeartIcon />
             <IconSpan>{wishlist.length}</IconSpan>
           </HeaderButton>
-          <HeaderButton href="" onClick={() => setCartActive(true)}>
+          <HeaderButton href="#" onClick={() => setCartActive(true)}>
             <CartIcon />
             <IconSpan>{cartProducts.length}</IconSpan>
           </HeaderButton>

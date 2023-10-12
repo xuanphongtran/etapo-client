@@ -1,18 +1,17 @@
 'use client'
-import { Banner } from '@/components/Common/Banner'
+import Head from 'next/head'
+import AXIOS from '@/lib/axios'
+import styled from 'styled-components'
+import { useEffect, useState } from 'react'
+import ScrollUp from '@/components/ScrollUp'
 import Breadcrumb from '@/components/Common/BreakCrumb'
 import Dropdown from '@/components/Common/Dropdown'
-import { Footer } from '@/components/Common/Footer'
+import Footer from '@/components/Common/Footer'
 import Header from '@/components/Common/Header'
-import { ScrollUp } from '@/components/Common/ScrollUp'
 import Slider from '@/components/Common/Slider'
-import { ProductBlock } from '@/components/ProductBlock'
+import { Banner } from '@/components/Common/Banner'
+import { ProductBlock } from '@/components/Common/ProductBlock'
 import { ListIcon, PawPrint, RightIcon, SquareIcon } from '@/components/icons/Icon'
-import AXIOS from '@/lib/axios'
-import Head from 'next/head'
-import { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import css from 'styled-jsx/css'
 
 const CategoriesContainer = styled.div`
   margin-top: 84px;
@@ -145,7 +144,7 @@ const Categories = ({ brands, categories }) => {
       </Head>
       <Header />
       <CategoriesContainer>
-        <Banner column={3} />
+        <Banner column={2} />
         <Breadcrumb items={breadcrumbItems} />
         <Content>
           {/* Left Column */}

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { StarIcon } from '../icons/Icon'
+import { StarIcon } from './icons/Icon'
 
 const StarContainer = styled.div`
   display: flex;

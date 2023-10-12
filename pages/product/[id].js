@@ -1,17 +1,19 @@
+import Head from 'next/head'
+import AXIOS from '@/lib/axios'
+import styled from 'styled-components'
+import { useState } from 'react'
 import Header from '@/components/Common/Header'
 import Center from '@/components/Common/Center'
-import styled from 'styled-components'
-import ProductImages from '@/components/ProductImages'
+import Footer from '@/components/Common/Footer'
+import ProductImages from '@/components/Common/ProductImages'
 import Breadcrumb from '@/components/Common/BreakCrumb'
-import EntrySummary from '@/components/ProductInfor/EntrySummary'
-import { ElementorShapeBottom, ElementorShapeTop } from '@/components/icons/ElementorShape'
-import RelatedProducts from '@/components/RelatedProducts'
 import Button from '@/components/Common/Button'
-import { ScrollUp } from '@/components/Common/ScrollUp'
+import RelatedProducts from '@/components/RelatedProducts'
+import ScrollUp from '@/components/ScrollUp'
+import EntrySummary from '@/components/ProductInfor/EntrySummary'
 import TabsContent from '@/components/ProductInfor/TabsContent'
-import { useState } from 'react'
-import AXIOS from '@/lib/axios'
-import Head from 'next/head'
+import { ElementorShapeBottom, ElementorShapeTop } from '@/components/icons/ElementorShape'
+import { Banner } from '@/components/Common/Banner'
 
 const ColWrapper = styled.div`
   display: grid;
@@ -88,6 +90,10 @@ const ProductPage = ({ product }) => {
         <ElementorShapeBottom />
       </TabsWrapper>
       <RelatedProducts />
+      <Center>
+        <Banner column={3} />
+      </Center>
+      <Footer />
       <ScrollUp />
     </>
   )

@@ -4,7 +4,7 @@ import { useContext, useState } from 'react'
 import { styled } from 'styled-components'
 import { CartIcon, HeartIcon } from '../icons/Icon'
 import Button from '../Common/Button'
-import Rating from '../Common/Rating'
+import Rating from '../Rating'
 import { CartContext } from '../CartContext'
 import { NavLink } from '../Common/NavLink'
 

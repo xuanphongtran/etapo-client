@@ -2,10 +2,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useContext } from 'react'
 import styled from 'styled-components'
-import Rating from './Common/Rating'
-import Button from './Common/Button'
-import { CartIcon, HeartIcon } from './icons/Icon'
-import { CartContext } from './CartContext'
+import Rating from '../Rating'
+import Button from './Button'
+import { CartIcon, HeartIcon } from '../icons/Icon'
+import { CartContext } from '../CartContext'
 
 const Container = styled.div`
   margin-bottom: 10px;

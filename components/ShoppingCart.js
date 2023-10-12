@@ -1,11 +1,11 @@
 import styled from 'styled-components'
-import Button from './Button'
+import Button from './Common/Button'
 import { useContext, useEffect, useState } from 'react'
-import { CartContext } from '../CartContext'
+import { CartContext } from './CartContext'
 import axios from 'axios'
 import Image from 'next/image'
-import { CloseIcon } from '../icons/Icon'
-import ButtonLink from './ButtonLink'
+import { CloseIcon } from './icons/Icon'
+import ButtonLink from './Common/ButtonLink'
 
 const CartOverLay = styled.div`
   position: fixed;
@@ -174,12 +174,12 @@ const ShoppingCart = ({ setCartActive }) => {
     <div>
       <CartContainer>
         <CartHeading>
-          <CartTitle>Shopping Cart</CartTitle>
+          <CartTitle>Giỏ hàng</CartTitle>
           <CloseButton onClick={() => setCartActive(false)}>
-            CLOSE <CloseIcon />
+            ĐÓNG <CloseIcon />
           </CloseButton>
         </CartHeading>
-        {!cartProducts?.length && <Empty>No products in the cart.</Empty>}
+        {!cartProducts?.length && <Empty>Giỏ hàng đang trống.</Empty>}
         {products?.length > 0 && (
           <CartContent>
             <CartList>
@@ -204,16 +204,16 @@ const ShoppingCart = ({ setCartActive }) => {
               </CartUl>
             </CartList>
             <CartTotal>
-              <TotalTitle>Subtotal: </TotalTitle>
+              <TotalTitle>Thành tiền: </TotalTitle>
               <TotalValue>{total.toLocaleString()} đ</TotalValue>
             </CartTotal>
             <CartButton>
               <ButtonLink $hover="#e5e5e5" $background="#f7f7f7" href={'/cart'}>
-                VIEW CART
+                Xem giỏ hàng
               </ButtonLink>
-              <Button $hover="none" $background="#ff782c" $color="white">
-                CHECKOUT
-              </Button>
+              <ButtonLink $hover="none" $background="#ff782c" $color="white" href={'/checkout'}>
+                Thanh toán
+              </ButtonLink>
             </CartButton>
           </CartContent>
         )}

@@ -1,5 +1,5 @@
 import Header from '@/components/Common/Header'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import {
   CartTotal,
@@ -12,13 +12,15 @@ import {
 } from './cart'
 import { CloseIcon } from '@/components/icons/Icon'
 import { Footer } from '@/components/Common/Footer'
-import { ScrollUp } from '@/components/Common/ScrollUp'
+import { ScrollUp } from '@/components/ScrollUp'
 import Breadcrumb from '@/components/Common/BreakCrumb'
 import AddressForm from '@/components/AddressForm'
 import Button from '@/components/Common/Button'
 import { CartContext } from '@/components/CartContext'
 import axios from 'axios'
 import AXIOS from '@/lib/axios'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 const breadcrumbItems = [
   { label: 'Trang chủ', url: '/' },
@@ -49,18 +51,30 @@ const Checkout = () => {
   const [counts, setCounts] = useState(1)
   const [info, setInfo] = useState({})
 
+  const formDataRef = useRef({})
+  const router = useRouter()
+
+  const checkPaymentReturn = async (query) => {
+    const response = await AXIOS.get(`/payment/vnpay_return${query}`)
+    if (response.data.code == '00') {
+      clearCart()
+      setIsSuccess(true)
+      router.replace(router.pathname, router.pathname, { shallow: true })
+    } else alert('Thanh toán không thành công')
+  }
+
   const goToPayment = async () => {
-    const response = await axios.post('/api/checkout', {
-      name,
-      email,
-      city,
-      postalCode,
-      streetAddress,
-      country,
-      cartProducts,
+    const formData = formDataRef.current.getData()
+    const response = await AXIOS.post('/payment/create_payment_url', {
+      amount: total,
+      orderDescription: 'Other',
+      orderType: '100000',
     })
-    if (response.data.url) {
-      window.location = response.data.url
+    if (response.status == 200) {
+      window.location.href = response.data
+    } else {
+      // Handle other types of responses
+      console.log('Payment creation successful, but no redirect.')
     }
   }
 
@@ -70,6 +84,7 @@ const Checkout = () => {
       total += counts[product._id] * Number(product.price.replace(/,/g, ''))
     }
   }
+
   useEffect(() => {
     const token = localStorage.getItem('accessToken')
     if (token) {
@@ -98,16 +113,15 @@ const Checkout = () => {
       setCounts()
     }
   }, [cartProducts])
+
   useEffect(() => {
-    console.log(window)
-    if (typeof window === 'undefined') {
-      return
+    if (router.asPath.includes('?')) {
+      const query = router?.asPath?.replace('/checkout', '')
+      if (query) {
+        checkPaymentReturn(query)
+      }
     }
-    if (window?.location.href.includes('success')) {
-      setIsSuccess(true)
-      clearCart()
-    }
-  }, [clearCart])
+  }, [])
 
   if (isSuccess) {
     return (
@@ -128,11 +142,14 @@ const Checkout = () => {
   }
   return (
     <>
+      <Head>
+        <title>Thanh toán</title>
+      </Head>
       <Header />
       <Container>
         <Breadcrumb items={breadcrumbItems} />
         <ColumnsWrapper>
-          <AddressForm width="100%" info={info}></AddressForm>
+          <AddressForm width="100%" info={info} isCheckout={true} ref={formDataRef}></AddressForm>
           <div>
             <CartTotal>
               <h3>Thanh toán</h3>
@@ -161,7 +178,7 @@ const Checkout = () => {
                 <div>Tổng thanh toán</div>
                 <span>{total?.toLocaleString()} đ</span>
               </Total>
-              <Button $orange $width="100%" $padding="15px 15px">
+              <Button $orange $width="100%" $padding="15px 15px" onClick={goToPayment}>
                 Đặt hàng
               </Button>
             </CartTotal>

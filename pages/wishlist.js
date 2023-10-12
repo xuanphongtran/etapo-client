@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Header from '@/components/Common/Header'
 import { Footer } from '@/components/Common/Footer'
-import { ScrollUp } from '@/components/Common/ScrollUp'
+import { ScrollUp } from '@/components/ScrollUp'
 import Breadcrumb from '@/components/Common/BreakCrumb'
 import { Container, EmptyCart, EmptyCartButton, EmptyCartTitle } from './cart'
 import styled from 'styled-components'

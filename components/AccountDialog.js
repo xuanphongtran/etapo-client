@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 import { LogOutIcon } from './icons/Icon'
+import { useRouter } from 'next/router'
 const AccountContainer = styled.div`
   text-align: left;
   right: 160px;
@@ -44,10 +45,12 @@ const Item = styled.li`
   }
 `
 const AccountDialog = () => {
+  const router = useRouter()
   const handleLogout = () => {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
     window.location.reload()
+    router.replace(router.pathname, router.pathname, { shallow: true })
   }
   const ItemValue = [
     { label: 'Tài khoản của tôi', value: 'dashboard', tab: 1 },

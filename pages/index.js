@@ -1,12 +1,12 @@
-import { Banner } from '@/components/Common/Banner'
+import Head from 'next/head'
+import AXIOS from '@/lib/axios'
 import BestProducts from '@/components/BestProducts'
 import Featured from '@/components/Featured'
 import Header from '@/components/Common/Header'
-import { ScrollUp } from '@/components/Common/ScrollUp'
+import ScrollUp from '@/components/ScrollUp'
+import Footer from '@/components/Common/Footer'
+import { Banner } from '@/components/Common/Banner'
 import { styled } from 'styled-components'
-import { Footer } from '@/components/Common/Footer'
-import Head from 'next/head'
-import AXIOS from '@/lib/axios'
 
 export default function HomePage({ featuredProduct, bestProducts }) {
   const HomeSection = styled.div`

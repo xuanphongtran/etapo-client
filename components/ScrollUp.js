@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { ArrowUpIcon } from '../icons/Icon'
+import { ArrowUpIcon } from './icons/Icon'
 import styled from 'styled-components'
 
 const Wrapper = styled(Link)`
@@ -19,7 +19,7 @@ const Wrapper = styled(Link)`
     height: 20px;
   }
 `
-export const ScrollUp = () => {
+const ScrollUp = () => {
   const [showButton, setShowButton] = useState(false)
 
   const handleScroll = () => {
@@ -49,3 +49,4 @@ export const ScrollUp = () => {
     </Wrapper>
   )
 }
+export default ScrollUp

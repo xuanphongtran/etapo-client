@@ -3,12 +3,14 @@ import { model, models, Schema } from 'mongoose'
 const OrderSchema = new Schema(
   {
     line_items: Object,
-    name: String,
+    fullName: String,
     email: String,
-    city: String,
-    postalCode: String,
-    streetAddress: String,
-    country: String,
+    companyName: String,
+    province: String,
+    district: String,
+    ward: String,
+    address: String,
+    phoneNumber: String,
     paid: Boolean,
   },
   {

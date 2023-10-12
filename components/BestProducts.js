@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import Center from '@/components/Common/Center'
-import Rating from './Common/Rating'
+import Rating from './Rating'
 import Link from 'next/link'
 import Image from 'next/image'
 

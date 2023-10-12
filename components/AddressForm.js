@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import Button from './Common/Button'
 import { useForm } from 'react-hook-form'
-import { useEffect, useState } from 'react'
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 import axios from 'axios'
 
 export const Title = styled.h3`
@@ -47,12 +47,13 @@ export const Select = styled.select`
 export const Form = styled.form`
   width: ${(props) => props.$width || '80%'};
 `
-const AddressForm = ({ width, info }) => {
+const AddressForm = forwardRef(({ width, info, isCheckout }, ref) => {
   const {
     register,
     handleSubmit,
     control,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm()
   const [provinces, setProvinces] = useState([])
@@ -61,6 +62,24 @@ const AddressForm = ({ width, info }) => {
 
   const onSubmit = (data) => {
     console.log(data)
+  }
+
+  useImperativeHandle(ref, () => ({
+    getData,
+  }))
+
+  const getData = () => {
+    // Return the data you want to pass to the parent
+    return {
+      name: getValues('name'),
+      companyName: getValues('companyName'),
+      province: getValues('province'),
+      district: getValues('district'),
+      ward: getValues('ward'),
+      address: getValues('address'),
+      phoneNumber: getValues('phoneNumber'),
+      email: getValues('email'),
+    }
   }
 
   const fetchDistricts = async (provinceCode) => {
@@ -97,13 +116,10 @@ const AddressForm = ({ width, info }) => {
     axios.get('https://provinces.open-api.vn/api/').then((response) => {
       setProvinces(response.data)
     })
-  }, [])
-
-  useEffect(() => {
     if (info) {
       fetchDistricts(info.province)
       fetchWards(info.district)
-      setValue('fullName', info.name)
+      setValue('name', info.name)
       setValue('companyName', info?.companyName)
       setValue('province', info?.province)
       setValue('district', info?.district)
@@ -119,7 +135,7 @@ const AddressForm = ({ width, info }) => {
       <Title>Chi tiết tài khoản</Title>
       <Form $width={width} onSubmit={handleSubmit(onSubmit)}>
         <Label $required>Họ và tên</Label>
-        <Input type="text" placeholder="Họ và tên" {...register('fullName', { required: true })} />
+        <Input type="text" placeholder="Họ và tên" {...register('name', { required: true })} />
         <Label>Tên công ty (Nếu có)</Label>
         <Input type="text" placeholder="Tên công ty" {...register('companyName')} />
         <Label $required>Tỉnh thành phố</Label>
@@ -171,12 +187,15 @@ const AddressForm = ({ width, info }) => {
           required
           readOnly={info?.email ? true : false}
         />
-        <Button $orange $hover="#000000" type="submit">
-          Lưu địa chỉ
-        </Button>
+        {!isCheckout && (
+          <Button $orange $hover="#000000" type="submit">
+            Lưu địa chỉ
+          </Button>
+        )}
       </Form>
     </div>
   )
-}
+})
 
+AddressForm.displayName = 'AddressForm'
 export default AddressForm

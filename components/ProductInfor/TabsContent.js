@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { AccountIcon } from '../icons/Icon'
-import Rating, { SelectedRating } from '../Common/Rating'
+import Rating, { SelectedRating } from '../Rating'
 import Button from '../Common/Button'
 import AXIOS from '@/lib/axios'
 
