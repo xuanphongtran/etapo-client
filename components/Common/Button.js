@@ -12,6 +12,7 @@ export const ButtonStyle = css`
   text-decoration: none;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
+  font-size: ${(props) => props.$fontSize};
   background: ${(props) => props.$background || 'transparent'};
   color: ${(props) => props.$color || '#000000'};
   width: ${(props) => props.$width && props.$width};

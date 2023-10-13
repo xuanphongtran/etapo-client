@@ -12,6 +12,7 @@ import Slider from '@/components/Common/Slider'
 import { Banner } from '@/components/Common/Banner'
 import { ProductBlock } from '@/components/Common/ProductBlock'
 import { ListIcon, PawPrint, RightIcon, SquareIcon } from '@/components/icons/Icon'
+import { useRouter } from 'next/router'
 
 const CategoriesContainer = styled.div`
   margin-top: 84px;
@@ -107,6 +108,10 @@ const PaginationNumber = styled.li`
     height: 14px;
   }
 `
+const breadcrumbItems = [
+  { label: 'Trang chủ', url: '/' },
+  { label: 'Category', url: '/categories' },
+]
 const Categories = ({ brands, categories }) => {
   const [products, setProducts] = useState()
   const [page, setPage] = useState(0)
@@ -116,10 +121,7 @@ const Categories = ({ brands, categories }) => {
   const [total, setTotal] = useState(0)
   const [category, setCategory] = useState()
   const [brand, setBrand] = useState()
-  const breadcrumbItems = [
-    { label: 'Trang chủ', url: '/' },
-    { label: 'Category', url: '/categories' },
-  ]
+  const router = useRouter()
   const options = [
     'Defaul sorting',
     'Sort by popularity',
@@ -128,6 +130,10 @@ const Categories = ({ brands, categories }) => {
     'Sort by price: low to hight',
     'Sort by price: hight to low',
   ]
+  useEffect(() => {
+    setSearch(router.query.search)
+  }, [router])
+
   useEffect(() => {
     AXIOS.get('/product', {
       params: { page, pageSize, sort: JSON.stringify(sort), search, category, brand },
@@ -140,7 +146,7 @@ const Categories = ({ brands, categories }) => {
   return (
     <>
       <Head>
-        <title>My page title</title>
+        <title>Danh sách sản phẩm</title>
       </Head>
       <Header />
       <CategoriesContainer>
@@ -149,7 +155,7 @@ const Categories = ({ brands, categories }) => {
         <Content>
           {/* Left Column */}
           <div>
-            <WidgetTitle>Product Categories</WidgetTitle>
+            <WidgetTitle>Lọc theo danh mục</WidgetTitle>
             <WidgetContent>
               <WidgetUl>
                 {categories?.map((cat) => (
@@ -167,11 +173,11 @@ const Categories = ({ brands, categories }) => {
                 ))}
               </WidgetUl>
             </WidgetContent>
-            <WidgetTitle>Filter By Price</WidgetTitle>
+            <WidgetTitle>Lọc theo giá thành</WidgetTitle>
             <WidgetContent>
               <Slider />
             </WidgetContent>
-            <WidgetTitle>Filter By Brands</WidgetTitle>
+            <WidgetTitle>Lọc theo thương hiệu</WidgetTitle>
             <WidgetContent>
               <WidgetUl>
                 {brands?.map((cat) => (
@@ -189,8 +195,8 @@ const Categories = ({ brands, categories }) => {
                 ))}
               </WidgetUl>
             </WidgetContent>
-            <WidgetTitle>Best Seller Products</WidgetTitle>
-            <WidgetTitle>Filter By Tags</WidgetTitle>
+            <WidgetTitle>Sản phẩm bán chạy</WidgetTitle>
+            {/* <WidgetTitle>Filter By Tags</WidgetTitle> */}
           </div>
           {/* Right Column */}
           <RightCol>
@@ -198,7 +204,7 @@ const Categories = ({ brands, categories }) => {
               <SquareIcon $active />
               <ListIcon />
               <Dropdown options={options} />
-              <ResultCount>Showing all {total} results</ResultCount>
+              <ResultCount>Tổng cộng {total} kết quả</ResultCount>
             </Sorting>
             <ProductSpacing>
               {products?.length > 0 && (

@@ -14,7 +14,7 @@ const Wrapper = styled(Link)`
   border-radius: 50%;
   font-size: 15px;
   box-shadow: 0 4px 12px hsla(228, 15%, 8%, 0.4);
-  /* z-index: 99999; */
+  z-index: 99999;
   svg {
     height: 20px;
   }

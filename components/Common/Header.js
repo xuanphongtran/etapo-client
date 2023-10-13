@@ -17,7 +17,7 @@ const HeaderSection = styled.section`
   padding: 0.75rem 0;
   background-color: #ffffff;
   z-index: 980;
-  border-bottom: 1px dashed #e5e5e5;
+  border-bottom: ${(props) => (props.$showheader ? 'none' : '1px dashed #e5e5e5')};
 `
 const ElementRow = styled.div`
   display: flex;
@@ -154,7 +154,7 @@ export default function Header({ showHeader }) {
           <LayoutMenu>
             <MenuUl>
               <MenuLi>
-                <NavLink href={'/categories'}>CATEGORIES</NavLink>
+                <NavLink href={'/categories'}>SẢN PHẨM</NavLink>
               </MenuLi>
               <MenuLi>
                 <NavLink href="#">SHOP</NavLink>
