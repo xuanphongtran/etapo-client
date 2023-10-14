@@ -6,6 +6,7 @@ import Rating from '../Rating'
 import Button from './Button'
 import { CartIcon, HeartIcon } from '../icons/Icon'
 import { CartContext } from '../CartContext'
+import { NavLink } from './NavLink'
 
 const Container = styled.div`
   margin-bottom: 10px;
@@ -31,7 +32,6 @@ const ProductTransition = styled.div`
     }
   }
 `
-
 const AddToCartButton = styled(Button)`
   position: absolute;
   bottom: 0px;
@@ -95,7 +95,9 @@ export const ProductBlock = ({ product }) => {
         <AddToWishList onClick={() => addWishlist(product._id)}>
           <HeartIcon />
         </AddToWishList>
-        <Image src={product.images?.[0]} alt="" width={300} height={300} loading="lazy" />
+        <NavLink href={`/product/${product._id}`}>
+          <Image src={product.images?.[0]} alt="" width={300} height={300} loading="lazy" />
+        </NavLink>
         <AddToCartButton primary="true" onClick={() => addProduct(product._id, 1)}>
           <CartIcon />
           Add to cart

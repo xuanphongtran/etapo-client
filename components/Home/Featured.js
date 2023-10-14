@@ -28,7 +28,7 @@ const Dot = styled.div`
   border-radius: 50%;
   cursor: pointer;
   ${(props) =>
-    props.active === true
+    props.$active === true
       ? css`
           background-color: #ff782c;
         `
@@ -95,13 +95,13 @@ export default function Featured({ product }) {
     setIndex((state) => (state -= 1))
     if (index === 0) setIndex(config.length - 1)
   }
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     setIndex((prevIndex) => (prevIndex + 1) % config.length)
-  //   }, 3000) // Change this value to adjust the interval (in milliseconds)
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setIndex((prevIndex) => (prevIndex + 1) % config.length)
+    }, 5000) // Change this value to adjust the interval (in milliseconds)
 
-  //   return () => clearInterval(intervalId) // Cleanup the interval on component unmount
-  // }, [])
+    return () => clearInterval(intervalId) // Cleanup the interval on component unmount
+  }, [])
 
   return (
     <>
@@ -115,7 +115,7 @@ export default function Featured({ product }) {
         </NavButton>
         <DotContainer>
           {config.map((dot, id) => (
-            <Dot key={dot.component} active={id === index} onClick={() => setIndex(id)} />
+            <Dot key={dot.component} $active={id === index} onClick={() => setIndex(id)} />
           ))}
         </DotContainer>
       </Container>

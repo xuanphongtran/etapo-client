@@ -1,17 +1,7 @@
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import Button from '../Common/Button'
+import { bounce, fadeIn, fadeInFromLeft, oscillate, rotate, slideUp } from '@/lib/animation'
 
-const oscillate = keyframes`
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-`
 const NotifyImage = styled.div`
   background-image: url('https://res.cloudinary.com/danr1pj0e/image/upload/v1696658905/rev_home2_ikdlac.png');
   height: 165px;
@@ -19,7 +9,7 @@ const NotifyImage = styled.div`
   position: absolute;
   right: 5%;
   top: 5%;
-  animation: ${oscillate} 2s infinite;
+  animation: ${oscillate} 2s infinite, ${fadeIn} 1s ease-in-out;
   color: #ff782c;
   font-weight: 700;
   font-size: 20px;
@@ -45,11 +35,13 @@ const Layer = styled.div`
   position: absolute;
   right: 100px;
   bottom: 0;
+  animation: ${fadeIn} 1s ease-in-out, ${slideUp} 1s ease-in-out;
 `
 const ImageContainer = styled.img`
   position: absolute;
   right: 200px;
   bottom: 0;
+  animation: ${fadeIn} 1s ease-in-out, ${slideUp} 1s ease-in-out, ${bounce} 2s ease-in-out infinite;
 `
 const Content = styled.div`
   height: 200px;
@@ -58,6 +50,7 @@ const Content = styled.div`
   left: 100px;
   top: 25%;
   color: #000000;
+  animation: ${oscillate} 2s infinite, ${fadeInFromLeft} 1s ease-in-out;
 `
 const Head = styled.h3`
   color: #ff782c;

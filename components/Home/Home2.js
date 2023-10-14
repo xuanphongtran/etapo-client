@@ -1,5 +1,6 @@
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import Button from '../Common/Button'
+import { bounce, fadeIn, fadeInFromLeft, slideUp } from '@/lib/animation'
 
 const TopLayer = styled.div`
   z-index: 19;
@@ -13,6 +14,7 @@ const TopLayer = styled.div`
   right: 0;
   top: 0;
   background-image: url('https://res.cloudinary.com/danr1pj0e/image/upload/v1697277727/rev_home7_011_zurl2m.png');
+  animation: ${fadeIn} 1s ease-in-out;
 `
 const TopImage = styled.img`
   position: absolute;
@@ -32,6 +34,7 @@ const Layer = styled.div`
   right: 120px;
   bottom: 0;
   overflow: hidden;
+  animation: ${fadeIn} 1s ease-in-out;
 `
 const ImageLayer = styled.img`
   position: absolute;
@@ -42,6 +45,7 @@ const ImageContainer = styled.img`
   position: absolute;
   right: 80px;
   bottom: -80px;
+  animation: ${fadeIn} 1s ease-in-out, ${slideUp} 2s ease-in-out;
 `
 const Content = styled.div`
   height: 200px;
@@ -50,6 +54,7 @@ const Content = styled.div`
   left: 100px;
   top: 25%;
   color: #000000;
+  animation: ${fadeInFromLeft} 1s ease-in-out;
 `
 const Head = styled.h3`
   color: #ff782c;

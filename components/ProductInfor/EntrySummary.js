@@ -117,7 +117,10 @@ const EntrySummary = ({ product }) => {
       <Title>{product.name}</Title>
       <ProductAfterTitle>
         <ProductBrand>
-          Thương hiệu: <NavLink href="#">{product?.brand?.name}</NavLink>
+          Thương hiệu:
+          <NavLink href={{ pathname: '/categories', query: { brand: `${product?.brand._id}` } }}>
+            {product?.brand?.name}
+          </NavLink>
         </ProductBrand>
         <ProductBrand>SKU: {product._id?.toUpperCase()}</ProductBrand>
       </ProductAfterTitle>
