@@ -2,7 +2,7 @@ import Header from '@/components/Common/Header'
 import Head from 'next/head'
 import React from 'react'
 import { Container } from '../cart'
-import { Footer } from '@/components/Common/Footer'
+import Footer from '@/components/Common/Footer'
 import { Columns } from '../account'
 
 const lostpassword = () => {

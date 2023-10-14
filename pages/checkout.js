@@ -11,8 +11,8 @@ import {
   Total,
 } from './cart'
 import { CloseIcon } from '@/components/icons/Icon'
-import { Footer } from '@/components/Common/Footer'
-import { ScrollUp } from '@/components/ScrollUp'
+import Footer from '@/components/Common/Footer'
+import ScrollUp from '@/components/ScrollUp'
 import Breadcrumb from '@/components/Common/BreakCrumb'
 import AddressForm from '@/components/AddressForm'
 import Button from '@/components/Common/Button'

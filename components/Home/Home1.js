@@ -55,7 +55,7 @@ const Content = styled.div`
   height: 200px;
   max-width: 40%;
   position: absolute;
-  left: 40px;
+  left: 100px;
   top: 25%;
   color: #000000;
 `
@@ -80,7 +80,7 @@ const Home1 = () => {
       <Content>
         <Head>MIỄN PHÍ VẬN CHUYỂN</Head>
         <Title>Đồ Chơi Cho Chó Cực Kỳ Bền</Title>
-        <Bottom>Good for agressive chewers!</Bottom>
+        <Bottom>Đồ gì cũng có !</Bottom>
         <Button primary $padding="15px 25px" $fontSize="25px" $width="200px">
           Mua ngay
         </Button>
