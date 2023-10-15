@@ -213,10 +213,12 @@ const Categories = ({ brands, categories }) => {
 export default Categories
 
 export async function getServerSideProps() {
-  const categories = await AXIOS.get(`/client/categories`, { params: { level: 2 } }).then(
-    (response) => response.data,
-  )
-  const brands = await AXIOS.get(`/client/brands`).then((response) => response.data)
+  const categories = await AXIOS.get(`/client/categories`, {
+    params: { level: 2, page: 0, pageSize: 100 },
+  }).then((response) => response.data.categories)
+  const brands = await AXIOS.get(`/client/brands`, {
+    params: { page: 0, pageSize: 100 },
+  }).then((response) => response.data.brands)
   return {
     props: {
       categories,

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import Center from '@/components/Common/Center'
-import Rating from './Rating'
+import Rating from '../Rating'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -54,7 +54,7 @@ const Price = styled.div`
 export default function BestProducts({ products }) {
   return (
     <Center>
-      <Title>Best Selling Products</Title>
+      <Title>Sản phẩm bán chạy nhất</Title>
       <StyledProductsGrid>
         {products?.length > 0 &&
           products.map((product) => (
@@ -65,7 +65,7 @@ export default function BestProducts({ products }) {
               <div>
                 <ProductTitle href={'/product/' + product._id}>{product.name}</ProductTitle>
                 <Price>{product.price} đ</Price>
-                <Rating value={4} />
+                <Rating value={4} size="14px" />
               </div>
             </ProductBlock>
           ))}

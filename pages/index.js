@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import AXIOS from '@/lib/axios'
-import BestProducts from '@/components/BestProducts'
+import BestProducts from '@/components/Home/BestProducts'
 import Featured from '@/components/Home/Featured'
 import Header from '@/components/Common/Header'
 import ScrollUp from '@/components/ScrollUp'
