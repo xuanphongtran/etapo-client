@@ -11,8 +11,9 @@ import { CartContext } from '@/components/CartContext'
 import axios from 'axios'
 import AXIOS from '@/lib/axios'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import RadioCheckbox from '@/components/Common/RadioCheckbox'
+import { useRouter } from 'next/router'
 
 const breadcrumbItems = [
   { label: 'Trang chủ', url: '/' },
@@ -39,12 +40,15 @@ const Price = styled.div``
 
 const Checkout = () => {
   const { cartProducts } = useContext(CartContext)
+
   const [products, setProducts] = useState([])
   const [counts, setCounts] = useState(1)
-
   const [provinces, setProvinces] = useState([])
   const [districts, setDistricts] = useState([])
   const [wards, setWards] = useState([])
+  const [select, setSelect] = useState(false)
+
+  const router = useRouter()
 
   const {
     register,
@@ -55,18 +59,51 @@ const Checkout = () => {
   } = useForm()
 
   const goToPayment = async (data) => {
-    console.log(data)
-    // const response = await AXIOS.post('/payment/create_payment_url', {
-    //   amount: total,
-    //   orderDescription: 'Other',
-    //   orderType: '100000',
-    // })
-    // if (response.status == 200) {
-    //   window.location.href = response.data
-    // } else {
-    //   // Handle other types of responses
-    //   console.log('Payment creation successful, but no redirect.')
-    // }
+    let productsData = []
+    products.map((a) => {
+      productsData.push({
+        cost: counts[a._id] * Number(a.price.replace(/,/g, '')),
+        productId: a._id,
+        quantity: counts[a._id],
+      })
+    })
+    if (!select) {
+      // const response = AXIOS.post('/sales/createOrder', {
+      //   cost: total,
+      //   products: productsData,
+      //   paid: false,
+      //   ...data,
+      // })
+      // if ((response.status = 200)) {
+      router.push({
+        pathname: '/return',
+        query: { status: 'success' },
+      })
+      // }
+    } else {
+      const orderResponse = await AXIOS.post('/sales/createOrder', {
+        cost: total,
+        products: productsData,
+        paid: false,
+        ...data,
+      })
+      const paymentResponse = await AXIOS.post('/payment/create_payment_url', {
+        amount: total,
+        orderType: '100000',
+        orderDescription: orderResponse.data.userId,
+      })
+
+      if (paymentResponse.status == 200) {
+        // window.location.href = paymentResponse.data
+      } else {
+        // Handle other types of responses
+        console.log('Payment creation successful, but no redirect.')
+      }
+    }
+  }
+
+  const handleOptionChange = (value) => {
+    setSelect(value)
   }
 
   let total = 0
@@ -130,7 +167,7 @@ const Checkout = () => {
           console.log(error)
         })
     }
-  }, [setValue])
+  }, [])
 
   useEffect(() => {
     if (cartProducts.length > 0) {
@@ -156,7 +193,6 @@ const Checkout = () => {
       <Header />
       <Container>
         <Breadcrumb items={breadcrumbItems} />
-
         <Form $width="100%" onSubmit={handleSubmit(goToPayment)}>
           <ColumnsWrapper>
             <div>
@@ -243,6 +279,9 @@ const Checkout = () => {
                   <div>Tổng thanh toán</div>
                   <span>{total?.toLocaleString()} đ</span>
                 </Total>
+                <div>
+                  <RadioCheckbox isSelected={select} onSelectChange={handleOptionChange} />
+                </div>
                 <Button $orange $width="100%" $padding="15px 15px" type="submit">
                   Đặt hàng
                 </Button>

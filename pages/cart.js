@@ -26,7 +26,7 @@ export const EmptyCart = styled.div`
   flex-direction: column;
   svg {
     display: inline-block;
-    color: #999999;
+    color: ${(props) => (props.$success ? '#28a745' : '#999999')};
     height: 250px;
   }
 `

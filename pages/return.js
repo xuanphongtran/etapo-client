@@ -1,64 +1,66 @@
 import Header from '@/components/Common/Header'
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
+import React, { useContext, useEffect, useState } from 'react'
+import styled, { keyframes } from 'styled-components'
 import { Container, EmptyCart, EmptyCartButton, EmptyCartTitle } from './cart'
-import { CloseIcon } from '@/components/icons/Icon'
+import { CloseIcon, SuccessIcon } from '@/components/icons/Icon'
 import Footer from '@/components/Common/Footer'
 import ScrollUp from '@/components/ScrollUp'
-import Breadcrumb from '@/components/Common/BreakCrumb'
 import { CartContext } from '@/components/CartContext'
-import axios from 'axios'
 import AXIOS from '@/lib/axios'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-const breadcrumbItems = [
-  { label: 'Trang chủ', url: '/' },
-  { label: 'Thanh toán', url: '/' },
-]
-const ColumnsWrapper = styled.div`
-  margin: 20px 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  @media screen and (min-width: 768px) {
-    grid-template-columns: 0.8fr 0.6fr;
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+`
+const spinAnimation = keyframes`
+  to {
+    transform: rotate(360deg);
   }
-  gap: 80px;
 `
 
+const Spinner = styled.div`
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid #ffffff;
+  width: 40px;
+  height: 40px;
+  animation: ${spinAnimation} 0.8s linear infinite;
+`
 const Checkout = () => {
   const [isSuccess, setIsSuccess] = useState(false)
-  const { cartProducts, removeProduct, clearCart } = useContext(CartContext)
-  const [info, setInfo] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
+  const { clearCart } = useContext(CartContext)
+  const router = useRouter()
 
   const checkPaymentReturn = async (query) => {
-    const response = await AXIOS.get(`/payment/vnpay_return${query}`)
-    if (response.data.code == '00') {
-      clearCart()
-      setIsSuccess(true)
-      router.replace(router.pathname, router.pathname, { shallow: true })
-    } else alert('Thanh toán không thành công')
+    const paymentResponse = await AXIOS.get(`/payment/vnpay_return${query}`)
+    if (paymentResponse.data.code == '00') {
+      const data = paymentResponse?.data
+      const orderResponse = await AXIOS.put(`/sales/updateOrder`, data)
+      if (orderResponse.status == 200) {
+        clearCart()
+        setIsLoading(false)
+        router.replace(router.pathname, router.pathname, { shallow: true })
+      }
+    } else isSuccess(false)
   }
-
   useEffect(() => {
-    if (cartProducts.length > 0) {
-      axios.post('/api/cart', { ids: cartProducts }).then((response) => {
-        setProducts(response.data)
-      })
-      const count = {}
-      cartProducts.forEach((id) => {
-        count[id] = (count[id] || 0) + 1
-      })
-      setCounts(count)
+    const status = router?.query?.status
+    if (status === 'success') {
+      clearCart()
+      setIsLoading(false)
     } else {
-      setProducts([])
-      setCounts()
-    }
-  }, [cartProducts])
-
-  useEffect(() => {
-    if (router.asPath.includes('?')) {
-      const query = router?.asPath?.replace('/checkout', '')
+      const query = router?.asPath?.replace('/return', '')
       if (query) {
         checkPaymentReturn(query)
       }
@@ -71,29 +73,44 @@ const Checkout = () => {
         <Header />
         <Container>
           <EmptyCart>
-            <CloseIcon />
-            <EmptyCartTitle>Giỏ hàng của bạn đang trống</EmptyCartTitle>
+            <SuccessIcon />
+            <EmptyCartTitle>Thanh toán thất bại</EmptyCartTitle>
             <EmptyCartButton $background="#ff782c" $color="#ffffff" $hover="#000000" href={'/'}>
               Trở về trang chủ
             </EmptyCartButton>
           </EmptyCart>
         </Container>
         <Footer />
+        <ScrollUp />
       </>
     )
   }
+
   return (
     <>
       <Head>
         <title>Thanh toán</title>
       </Head>
-      <Header />
-      <Container>
-        <Breadcrumb items={breadcrumbItems} />
-        <ColumnsWrapper></ColumnsWrapper>
-      </Container>
-      <Footer />
-      <ScrollUp />
+      {isLoading ? (
+        <Overlay>
+          <Spinner />
+        </Overlay>
+      ) : (
+        <>
+          <Header />
+          <Container>
+            <EmptyCart $success>
+              <SuccessIcon />
+              <EmptyCartTitle>Thanh toán thành công</EmptyCartTitle>
+              <EmptyCartButton $background="#ff782c" $color="#ffffff" $hover="#000000" href={'/'}>
+                Trở về trang chủ
+              </EmptyCartButton>
+            </EmptyCart>
+          </Container>
+          <Footer />
+          <ScrollUp />
+        </>
+      )}
     </>
   )
 }
