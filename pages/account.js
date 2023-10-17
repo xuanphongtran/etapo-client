@@ -106,7 +106,7 @@ const Account = () => {
           <Columns $column="1fr 0.8fr">
             <RegisterForm width="100%" />
             <AccountLogin>
-              <Title>Đăng ký tài khoản</Title>
+              <Title>Đăng Nhập</Title>
               <LoginForm />
             </AccountLogin>
           </Columns>

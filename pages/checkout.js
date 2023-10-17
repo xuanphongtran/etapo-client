@@ -1,26 +1,18 @@
 import Header from '@/components/Common/Header'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import {
-  CartTotal,
-  Container,
-  EmptyCart,
-  EmptyCartButton,
-  EmptyCartTitle,
-  SubTotal,
-  Total,
-} from './cart'
-import { CloseIcon } from '@/components/icons/Icon'
+import { CartTotal, Container, SubTotal, Total } from './cart'
 import Footer from '@/components/Common/Footer'
 import ScrollUp from '@/components/ScrollUp'
 import Breadcrumb from '@/components/Common/BreakCrumb'
-import AddressForm from '@/components/AddressForm'
+import { Form, Input, Label, Select } from '@/components/AddressForm'
 import Button from '@/components/Common/Button'
 import { CartContext } from '@/components/CartContext'
 import axios from 'axios'
 import AXIOS from '@/lib/axios'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
 
 const breadcrumbItems = [
   { label: 'Trang chủ', url: '/' },
@@ -44,38 +36,37 @@ const Product = styled.div`
 `
 const Name = styled.div``
 const Price = styled.div``
+
 const Checkout = () => {
-  const [isSuccess, setIsSuccess] = useState(false)
-  const { cartProducts, removeProduct, clearCart } = useContext(CartContext)
+  const { cartProducts } = useContext(CartContext)
   const [products, setProducts] = useState([])
   const [counts, setCounts] = useState(1)
-  const [info, setInfo] = useState({})
 
-  const formDataRef = useRef({})
-  const router = useRouter()
+  const [provinces, setProvinces] = useState([])
+  const [districts, setDistricts] = useState([])
+  const [wards, setWards] = useState([])
 
-  const checkPaymentReturn = async (query) => {
-    const response = await AXIOS.get(`/payment/vnpay_return${query}`)
-    if (response.data.code == '00') {
-      clearCart()
-      setIsSuccess(true)
-      router.replace(router.pathname, router.pathname, { shallow: true })
-    } else alert('Thanh toán không thành công')
-  }
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm()
 
-  const goToPayment = async () => {
-    const formData = formDataRef.current.getData()
-    const response = await AXIOS.post('/payment/create_payment_url', {
-      amount: total,
-      orderDescription: 'Other',
-      orderType: '100000',
-    })
-    if (response.status == 200) {
-      window.location.href = response.data
-    } else {
-      // Handle other types of responses
-      console.log('Payment creation successful, but no redirect.')
-    }
+  const goToPayment = async (data) => {
+    console.log(data)
+    // const response = await AXIOS.post('/payment/create_payment_url', {
+    //   amount: total,
+    //   orderDescription: 'Other',
+    //   orderType: '100000',
+    // })
+    // if (response.status == 200) {
+    //   window.location.href = response.data
+    // } else {
+    //   // Handle other types of responses
+    //   console.log('Payment creation successful, but no redirect.')
+    // }
   }
 
   let total = 0
@@ -85,18 +76,61 @@ const Checkout = () => {
     }
   }
 
+  const fetchDistricts = async (provinceCode, district) => {
+    try {
+      const response = await axios.get(
+        `https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`,
+      )
+      setDistricts(response.data.districts)
+      setValue('district', district)
+    } catch (error) {
+      console.error('Error fetching districts:', error)
+    }
+  }
+
+  const fetchWards = async (districtCode, ward) => {
+    try {
+      const response = await axios.get(
+        `https://provinces.open-api.vn/api/d/${districtCode}?depth=2`,
+      )
+      setWards(response.data.wards)
+      setValue('ward', ward)
+    } catch (error) {
+      console.error('Error fetching wards:', error)
+    }
+  }
+
+  const onProvinceChange = (event) => {
+    fetchDistricts(event.target.value)
+  }
+
+  const onDistrictChange = (event) => {
+    fetchWards(event.target.value)
+  }
+
   useEffect(() => {
+    axios.get('https://provinces.open-api.vn/api/').then((response) => {
+      setProvinces(response.data)
+    })
     const token = localStorage.getItem('accessToken')
     if (token) {
       AXIOS.get('/auth/userinfo')
         .then((response) => {
-          setInfo(response.data)
+          const a = response.data
+          fetchDistricts(a?.province, a?.district)
+          fetchWards(a?.district, a?.ward)
+          setValue('name', a.name)
+          setValue('companyName', a?.companyName)
+          setValue('province', a?.province)
+          setValue('address', a?.address)
+          setValue('phoneNumber', a?.phoneNumber)
+          setValue('email', a?.email)
         })
         .catch((error) => {
           console.log(error)
         })
-    } else setInfo({})
-  }, [])
+    }
+  }, [setValue])
 
   useEffect(() => {
     if (cartProducts.length > 0) {
@@ -114,32 +148,6 @@ const Checkout = () => {
     }
   }, [cartProducts])
 
-  useEffect(() => {
-    if (router.asPath.includes('?')) {
-      const query = router?.asPath?.replace('/checkout', '')
-      if (query) {
-        checkPaymentReturn(query)
-      }
-    }
-  }, [])
-
-  if (isSuccess) {
-    return (
-      <>
-        <Header />
-        <Container>
-          <EmptyCart>
-            <CloseIcon />
-            <EmptyCartTitle>Giỏ hàng của bạn đang trống</EmptyCartTitle>
-            <EmptyCartButton $background="#ff782c" $color="#ffffff" $hover="#000000" href={'/'}>
-              Trở về trang chủ
-            </EmptyCartButton>
-          </EmptyCart>
-        </Container>
-        <Footer />
-      </>
-    )
-  }
   return (
     <>
       <Head>
@@ -148,42 +156,100 @@ const Checkout = () => {
       <Header />
       <Container>
         <Breadcrumb items={breadcrumbItems} />
-        <ColumnsWrapper>
-          <AddressForm width="100%" info={info} isCheckout={true} ref={formDataRef}></AddressForm>
-          <div>
-            <CartTotal>
-              <h3>Thanh toán</h3>
-              <SubTotal>
-                <div>Sản phẩm</div>
-                <span>Thành tiền</span>
-              </SubTotal>
-              {products.map((product, index) => (
-                <Product key={index}>
-                  <Name>
-                    {product.name} x {counts[product._id]}
-                  </Name>
-                  <Price>
-                    {(
-                      counts[product._id] * Number(product.price.replace(/,/g, ''))
-                    ).toLocaleString()}
-                    đ
-                  </Price>
-                </Product>
-              ))}
-              <SubTotal>
-                <div>Tổng tiền hàng</div>
-                <span>{total?.toLocaleString()} đ</span>
-              </SubTotal>
-              <Total>
-                <div>Tổng thanh toán</div>
-                <span>{total?.toLocaleString()} đ</span>
-              </Total>
-              <Button $orange $width="100%" $padding="15px 15px" onClick={goToPayment}>
-                Đặt hàng
-              </Button>
-            </CartTotal>
-          </div>
-        </ColumnsWrapper>
+
+        <Form $width="100%" onSubmit={handleSubmit(goToPayment)}>
+          <ColumnsWrapper>
+            <div>
+              <Label $required>Họ và tên</Label>
+              <Input
+                type="text"
+                placeholder="Họ và tên"
+                {...register('name', { required: true })}
+              />
+              <Label>Tên công ty (Nếu có)</Label>
+              <Input type="text" placeholder="Tên công ty" {...register('companyName')} />
+              <Label $required>Tỉnh thành phố</Label>
+              <Select {...register('province', { required: true })} onChange={onProvinceChange}>
+                <option value="">Chọn tỉnh/thành phố</option>
+                {provinces.map((a) => (
+                  <option key={a.code} value={a.code}>
+                    {a.name}
+                  </option>
+                ))}
+              </Select>
+              <Label $required>Quận/huyện</Label>
+              <Select {...register('district', { required: true })} onChange={onDistrictChange}>
+                <option value="">Chọn quận/huyện</option>
+                {districts.map((a) => (
+                  <option key={a.code} value={a.code}>
+                    {a.name}
+                  </option>
+                ))}
+              </Select>
+              <Label $required>Phường/xã</Label>
+              <Select {...register('ward', { required: true })}>
+                <option value="">Chọn phường/xã</option>
+                {wards.map((a) => (
+                  <option key={a.code} value={a.code}>
+                    {a.name}
+                  </option>
+                ))}
+              </Select>
+              <Label $required>Địa chỉ</Label>
+              <Input
+                type="text"
+                placeholder="Địa chỉ"
+                {...register('address', { required: true })}
+              />
+              <Label $required>Số điện thoại</Label>
+              <Input
+                type="number"
+                placeholder="Số điện thoại"
+                {...register('phoneNumber', { required: true })}
+              />
+              <Label $required>Email</Label>
+              <Input
+                {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
+                type="email"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div>
+              <CartTotal>
+                <h3>Thanh toán</h3>
+                <SubTotal>
+                  <div>Sản phẩm</div>
+                  <span>Thành tiền</span>
+                </SubTotal>
+                {products.map((product, index) => (
+                  <Product key={index}>
+                    <Name>
+                      {product.name} x {counts[product._id]}
+                    </Name>
+                    <Price>
+                      {(
+                        counts[product._id] * Number(product.price.replace(/,/g, ''))
+                      ).toLocaleString()}
+                      đ
+                    </Price>
+                  </Product>
+                ))}
+                <SubTotal>
+                  <div>Tổng tiền hàng</div>
+                  <span>{total?.toLocaleString()} đ</span>
+                </SubTotal>
+                <Total>
+                  <div>Tổng thanh toán</div>
+                  <span>{total?.toLocaleString()} đ</span>
+                </Total>
+                <Button $orange $width="100%" $padding="15px 15px" type="submit">
+                  Đặt hàng
+                </Button>
+              </CartTotal>
+            </div>
+          </ColumnsWrapper>
+        </Form>
       </Container>
       <Footer />
       <ScrollUp />

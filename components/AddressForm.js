@@ -1,8 +1,9 @@
 import styled, { css } from 'styled-components'
 import Button from './Common/Button'
 import { useForm } from 'react-hook-form'
-import { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
+import AXIOS from '@/lib/axios'
 
 export const Title = styled.h3`
   font-weight: 600;
@@ -47,58 +48,41 @@ export const Select = styled.select`
 export const Form = styled.form`
   width: ${(props) => props.$width || '80%'};
 `
-const AddressForm = forwardRef(({ width, info, isCheckout }, ref) => {
-  const {
-    register,
-    handleSubmit,
-    control,
-    setValue,
-    getValues,
-    formState: { errors },
-  } = useForm()
+const AddressForm = ({ width, info }) => {
+  const { register, handleSubmit, setValue } = useForm()
   const [provinces, setProvinces] = useState([])
   const [districts, setDistricts] = useState([])
   const [wards, setWards] = useState([])
 
-  const onSubmit = (data) => {
-    console.log(data)
-  }
-
-  useImperativeHandle(ref, () => ({
-    getData,
-  }))
-
-  const getData = () => {
-    // Return the data you want to pass to the parent
-    return {
-      name: getValues('name'),
-      companyName: getValues('companyName'),
-      province: getValues('province'),
-      district: getValues('district'),
-      ward: getValues('ward'),
-      address: getValues('address'),
-      phoneNumber: getValues('phoneNumber'),
-      email: getValues('email'),
+  const onSubmit = async (data) => {
+    try {
+      const response = await AXIOS.put('/auth/update', data)
+      if (response) {
+        window.alert('Cập nhập thành công')
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
-
-  const fetchDistricts = async (provinceCode) => {
+  const fetchDistricts = async (provinceCode, district) => {
     try {
       const response = await axios.get(
         `https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`,
       )
       setDistricts(response.data.districts)
+      setValue('district', district)
     } catch (error) {
       console.error('Error fetching districts:', error)
     }
   }
 
-  const fetchWards = async (districtCode) => {
+  const fetchWards = async (districtCode, ward) => {
     try {
       const response = await axios.get(
         `https://provinces.open-api.vn/api/d/${districtCode}?depth=2`,
       )
       setWards(response.data.wards)
+      setValue('ward', ward)
     } catch (error) {
       console.error('Error fetching wards:', error)
     }
@@ -117,13 +101,11 @@ const AddressForm = forwardRef(({ width, info, isCheckout }, ref) => {
       setProvinces(response.data)
     })
     if (info) {
-      fetchDistricts(info.province)
-      fetchWards(info.district)
+      setValue('province', info?.province)
+      fetchDistricts(info.province, info?.district)
+      fetchWards(info.district, info?.ward)
       setValue('name', info.name)
       setValue('companyName', info?.companyName)
-      setValue('province', info?.province)
-      setValue('district', info?.district)
-      setValue('ward', info?.ward)
       setValue('address', info?.address)
       setValue('phoneNumber', info?.phoneNumber)
       setValue('email', info?.email)
@@ -187,15 +169,12 @@ const AddressForm = forwardRef(({ width, info, isCheckout }, ref) => {
           required
           readOnly={info?.email ? true : false}
         />
-        {!isCheckout && (
-          <Button $orange $hover="#000000" type="submit">
-            Lưu địa chỉ
-          </Button>
-        )}
+        <Button $orange $hover="#000000" type="submit">
+          Lưu địa chỉ
+        </Button>
       </Form>
     </div>
   )
-})
+}
 
-AddressForm.displayName = 'AddressForm'
 export default AddressForm
