@@ -125,9 +125,21 @@ const EntrySummary = ({ product }) => {
         <ProductBrand>SKU: {product._id?.toUpperCase()}</ProductBrand>
       </ProductAfterTitle>
       <PriceRow>
-        <CurrentPrice>{product.price}đ</CurrentPrice>
-        <ListPrice>{product.price}đ</ListPrice>
-        <DiscountRate>{product.discount}%</DiscountRate>
+        {product.discount ? (
+          <>
+            <CurrentPrice>
+              {(
+                (Number(product.price.replace(/,/g, '')) * (100 - product.discount)) /
+                100
+              ).toLocaleString()}
+              đ
+            </CurrentPrice>
+            <ListPrice>{product.price}đ</ListPrice>
+            <DiscountRate>-{product.discount}%</DiscountRate>
+          </>
+        ) : (
+          <CurrentPrice>{product.price}đ</CurrentPrice>
+        )}
       </PriceRow>
       <Rating value={product?.averageStarPoint} reviewCount={product?.reviewCount} />
       <CartForm>

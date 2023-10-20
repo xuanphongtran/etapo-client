@@ -157,16 +157,16 @@ export default function Header({ showHeader }) {
                 <NavLink href={'/categories'}>SẢN PHẨM</NavLink>
               </MenuLi>
               <MenuLi>
-                <NavLink href="#">SHOP</NavLink>
+                <NavLink href="#">CHÓ</NavLink>
               </MenuLi>
               <MenuLi>
-                <NavLink href="#">PAGES</NavLink>
+                <NavLink href="#">MÈO</NavLink>
               </MenuLi>
               <MenuLi>
                 <NavLink href="#">BLOG</NavLink>
               </MenuLi>
               <MenuLi>
-                <NavLink href="#">CONTACT US</NavLink>
+                <NavLink href="#">VỀ CHÚNG TÔi</NavLink>
               </MenuLi>
             </MenuUl>
           </LayoutMenu>

@@ -188,7 +188,13 @@ const CartPage = () => {
   let total = 0
   if (counts) {
     for (const product of products) {
-      total += counts[product._id] * Number(product.price.replace(/,/g, ''))
+      if (product.discount) {
+        total +=
+          (counts[product._id] *
+            Number(product.price.replace(/,/g, '')) *
+            (100 - product.discount)) /
+          100
+      } else total += counts[product._id] * Number(product.price.replace(/,/g, ''))
     }
   }
 
@@ -239,7 +245,15 @@ const CartPage = () => {
                       <td>
                         <NavLink href={'/product/' + product._id}>{product.name}</NavLink>
                       </td>
-                      <td>{product.price} đ</td>
+                      <td>
+                        {product.discount
+                          ? (
+                              (Number(product.price.replace(/,/g, '')) * (100 - product.discount)) /
+                              100
+                            ).toLocaleString()
+                          : product.price}
+                        đ
+                      </td>
                       <td>
                         <CounterContainer>
                           <Button $decrement="true" onClick={() => decrement(product._id)}>
@@ -253,9 +267,16 @@ const CartPage = () => {
                       </td>
                       <td>
                         <Price>
-                          {(
-                            counts[product._id] * Number(product.price.replace(/,/g, ''))
-                          ).toLocaleString()}
+                          {product.discount
+                            ? (
+                                ((Number(product.price.replace(/,/g, '')) *
+                                  (100 - product.discount)) /
+                                  100) *
+                                counts[product._id]
+                              ).toLocaleString()
+                            : (
+                                counts[product._id] * Number(product.price.replace(/,/g, ''))
+                              ).toLocaleString()}
                           đ
                         </Price>
                       </td>

@@ -10,7 +10,7 @@ import AXIOS from '@/lib/axios'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-const Overlay = styled.div`
+export const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -28,7 +28,7 @@ const spinAnimation = keyframes`
   }
 `
 
-const Spinner = styled.div`
+export const Spinner = styled.div`
   border: 4px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   border-top: 4px solid #ffffff;
@@ -37,7 +37,7 @@ const Spinner = styled.div`
   animation: ${spinAnimation} 0.8s linear infinite;
 `
 const Checkout = () => {
-  const [isSuccess, setIsSuccess] = useState(false)
+  const [isFailed, setIsFailed] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const { clearCart } = useContext(CartContext)
   const router = useRouter()
@@ -52,7 +52,7 @@ const Checkout = () => {
         setIsLoading(false)
         router.replace(router.pathname, router.pathname, { shallow: true })
       }
-    } else isSuccess(false)
+    } else setIsFailed(true)
   }
   useEffect(() => {
     const status = router?.query?.status
@@ -67,7 +67,7 @@ const Checkout = () => {
     }
   }, [])
 
-  if (isSuccess) {
+  if (isFailed) {
     return (
       <>
         <Header />

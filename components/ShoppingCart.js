@@ -166,8 +166,14 @@ const ShoppingCart = ({ setCartActive }) => {
   let total = 0
   for (const productId of cartProducts) {
     const price = products.find((p) => p._id === productId)?.price || '0'
-    const formatPrice = Number(price.replace(/,/g, ''))
-    total += formatPrice
+    const discount = products.find((p) => p._id === productId)?.discount || '0'
+    if (discount === '0') {
+      const formatPrice = Number(price.replace(/,/g, ''))
+      total += formatPrice
+    } else {
+      const formatPrice = (Number(price.replace(/,/g, '')) * (100 - discount)) / 100
+      total += formatPrice
+    }
   }
 
   return (
@@ -193,7 +199,16 @@ const ShoppingCart = ({ setCartActive }) => {
                       <ProductTitle>{product.name}</ProductTitle>
                       <Quantity>
                         {cartProducts.filter((id) => id === product._id).length} x
-                        <Price>{product.price} đ</Price>
+                        <Price>
+                          {product.discount
+                            ? (
+                                (Number(product.price.replace(/,/g, '')) *
+                                  (100 - product.discount)) /
+                                100
+                              ).toLocaleString()
+                            : product.price}
+                          đ
+                        </Price>
                       </Quantity>
                       <RemoveButton onClick={() => removeProduct(product._id)}>
                         <CloseIcon />

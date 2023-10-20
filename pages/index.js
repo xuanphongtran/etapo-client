@@ -8,7 +8,7 @@ import Footer from '@/components/Common/Footer'
 import { Banner } from '@/components/Common/Banner'
 import { styled } from 'styled-components'
 
-export default function HomePage({ featuredProduct, bestProducts }) {
+export default function HomePage({ bestProducts }) {
   const HomeSection = styled.div`
     background-color: #ffffff;
   `
@@ -22,7 +22,7 @@ export default function HomePage({ featuredProduct, bestProducts }) {
       </Head>
       <Header showHeader="static" />
       <HomeSection>
-        <Featured product={featuredProduct} />
+        <Featured />
         <BestProducts products={bestProducts} />
         <BannerContainer>
           <Banner column={3} />
@@ -36,14 +36,11 @@ export default function HomePage({ featuredProduct, bestProducts }) {
 }
 
 export async function getServerSideProps() {
-  const id = '6511a65749ad81f96d39b880'
-  const featuredProduct = await AXIOS.get(`/product/${id}`).then((response) => response.data)
   const bestProducts = await AXIOS.get(`/product`).then(
     (response) => response.data.productWithStats,
   )
   return {
     props: {
-      featuredProduct,
       bestProducts,
     },
   }

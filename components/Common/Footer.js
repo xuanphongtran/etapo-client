@@ -110,28 +110,24 @@ const Footer = () => {
             </SocialContainer>
           </FooterColumn>
           <FooterColumn>
-            <FooterTitle>USEFUL LINKS</FooterTitle>
+            <FooterTitle>SHOP</FooterTitle>
             <FooterUl>
-              <Footerli>New Product</Footerli>
-              <Footerli>Best Sellers</Footerli>
-              <Footerli>Bundle & Save</Footerli>
-              <Footerli>Online Gift Card</Footerli>
-              <Footerli>Discount </Footerli>
-              <Footerli>Pet Store Locator</Footerli>
+              <Footerli>Dành cho chó</Footerli>
+              <Footerli>Dành cho mèo</Footerli>
+              <Footerli>Thương hiệu</Footerli>
+              <Footerli>Blogs</Footerli>
+              <Footerli>Bộ sưu tập</Footerli>
             </FooterUl>
           </FooterColumn>
           <FooterColumn>
-            <FooterTitle>MY ACCOUNT</FooterTitle>
+            <FooterTitle>VỀ ZIGGY</FooterTitle>
             <FooterUl>
-              <Footerli>New Product</Footerli>
-              <Footerli>Best Sellers</Footerli>
-              <Footerli>Bundle & Save</Footerli>
-              <Footerli>Online Gift Card</Footerli>
-              <Footerli>Discount </Footerli>
-              <Footerli>Pet Store Locator</Footerli>
+              <Footerli>Giới thiệu</Footerli>
+              <Footerli>Điều khoản sử dụng</Footerli>
+              <Footerli>Chính sách bảo mật</Footerli>
             </FooterUl>
           </FooterColumn>
-          <FooterColumn>
+          {/* <FooterColumn>
             <FooterTitle>COMPANY</FooterTitle>
             <FooterUl>
               <Footerli>New Product</Footerli>
@@ -144,11 +140,10 @@ const Footer = () => {
           </FooterColumn>
           <FooterColumn>
             <FooterTitle>NEWSLETTER</FooterTitle>
-          </FooterColumn>
+          </FooterColumn> */}
         </FooterWrapper>
         <FooterDivider>
           <Copyrights>Copyright © 2023 XuanPhong. All rights reserved.</Copyrights>
-          <Copyrights>Privacy & Cookie Policy &nbsp; &nbsp; Terms of Service</Copyrights>
         </FooterDivider>
       </FooterConteiner>
     </footer>

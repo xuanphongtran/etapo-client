@@ -67,11 +67,18 @@ const ProductCaption = styled.div`
   padding-top: 16px;
   transition: all 0.3s ease;
 `
+
 const Price = styled.div`
   margin-bottom: 5px;
   font-size: 18px;
   font-weight: 700;
   color: #6839cc;
+  & > span {
+    margin-left: 10px;
+    color: #808089;
+    text-decoration: line-through;
+    font-size: 18px;
+  }
 `
 const ProductTitle = styled(Link)`
   text-decoration: none;
@@ -105,9 +112,20 @@ export const ProductBlock = ({ product }) => {
       </ProductTransition>
 
       <ProductCaption>
-        <Price>{product.price} đ</Price>
+        {product?.discount ? (
+          <Price>
+            {(
+              (Number(product.price.replace(/,/g, '')) * (100 - product.discount)) /
+              100
+            ).toLocaleString()}{' '}
+            đ<span>{product.price}đ</span>
+          </Price>
+        ) : (
+          <Price>{product.price} đ</Price>
+        )}
+
         <ProductTitle href={'/product/' + product._id}>{product.name}</ProductTitle>
-        <ProductRating value={1} />
+        <ProductRating value={product?.stat} />
       </ProductCaption>
     </Container>
   )

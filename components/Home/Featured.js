@@ -85,7 +85,7 @@ const config = [
     component: <Home3 />,
   },
 ]
-export default function Featured({ product }) {
+export default function Featured() {
   const [index, setIndex] = useState(0)
   const next = () => {
     setIndex((state) => (state += 1))

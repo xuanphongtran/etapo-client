@@ -68,23 +68,27 @@ const Checkout = () => {
       })
     })
     if (!select) {
-      // const response = AXIOS.post('/sales/createOrder', {
-      //   cost: total,
-      //   products: productsData,
-      //   paid: false,
-      //   ...data,
-      // })
-      // if ((response.status = 200)) {
-      router.push({
-        pathname: '/return',
-        query: { status: 'success' },
+      const response = AXIOS.post('/sales/createOrder', {
+        cost: total,
+        products: productsData,
+        paid: false,
+        delFlag: 0,
+        status: 1,
+        ...data,
       })
-      // }
+      if ((response.status = 200)) {
+        router.push({
+          pathname: '/return',
+          query: { status: 'success' },
+        })
+      }
     } else {
       const orderResponse = await AXIOS.post('/sales/createOrder', {
         cost: total,
         products: productsData,
         paid: false,
+        delFlag: 0,
+        status: 1,
         ...data,
       })
       const paymentResponse = await AXIOS.post('/payment/create_payment_url', {
@@ -94,7 +98,7 @@ const Checkout = () => {
       })
 
       if (paymentResponse.status == 200) {
-        // window.location.href = paymentResponse.data
+        window.location.href = paymentResponse.data
       } else {
         // Handle other types of responses
         console.log('Payment creation successful, but no redirect.')
@@ -156,7 +160,7 @@ const Checkout = () => {
           const a = response.data
           fetchDistricts(a?.province, a?.district)
           fetchWards(a?.district, a?.ward)
-          setValue('name', a.name)
+          setValue('fullName', a.name)
           setValue('companyName', a?.companyName)
           setValue('province', a?.province)
           setValue('address', a?.address)
@@ -200,7 +204,7 @@ const Checkout = () => {
               <Input
                 type="text"
                 placeholder="Họ và tên"
-                {...register('name', { required: true })}
+                {...register('fullName', { required: true })}
               />
               <Label>Tên công ty (Nếu có)</Label>
               <Input type="text" placeholder="Tên công ty" {...register('companyName')} />

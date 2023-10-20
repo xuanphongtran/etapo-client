@@ -130,7 +130,7 @@ const Login = ({ setLoginActive }) => {
       </LoginHeader>
       <LoginForm />
       <LoginFooter>
-        <NavLink href={'/account'} $color="#999999">
+        <NavLink href={'/account/lost-password'} $color="#999999">
           Quên mật khẩu ?
         </NavLink>
       </LoginFooter>
