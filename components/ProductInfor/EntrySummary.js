@@ -20,7 +20,7 @@ const Status = styled.span`
   text-transform: capitalize;
   padding: 5px 10px 5px 13px;
   border-radius: 4px 4px 8px 8px;
-  background-color: #39b54a;
+  background-color: ${(props) => props.$background || '#39b54a'};
   color: #fff;
   clip-path: polygon(0 0, 100% 0, 97% 100%, 4% 100%);
 `
@@ -80,6 +80,7 @@ const DiscountRate = styled.div`
 `
 const CartForm = styled.div`
   border: 1px dashed #e5e5e5;
+  margin-bottom: 10px;
   border-radius: 4px;
   padding: 20px 30px;
   display: flex;
@@ -96,7 +97,6 @@ const CounterContainer = styled.div`
 export const Count = styled.span`
   font-size: 18px;
 `
-
 const EntrySummary = ({ product }) => {
   const { addProduct, addWishlist } = useContext(CartContext)
   const [count, setCount] = useState(1)
@@ -108,11 +108,14 @@ const EntrySummary = ({ product }) => {
       setCount(count - 1)
     }
   }
-
   return (
     <div>
       <EntrySummaryTop>
-        <Status>Còn hàng</Status>
+        {product?.quantity ? (
+          <Status>Còn hàng</Status>
+        ) : (
+          <Status $background="#fcb900">Hết hàng</Status>
+        )}
       </EntrySummaryTop>
       <Title>{product.name}</Title>
       <ProductAfterTitle>
@@ -122,7 +125,14 @@ const EntrySummary = ({ product }) => {
             {product?.brand?.name}
           </NavLink>
         </ProductBrand>
-        <ProductBrand>SKU: {product._id?.toUpperCase()}</ProductBrand>
+        <ProductBrand>
+          Danh mục:
+          <NavLink
+            href={{ pathname: '/categories', query: { category: `${product?.category._id}` } }}
+          >
+            {product?.category?.name}
+          </NavLink>
+        </ProductBrand>
       </ProductAfterTitle>
       <PriceRow>
         {product.discount ? (
@@ -142,24 +152,33 @@ const EntrySummary = ({ product }) => {
         )}
       </PriceRow>
       <Rating value={product?.averageStarPoint} reviewCount={product?.reviewCount} />
-      <CartForm>
-        <CounterContainer>
-          <Button $decrement="true" onClick={decrement}>
-            -
+      {product?.quantity ? (
+        <CartForm>
+          <CounterContainer>
+            <Button $decrement="true" onClick={decrement}>
+              -
+            </Button>
+            <Count>{count}</Count>
+            <Button $increment="true" onClick={increment}>
+              +
+            </Button>
+          </CounterContainer>
+          <Button primary="true" onClick={() => addProduct(product._id, count)}>
+            <CartIcon />
+            Thêm vào giỏ hàng
           </Button>
-          <Count>{count}</Count>
-          <Button $increment="true" onClick={increment}>
-            +
+          <Button onClick={() => addWishlist(product._id)}>
+            <HeartIcon />
           </Button>
-        </CounterContainer>
-        <Button primary="true" onClick={() => addProduct(product._id, count)}>
-          <CartIcon />
-          Thêm vào giỏ hàng
-        </Button>
-        <Button onClick={() => addWishlist(product._id)}>
-          <HeartIcon />
-        </Button>
-      </CartForm>
+        </CartForm>
+      ) : (
+        <CartForm>
+          <Button primary="true" onClick={() => addWishlist(product._id)}>
+            <HeartIcon />
+            Thêm vào danh sách yêu thích
+          </Button>
+        </CartForm>
+      )}
     </div>
   )
 }
