@@ -46,7 +46,7 @@ const TabsButton = styled.div`
   align-items: flex-end;
 `
 const BreadcrumbId = styled.div`
-  margin-top: 95px;
+  margin-top: 130px;
   padding: 0 30px;
 `
 const ProductPage = ({ product }) => {

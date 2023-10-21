@@ -16,7 +16,7 @@ import Head from 'next/head'
 import axios from 'axios'
 
 export const Container = styled.div`
-  margin: 100px 40px 10px 40px;
+  margin: 135px 40px 10px 40px;
   padding: 0 60px;
 `
 //EmptyCart

@@ -16,7 +16,7 @@ import { useRouter } from 'next/router'
 import Pagination from '@/components/Common/Pagination'
 
 const CategoriesContainer = styled.div`
-  margin-top: 84px;
+  margin-top: 118px;
   padding: 0 110px;
 `
 const Content = styled.div`

@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '@/components/CartContext'
 import Image from 'next/image'
 import logo from 'public/logo.svg'
-import { AccountIcon, CartIcon, HeartIcon } from '../icons/Icon'
+import { AccountIcon, CartIcon, HeartIcon, PhoneIcon, TruckIcon } from '../icons/Icon'
 import Searchbar from '../SearchBar'
 import ShoppingCart from '../ShoppingCart'
 import Link from 'next/link'
@@ -14,15 +14,15 @@ const HeaderSection = styled.section`
   top: 0;
   position: ${(props) => props.$showheader || 'fixed'};
   width: 100%;
-  padding: 0.75rem 0;
-  background-color: #ffffff;
+  padding: 0;
   z-index: 980;
   border-bottom: ${(props) => (props.$showheader ? 'none' : '1px dashed #e5e5e5')};
 `
 const ElementRow = styled.div`
   display: flex;
-  height: 60px;
-  padding: 0 100px;
+  height: ${(props) => props.$height || '60px'};
+  padding: 12px 100px;
+  background-color: ${(props) => props.$background || '#ffffff'};
   align-items: center;
   justify-content: space-between;
 `
@@ -90,6 +90,22 @@ const IconSpan = styled.div`
   background-color: #ff782c;
   border-radius: 50%;
 `
+const OrderTracking = styled(NavLink)`
+  display: flex;
+  color: #ffffff !important;
+  align-items: center;
+`
+const Hotline = styled.div`
+  display: flex;
+  color: #ffffff;
+  align-items: center;
+  svg {
+    height: 20px;
+  }
+  &:hover {
+    color: #ff782c !important;
+  }
+`
 
 export default function Header({ showHeader }) {
   const { cartProducts, wishlist } = useContext(CartContext)
@@ -144,6 +160,16 @@ export default function Header({ showHeader }) {
 
   return (
     <HeaderSection $showheader={showHeader}>
+      <ElementRow $height="10px" $background="#6839cc">
+        <OrderTracking href={'/order-tracking'}>
+          <TruckIcon />
+          Theo dõi đơn hàng
+        </OrderTracking>
+        <Hotline>
+          <PhoneIcon />
+          +84-582-534-778
+        </Hotline>
+      </ElementRow>
       <ElementRow>
         <ElementColumn>
           <NavLink href={'/'}>

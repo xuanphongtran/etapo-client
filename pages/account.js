@@ -10,7 +10,6 @@ import DashBoard from '@/components/Account/DashBoard'
 import Orders from '@/components/Account/Orders'
 import Dowloads from '@/components/Account/Dowloads'
 import Addresses from '@/components/Account/Addresses'
-import AccountDetails from '@/components/Account/AccountDetails'
 import RegisterForm from '@/components/RegisterForm'
 import { Title } from '@/components/AddressForm'
 import { LoginForm } from '@/components/Login'
@@ -24,6 +23,7 @@ import {
   LogOutIcon,
   OrdersIcon,
 } from '@/components/icons/Icon'
+import ChangePassword from '@/components/Account/AccountDetails'
 
 const breadcrumbItems = [
   { label: 'Trang chủ', url: '/' },
@@ -32,10 +32,10 @@ const breadcrumbItems = [
 const ItemValue = [
   { label: 'Tài khoản của tôi', value: 'dashboard', tab: 1, icon: <ChartIcon /> },
   { label: 'Đơn hàng', value: 'orders', tab: 2, icon: <BoxIcon /> },
-  { label: 'Tải xuống', value: 'downloads', tab: 3, icon: <OrdersIcon /> },
-  { label: 'Chỉnh sửa địa chỉ', value: 'addresses', tab: 4, icon: <HomeIcon /> },
-  { label: 'Chi tiết tài khoản', value: 'accountdetails', tab: 5, icon: <AccountIcon /> },
-  { label: 'Danh sách yêu thích', value: 'wishlist', tab: 6, icon: <HeartIcon /> },
+  // { label: 'Tải xuống', value: 'downloads', tab: 3, icon: <OrdersIcon /> },
+  { label: 'Chỉnh sửa địa chỉ', value: 'addresses', tab: 3, icon: <HomeIcon /> },
+  { label: 'Đổi mật khẩu', value: 'changepassword', tab: 4, icon: <AccountIcon /> },
+  { label: 'Danh sách yêu thích', value: 'wishlist', tab: 5, icon: <HeartIcon /> },
 ]
 export const Columns = styled.div`
   display: grid;
@@ -142,10 +142,10 @@ const Account = () => {
           <Content>
             {activeTab == 1 && <DashBoard />}
             {activeTab == 2 && <Orders />}
-            {activeTab == 3 && <Dowloads />}
-            {activeTab == 4 && <Addresses />}
-            {activeTab == 5 && <AccountDetails />}
-            {activeTab == 6 && <TableWishList />}
+            {/* {activeTab == 3 && <Dowloads />} */}
+            {activeTab == 3 && <Addresses />}
+            {activeTab == 4 && <ChangePassword />}
+            {activeTab == 5 && <TableWishList />}
           </Content>
         </Columns>
       </Container>
