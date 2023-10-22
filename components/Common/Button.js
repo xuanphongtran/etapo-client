@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components'
-import { primary } from '@/lib/colors'
 
 export const ButtonStyle = css`
   border: 0;
@@ -24,7 +23,7 @@ export const ButtonStyle = css`
     color: ${(props) => props.$color || '#ffffff'};
   }
   ${(props) =>
-    props.primary &&
+    props.$purple &&
     css`
       background-color: #6839cc;
       color: #ffffff;

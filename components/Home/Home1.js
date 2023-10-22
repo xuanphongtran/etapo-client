@@ -74,7 +74,7 @@ const Home1 = () => {
         <Head>MIỄN PHÍ VẬN CHUYỂN</Head>
         <Title>Đồ Chơi Cho Chó Cực Kỳ Bền</Title>
         <Bottom>Đồ gì cũng có !</Bottom>
-        <Button primary $padding="15px 25px" $fontSize="25px" $width="200px">
+        <Button $purple $padding="15px 25px" $fontSize="25px" $width="200px">
           Mua ngay
         </Button>
       </Content>

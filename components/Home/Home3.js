@@ -78,7 +78,7 @@ const Home3 = () => {
         <Head>GIẢM GIÁ 10%</Head>
         <Title>Những thức ăn tốt nhất cho thú cưng của bạn</Title>
         <Bottom>Giúp thú cưng của bạn duy trì cân nặng khỏe mạnh hơn !</Bottom>
-        <Button primary $padding="15px 25px" $fontSize="25px" $width="200px">
+        <Button $purple $padding="15px 25px" $fontSize="25px" $width="200px">
           Mua ngay
         </Button>
       </Content>

@@ -40,7 +40,6 @@ const RegisterForm = ({ width }) => {
       setError(error.response?.data)
       console.log(error)
     }
-    console.log(data)
   }
 
   return (

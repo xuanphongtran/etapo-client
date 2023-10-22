@@ -105,7 +105,7 @@ const CommentForm = styled.textarea`
   }
 `
 export default function TabsContent({ activeTab, product }) {
-  const [startPoint, setStartPoint] = useState(0)
+  const [starPoint, setstarPoint] = useState(0)
   const [commentText, setCommentText] = useState('')
   const [login, setLogin] = useState(false)
   const [review, setReview] = useState([])
@@ -125,23 +125,22 @@ export default function TabsContent({ activeTab, product }) {
     e.preventDefault()
     try {
       const response = await AXIOS.post('/product/reviews', {
-        startPoint,
+        starPoint,
         comment: commentText,
         productId: product._id,
       })
       if (response) {
-        // window.location.reload()
+        window.location.reload()
       } else {
         // Xử lý lỗi
         console.error(data.message)
       }
-      console.log(startPoint, commentText)
     } catch (error) {
       console.error('Lỗi kết nối:', error.message)
     }
   }
   const handleRatingChange = (selectedStars) => {
-    setStartPoint(selectedStars)
+    setstarPoint(selectedStars)
   }
 
   return (
@@ -170,7 +169,7 @@ export default function TabsContent({ activeTab, product }) {
                   <AccountIcon />
                 </Avatar>
                 <CommentText>
-                  <Rating size="16px" $notReview value={a?.startPoint} />
+                  <Rating size="16px" $notReview value={a?.starPoint} />
                   <Meta>
                     <div>{a.userId?.name}</div>
                     <div>{a.updatedAt}</div>
@@ -192,7 +191,7 @@ export default function TabsContent({ activeTab, product }) {
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
               />
-              <Button primary="true">Xác nhận</Button>
+              <Button $purple>Xác nhận</Button>
             </ReviewForm>
           ) : (
             <></>

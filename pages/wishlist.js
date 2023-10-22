@@ -12,6 +12,7 @@ import { CartContext } from '@/components/CartContext'
 import { CartIcon, CloseIcon } from '@/components/icons/Icon'
 import { NavLink } from '@/components/Common/NavLink'
 import { Container, EmptyCart, EmptyCartButton, EmptyCartTitle } from './cart'
+import Head from 'next/head'
 
 const breadcrumbItems = [
   { label: 'Trang chủ', url: '/' },
@@ -61,7 +62,6 @@ export const TableWishList = () => {
     } else {
       setProducts([])
     }
-    console.log(products)
   }, [wishlist])
   return (
     <>
@@ -108,6 +108,9 @@ export const TableWishList = () => {
 const WishList = () => {
   return (
     <>
+      <Head>
+        <title>Danh sách yêu thích</title>
+      </Head>
       <Header />
       <Container>
         <Breadcrumb items={breadcrumbItems} />

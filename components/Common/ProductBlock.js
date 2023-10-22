@@ -34,6 +34,8 @@ const ProductTransition = styled.div`
 `
 const AddToCartButton = styled(Button)`
   position: absolute;
+  background-color: #6839cc;
+  color: #ffffff;
   bottom: 0px;
   left: 50%;
   width: 200px;
@@ -73,11 +75,18 @@ const Price = styled.div`
   font-size: 18px;
   font-weight: 700;
   color: #6839cc;
+  display: flex;
+  align-items: center;
   & > span {
     margin-left: 10px;
     color: #808089;
     text-decoration: line-through;
     font-size: 18px;
+  }
+  & > span:last-child {
+    text-decoration: none;
+    font-size: 14px;
+    color: #ff424e;
   }
 `
 const ProductTitle = styled(Link)`
@@ -95,7 +104,6 @@ const ProductRating = styled(Rating)`
 `
 export const ProductBlock = ({ product }) => {
   const { addProduct, addWishlist } = useContext(CartContext)
-
   return (
     <Container>
       <ProductTransition>
@@ -105,10 +113,16 @@ export const ProductBlock = ({ product }) => {
         <NavLink href={`/product/${product._id}`}>
           <Image src={product.images?.[0]} alt="" width={300} height={300} loading="lazy" />
         </NavLink>
-        <AddToCartButton primary="true" onClick={() => addProduct(product._id, 1)}>
-          <CartIcon />
-          Add to cart
-        </AddToCartButton>
+        {product?.stat?.quantity > 0 ? (
+          <AddToCartButton onClick={() => addProduct(product._id, 1)}>
+            <CartIcon />
+            Thêm vào giỏ hàng
+          </AddToCartButton>
+        ) : (
+          <AddToCartButton>
+            <NavLink href={`/product/${product._id}`}>Xem sản phẩm</NavLink>
+          </AddToCartButton>
+        )}
       </ProductTransition>
 
       <ProductCaption>
@@ -119,13 +133,14 @@ export const ProductBlock = ({ product }) => {
               100
             ).toLocaleString()}{' '}
             đ<span>{product.price}đ</span>
+            <span>-{product.discount}%</span>
           </Price>
         ) : (
           <Price>{product.price} đ</Price>
         )}
 
         <ProductTitle href={'/product/' + product._id}>{product.name}</ProductTitle>
-        <ProductRating value={product?.stat} />
+        <ProductRating value={product?.averageStarPoint} reviewCount={product?.reviewCount} />
       </ProductCaption>
     </Container>
   )

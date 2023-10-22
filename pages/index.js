@@ -7,8 +7,10 @@ import ScrollUp from '@/components/ScrollUp'
 import Footer from '@/components/Common/Footer'
 import { Banner } from '@/components/Common/Banner'
 import { styled } from 'styled-components'
+import BrowseByCategories from '@/components/Home/BrowseByCategories'
+import MaybeULike from '@/components/Home/MaybeULike'
 
-export default function HomePage({ bestProducts }) {
+export default function HomePage({ bestProducts, categories, likeProducts }) {
   const HomeSection = styled.div`
     background-color: #ffffff;
   `
@@ -28,6 +30,9 @@ export default function HomePage({ bestProducts }) {
           <Banner column={3} />
           <Banner column={2} />
         </BannerContainer>
+        {/* <Collection products={bestProducts} /> */}
+        <BrowseByCategories categories={categories} />
+        <MaybeULike products={likeProducts} />
       </HomeSection>
       <Footer />
       <ScrollUp />
@@ -36,12 +41,18 @@ export default function HomePage({ bestProducts }) {
 }
 
 export async function getServerSideProps() {
-  const bestProducts = await AXIOS.get(`/product`).then(
+  const bestProducts = await AXIOS.get(`/product`, { params: { pageSize: 4 } }).then(
     (response) => response.data.productWithStats,
   )
+  const categories = await AXIOS.get(`/client/categories`, {
+    params: { level: 2, page: 0, pageSize: 6 },
+  }).then((response) => response.data.categories)
+  const likeProducts = await AXIOS.get(`/product/likeproducts`).then((response) => response.data)
   return {
     props: {
       bestProducts,
+      categories,
+      likeProducts,
     },
   }
 }

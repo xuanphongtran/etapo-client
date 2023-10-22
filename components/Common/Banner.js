@@ -104,7 +104,7 @@ export const Banner = ({ column }) => {
             <ContentWrapper $size="20px" $width="185px">
               Miễn phí giao hàng
               <span>Giảm giá tới 30%</span>
-              <ButtonLink primary="true" href="/categories">
+              <ButtonLink $purple href="/categories">
                 Mua sắm ngay
               </ButtonLink>
             </ContentWrapper>

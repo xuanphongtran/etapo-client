@@ -1,14 +1,13 @@
 'use client'
 import Head from 'next/head'
 import AXIOS from '@/lib/axios'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 import ScrollUp from '@/components/ScrollUp'
 import Breadcrumb from '@/components/Common/BreakCrumb'
 import Dropdown from '@/components/Common/Dropdown'
 import Footer from '@/components/Common/Footer'
 import Header from '@/components/Common/Header'
-import Slider from '@/components/Common/Slider'
 import { Banner } from '@/components/Common/Banner'
 import { ProductBlock } from '@/components/Common/ProductBlock'
 import { PawPrint } from '@/components/icons/Icon'
@@ -80,7 +79,7 @@ const ResultCount = styled.p`
 const ProductSpacing = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
-  grid-gap: 20px;
+  grid-gap: 10px;
   margin: 0 auto;
 `
 const breadcrumbItems = [
@@ -88,28 +87,24 @@ const breadcrumbItems = [
   { label: 'Danh sách sản phẩm', url: '/categories' },
 ]
 const options = [
-  'Defaul sorting',
-  'Sort by popularity',
-  'Sort by average rating',
-  'Sort by lastest',
-  'Sort by price: low to hight',
-  'Sort by price: hight to low',
+  { label: 'Mới nhất', value: { field: 'createdAt', sort: 'desc' } },
+  { label: 'Giá thấp đến cao', value: { field: 'price', sort: 'asc' } },
+  { label: 'Giá cao đến thấp', value: { field: 'price', sort: 'desc' } },
+  { label: '% Giảm giá nhiều', value: { field: 'discount', sort: 'desc' } },
 ]
 const Categories = ({ brands, categories }) => {
+  const router = useRouter()
   const [products, setProducts] = useState()
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(12)
   const [sort, setSort] = useState({})
   const [search, setSearch] = useState('')
   const [total, setTotal] = useState(0)
-  const [category, setCategory] = useState()
-  const [brand, setBrand] = useState()
-  const router = useRouter()
+  const [category, setCategory] = useState(router.query.category)
+  const [brand, setBrand] = useState(router.query.brand)
 
   useEffect(() => {
-    setBrand(router.query.brand)
     setSearch(router.query.search)
-    setCategory(router.query.category)
   }, [router])
 
   useEffect(() => {
@@ -119,14 +114,13 @@ const Categories = ({ brands, categories }) => {
       setProducts(response.data?.productWithStats)
       setTotal(response.data?.total)
     })
-  }, [page, pageSize, sort, search, category, brand])
+  }, [page, pageSize, sort, search, category, brand, router])
 
   const handleChangeCategory = (id) => {
     if (category == id) setCategory('')
     else setCategory(id)
   }
   const handleChangeBrand = (id) => {
-    console.log(id, brand)
     if (brand == id) setBrand('')
     else setBrand(id)
   }
@@ -161,9 +155,6 @@ const Categories = ({ brands, categories }) => {
               </WidgetUl>
             </WidgetContent>
             <WidgetTitle>Lọc theo giá thành</WidgetTitle>
-            <WidgetContent>
-              <Slider />
-            </WidgetContent>
             <WidgetTitle>Lọc theo thương hiệu</WidgetTitle>
             <WidgetContent>
               <WidgetUl>
@@ -182,13 +173,13 @@ const Categories = ({ brands, categories }) => {
                 ))}
               </WidgetUl>
             </WidgetContent>
-            <WidgetTitle>Sản phẩm bán chạy</WidgetTitle>
+            {/* <WidgetTitle>Sản phẩm bán chạy</WidgetTitle> */}
             {/* <WidgetTitle>Filter By Tags</WidgetTitle> */}
           </div>
           {/* Right Column */}
           <RightCol>
             <Sorting>
-              <Dropdown options={options} />
+              <Dropdown setSort={setSort} options={options} />
               <ResultCount>Tổng cộng {total} kết quả</ResultCount>
             </Sorting>
             <ProductSpacing>

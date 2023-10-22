@@ -111,7 +111,7 @@ const EntrySummary = ({ product }) => {
   return (
     <div>
       <EntrySummaryTop>
-        {product?.quantity ? (
+        {product?.quantity > 0 ? (
           <Status>Còn hàng</Status>
         ) : (
           <Status $background="#fcb900">Hết hàng</Status>
@@ -121,21 +121,21 @@ const EntrySummary = ({ product }) => {
       <ProductAfterTitle>
         <ProductBrand>
           Thương hiệu:
-          <NavLink href={{ pathname: '/categories', query: { brand: `${product?.brand._id}` } }}>
+          <NavLink href={{ pathname: '/categories', query: { brand: `${product?.brand?._id}` } }}>
             {product?.brand?.name}
           </NavLink>
         </ProductBrand>
         <ProductBrand>
           Danh mục:
           <NavLink
-            href={{ pathname: '/categories', query: { category: `${product?.category._id}` } }}
+            href={{ pathname: '/categories', query: { category: `${product?.category?._id}` } }}
           >
             {product?.category?.name}
           </NavLink>
         </ProductBrand>
       </ProductAfterTitle>
       <PriceRow>
-        {product.discount ? (
+        {product.discount > 0 ? (
           <>
             <CurrentPrice>
               {(
@@ -163,7 +163,7 @@ const EntrySummary = ({ product }) => {
               +
             </Button>
           </CounterContainer>
-          <Button primary="true" onClick={() => addProduct(product._id, count)}>
+          <Button $purple onClick={() => addProduct(product._id, count)}>
             <CartIcon />
             Thêm vào giỏ hàng
           </Button>
@@ -173,7 +173,7 @@ const EntrySummary = ({ product }) => {
         </CartForm>
       ) : (
         <CartForm>
-          <Button primary="true" onClick={() => addWishlist(product._id)}>
+          <Button $purple onClick={() => addWishlist(product._id)}>
             <HeartIcon />
             Thêm vào danh sách yêu thích
           </Button>

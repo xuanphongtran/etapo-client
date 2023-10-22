@@ -48,7 +48,7 @@ const DropdownItem = styled.li`
   }
 `
 
-const Dropdown = ({ options }) => {
+const Dropdown = ({ options, setSort }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState('')
 
@@ -57,20 +57,21 @@ const Dropdown = ({ options }) => {
   }
 
   const handleSelect = (option) => {
-    setSelectedOption(option)
+    setSelectedOption(option.label)
+    setSort(option.value)
     setIsOpen(false)
   }
 
   return (
     <DropdownContainer>
       <DropdownButton onClick={handleToggle}>
-        {selectedOption || 'Defaul sorting'} <ArrowUpIcon />
+        {selectedOption || 'Mặt định'} <ArrowUpIcon />
       </DropdownButton>
 
       <DropdownList $isOpen={isOpen}>
-        {options.map((option) => (
-          <DropdownItem key={option} onClick={() => handleSelect(option)}>
-            {option}
+        {options.map((option, index) => (
+          <DropdownItem key={index} onClick={() => handleSelect(option)}>
+            {option.label}
           </DropdownItem>
         ))}
       </DropdownList>

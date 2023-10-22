@@ -78,7 +78,7 @@ const Home2 = () => {
         <Title>Giường dành cho mèo nuôi trong nhà</Title>
         <Bottom>Sản phẩm mà mèo yêu thích</Bottom>
         <Head>Chỉ từ 99.000 </Head>
-        <Button primary $padding="15px 25px" $fontSize="25px" $width="200px">
+        <Button $purple $padding="15px 25px" $fontSize="25px" $width="200px">
           Mua ngay
         </Button>
       </Content>

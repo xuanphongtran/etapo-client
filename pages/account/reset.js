@@ -73,7 +73,6 @@ const Reset = () => {
   useEffect(() => {
     const query = router?.asPath?.replace('/account/reset', '')
     if (query) {
-      console.log(query)
       checkToken(query)
     }
   }, [router?.asPath])

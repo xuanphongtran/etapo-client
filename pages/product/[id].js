@@ -8,12 +8,12 @@ import Footer from '@/components/Common/Footer'
 import ProductImages from '@/components/Common/ProductImages'
 import Breadcrumb from '@/components/Common/BreakCrumb'
 import Button from '@/components/Common/Button'
-import RelatedProducts from '@/components/RelatedProducts'
 import ScrollUp from '@/components/ScrollUp'
 import EntrySummary from '@/components/ProductInfor/EntrySummary'
 import TabsContent from '@/components/ProductInfor/TabsContent'
 import { ElementorShapeBottom, ElementorShapeTop } from '@/components/icons/ElementorShape'
 import { Banner } from '@/components/Common/Banner'
+import MaybeULike from '@/components/Home/MaybeULike'
 
 const ColWrapper = styled.div`
   display: grid;
@@ -49,7 +49,7 @@ const BreadcrumbId = styled.div`
   margin-top: 130px;
   padding: 0 30px;
 `
-const ProductPage = ({ product }) => {
+const ProductPage = ({ product, likeProducts }) => {
   const [activeTab, setActiveTab] = useState(1)
   const breadcrumbItems = [
     { label: 'Trang chủ', url: '/' },
@@ -89,7 +89,7 @@ const ProductPage = ({ product }) => {
         <TabsContent activeTab={activeTab} product={product}></TabsContent>
         <ElementorShapeBottom />
       </TabsWrapper>
-      <RelatedProducts />
+      <MaybeULike products={likeProducts} />
       <Center>
         <Banner column={3} />
       </Center>
@@ -104,9 +104,11 @@ export default ProductPage
 export async function getServerSideProps(context) {
   const { id } = context.query
   const product = await AXIOS.get(`/product/${id}`).then((response) => response.data)
+  const likeProducts = await AXIOS.get(`/product/likeproducts`).then((response) => response.data)
 
   return {
     props: {
+      likeProducts,
       product: JSON.parse(JSON.stringify(product)),
     },
   }

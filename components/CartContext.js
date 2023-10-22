@@ -5,19 +5,26 @@ export const CartContext = createContext({})
 
 export function CartContextProvider({ children }) {
   const ls = typeof window !== 'undefined' ? window.localStorage : null
+  // const login = window?.localStorage?.accessToken || null
   const [cartProducts, setCartProducts] = useState([])
   const [wishlist, setWishList] = useState([])
   //CartProduct
+  // const handleChangeProduct = async (productId) => {
+  //   const reponse = await AXIOS.put('/cart/updatecart', { productId })
+  // }
   useEffect(() => {
     if (cartProducts?.length > 0) {
       ls?.setItem('cart', JSON.stringify(cartProducts))
     }
   }, [cartProducts])
+
   useEffect(() => {
-    if (ls && ls.getItem('cart')) {
-      setCartProducts(JSON.parse(ls.getItem('cart')))
+    const storedCart = ls?.getItem('cart')
+    if (storedCart) {
+      setCartProducts(JSON.parse(storedCart))
     }
   }, [])
+
   const addProduct = (productId, quantity) => {
     if (quantity <= 0) {
       return // Số lượng là 0 hoặc âm thì không làm gì cả
@@ -32,16 +39,22 @@ export function CartContextProvider({ children }) {
     })
   }
   const removeProduct = (productId) => {
-    setCartProducts((prev) => {
-      const pos = prev.indexOf(productId)
-      if (pos !== -1) {
-        return prev.filter((value, index) => index !== pos)
-      }
-      return prev
-    })
+    if (cartProducts.length == 1) {
+      setCartProducts([])
+      ls?.setItem('cart', JSON.stringify([]))
+    } else {
+      setCartProducts((prev) => {
+        const pos = prev.indexOf(productId)
+        if (pos !== -1) {
+          return prev.filter((value, index) => index !== pos)
+        }
+        return prev
+      })
+    }
   }
   const clearCart = () => {
     setCartProducts([])
+    ls?.setItem('cart', JSON.stringify([]))
   }
   //Wishlist
   useEffect(() => {
@@ -49,6 +62,7 @@ export function CartContextProvider({ children }) {
       ls?.setItem('wishlist', JSON.stringify(wishlist))
     }
   }, [wishlist])
+
   useEffect(() => {
     if (ls && ls.getItem('wishlist')) {
       setWishList(JSON.parse(ls.getItem('wishlist')))
@@ -61,16 +75,22 @@ export function CartContextProvider({ children }) {
     }
   }
   const removeWishlist = (productId) => {
-    setWishList((prev) => {
-      const pos = prev.indexOf(productId)
-      if (pos !== -1) {
-        return prev.filter((value, index) => index !== pos)
-      }
-      return prev
-    })
+    if (wishlist.length == 1) {
+      setWishList([])
+      ls?.setItem('wishlist', JSON.stringify([]))
+    } else {
+      setWishList((prev) => {
+        const pos = prev.indexOf(productId)
+        if (pos !== -1) {
+          return prev.filter((value, index) => index !== pos)
+        }
+        return prev
+      })
+    }
   }
   const clearWishList = () => {
     setWishList([])
+    ls?.setItem('wishlist', JSON.stringify([]))
   }
   return (
     <CartContext.Provider

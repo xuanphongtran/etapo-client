@@ -11,14 +11,11 @@ const Title = styled.h2`
 `
 const StyledProductsGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 20px;
   border-radius: 4px;
   border: 1px dashed #e5e5e5;
   padding: 30px 30px 27px;
-  @media screen and (min-width: 768px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 `
 const ProductBlock = styled.div`
   display: flex;
@@ -27,6 +24,7 @@ const ProductBlock = styled.div`
 `
 const ProductImage = styled(Link)`
   max-width: 80px;
+  min-width: 80px;
   margin-right: 15px;
   img {
     display: block;
@@ -54,7 +52,7 @@ const Price = styled.div`
 export default function BestProducts({ products }) {
   return (
     <Center>
-      <Title>Sản phẩm bán chạy nhất</Title>
+      <Title>Sản phẩm bán chạy</Title>
       <StyledProductsGrid>
         {products?.length > 0 &&
           products.map((product) => (
@@ -64,8 +62,20 @@ export default function BestProducts({ products }) {
               </ProductImage>
               <div>
                 <ProductTitle href={'/product/' + product._id}>{product.name}</ProductTitle>
-                <Price>{product.price} đ</Price>
-                <Rating value={4} size="14px" />
+                <Price>
+                  {product?.discount
+                    ? (
+                        (Number(product.price.replace(/,/g, '')) * (100 - product.discount)) /
+                        100
+                      ).toLocaleString()
+                    : product.price.toLocaleString()}
+                  đ
+                </Price>
+                <Rating
+                  value={product?.averageStarPoint}
+                  reviewCount={product?.reviewCount}
+                  size="14px"
+                />
               </div>
             </ProductBlock>
           ))}
