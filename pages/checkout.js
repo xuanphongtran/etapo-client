@@ -65,8 +65,7 @@ const Checkout = () => {
     products.map((a) => {
       productsData.push({
         cost: a.discount
-          ? ((Number(product.price.replace(/,/g, '')) * (100 - product.discount)) / 100) *
-            counts[product._id]
+          ? ((Number(a.price.replace(/,/g, '')) * (100 - a.discount)) / 100) * counts[a._id]
           : counts[a._id] * Number(a.price.replace(/,/g, '')),
         productId: a._id,
         quantity: counts[a._id],
