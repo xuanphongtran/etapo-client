@@ -209,7 +209,7 @@ export default function Header({ showHeader }) {
                 <NavLink href="#">BLOG</NavLink>
               </MenuLi>
               <MenuLi>
-                <NavLink href="#">VỀ CHÚNG TÔi</NavLink>
+                <NavLink href="/about-us">VỀ CHÚNG TÔi</NavLink>
               </MenuLi>
             </MenuUl>
           </LayoutMenu>

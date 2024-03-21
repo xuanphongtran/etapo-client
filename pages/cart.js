@@ -44,9 +44,8 @@ export const EmptyCartButton = styled(ButtonLink)`
   ${ButtonStyle}
 `
 const ColumnsWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
   @media screen and (min-width: 768px) {
+    display: grid;
     grid-template-columns: 1.2fr 0.6fr;
   }
   gap: 80px;

@@ -6,6 +6,7 @@ const StyledDiv = styled.div`
   background-color: #ffffff;
   @media (max-width: 768px) {
     margin: 10px 20px;
+    padding: 0px;
   }
 `
 

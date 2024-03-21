@@ -30,12 +30,14 @@ const WhiteBox = styled.div`
 `
 const TabsWrapper = styled.div`
   background-color: #f2eaea;
-
   & > svg {
     color: #ffffff;
   }
   & > svg:last-child {
     transform: rotate(180deg);
+  }
+  @media (max-width: 768px) {
+    padding: 0 20px;
   }
 `
 const TabsButton = styled.div`
@@ -48,13 +50,16 @@ const TabsButton = styled.div`
 const BreadcrumbId = styled.div`
   margin-top: 130px;
   padding: 0 30px;
+  @media (max-width: 768px) {
+    margin-top: 20px;
+  }
 `
 const ProductPage = ({ product, likeProducts }) => {
   const [activeTab, setActiveTab] = useState(1)
   const breadcrumbItems = [
     { label: 'Trang chủ', url: '/' },
     { label: 'Danh mục', url: '/categories' },
-    { label: '1', url: `/product/${product._id}` },
+    { label: `${product.name}`, url: `/product/${product._id}` },
   ]
   return (
     <>

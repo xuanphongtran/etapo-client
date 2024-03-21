@@ -101,7 +101,7 @@ const Checkout = () => {
           <Container>
             <EmptyCart $success>
               <SuccessIcon />
-              <EmptyCartTitle>Thanh toán thành công</EmptyCartTitle>
+              <EmptyCartTitle>Đặt hàng thành công</EmptyCartTitle>
               <EmptyCartButton $background="#ff782c" $color="#ffffff" $hover="#000000" href={'/'}>
                 Trở về trang chủ
               </EmptyCartButton>

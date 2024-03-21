@@ -6,6 +6,9 @@ const BigImageWrapper = styled.div`
   border: 1px dashed #e5e5e5;
   border-radius: 10px;
   width: 630px;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `
 
 const Image = styled.img`
