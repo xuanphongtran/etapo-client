@@ -107,13 +107,21 @@ const Footer = () => {
             </HotLineOrder>
             <Hotline>+84-582-534-778</Hotline>
             <SocialContainer>
-              <SocialButton target="_blank" rel="noopener" href="https://www.facebook.com/">
+              <SocialButton
+                target="_blank"
+                rel="noopener"
+                href="https://www.facebook.com/xuanphong2812"
+              >
                 <FacebookIcon />
               </SocialButton>
-              <SocialButton target="_blank" rel="noopener" href="https://www.twitter.com/">
+              <SocialButton target="_blank" rel="noopener" href="https://www.twitter.com/phongtx2">
                 <TwitterIcon />
               </SocialButton>
-              <SocialButton target="_blank" rel="noopener" href="https://www.instagram.com/">
+              <SocialButton
+                target="_blank"
+                rel="noopener"
+                href="https://www.instagram.com/xphongvader"
+              >
                 <InstagramIcon />
               </SocialButton>
               <SocialButton target="_blank" rel="noopener" href="https://zaloweb.me/">
