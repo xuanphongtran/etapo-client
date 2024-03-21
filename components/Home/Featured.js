@@ -10,6 +10,9 @@ const Container = styled.div`
   background-color: ${(props) => props.$backgroud || 'transparent'};
   height: 750px;
   position: relative;
+  @media (max-width: 768px) {
+    height: 550px;
+  }
 `
 const DotContainer = styled.div`
   display: flex;
@@ -67,6 +70,9 @@ const NavButton = styled.button`
             transform: rotate(180deg);
           }
         `}
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 const config = [
   {
@@ -95,13 +101,13 @@ export default function Featured() {
     setIndex((state) => (state -= 1))
     if (index === 0) setIndex(config.length - 1)
   }
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setIndex((prevIndex) => (prevIndex + 1) % config.length)
-    }, 10000) // Change this value to adjust the interval (in milliseconds)
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setIndex((prevIndex) => (prevIndex + 1) % config.length)
+  //   }, 10000) // Change this value to adjust the interval (in milliseconds)
 
-    return () => clearInterval(intervalId) // Cleanup the interval on component unmount
-  }, [])
+  //   return () => clearInterval(intervalId) // Cleanup the interval on component unmount
+  // }, [])
 
   return (
     <>

@@ -15,6 +15,10 @@ const TopLayer = styled.div`
   top: 0;
   background-image: url('https://res.cloudinary.com/danr1pj0e/image/upload/v1697277727/rev_home7_011_zurl2m.png');
   animation: ${fadeIn} 1s ease-in-out;
+  @media (max-width: 768px) {
+    width: auto;
+    animation: none;
+  }
 `
 const TopImage = styled.img`
   position: absolute;
@@ -46,6 +50,10 @@ const ImageContainer = styled.img`
   right: 80px;
   bottom: -80px;
   animation: ${fadeIn} 1s ease-in-out, ${slideUp} 2s ease-in-out;
+  @media (max-width: 768px) {
+    width: 400px;
+    right: 40px;
+  }
 `
 const Content = styled.div`
   height: 200px;
@@ -55,6 +63,9 @@ const Content = styled.div`
   top: 25%;
   color: #000000;
   animation: ${fadeInFromLeft} 1s ease-in-out;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 const Head = styled.h3`
   color: #ff782c;

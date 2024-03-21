@@ -16,6 +16,9 @@ export default function HomePage({ bestProducts, categories, likeProducts }) {
   `
   const BannerContainer = styled.div`
     margin: 0 100px;
+    @media (max-width: 768px) {
+      margin: 0 10px;
+    }
   `
   return (
     <div>
@@ -23,8 +26,17 @@ export default function HomePage({ bestProducts, categories, likeProducts }) {
         <title>Ziggy</title>
       </Head>
       <Header showHeader="static" />
-      <HomeSection></HomeSection>
-      {/* <Footer /> */}
+      <HomeSection>
+        <Featured />
+        <BestProducts products={bestProducts} />
+        <BannerContainer>
+          <Banner column={3} />
+          <Banner column={2} />
+        </BannerContainer>
+        <BrowseByCategories categories={categories} />
+        <MaybeULike products={likeProducts} />
+      </HomeSection>
+      <Footer />
       <ScrollUp />
     </div>
   )

@@ -10,6 +10,8 @@ import { NavLink } from './NavLink'
 
 const Container = styled.div`
   margin-bottom: 10px;
+  width: 300px;
+  margin: 0 auto;
 `
 const ProductTransition = styled.div`
   height: 300px;

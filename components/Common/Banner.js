@@ -8,6 +8,12 @@ const BannerContainer = styled.div`
   grid-template-columns: ${(props) =>
     props.$column === 3 ? '410px 410px 410px' : props.$column === 2 ? '630px 630px' : '1fr'};
   justify-content: space-between;
+  @media (max-width: 768px) {
+    display: block;
+    &:last-child {
+      display: none;
+    }
+  }
 `
 const Content = styled.div`
   background-color: ${(props) => props.$backgroud};
@@ -17,6 +23,9 @@ const Content = styled.div`
   &:nth-child(3) > :first-child {
     position: relative;
     left: -30px;
+  }
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
   }
 `
 const BgWrapper = styled.div`

@@ -19,6 +19,9 @@ const NotifyImage = styled.div`
       margin: 0 20px;
     }
   }
+  @media (max-width: 768px) {
+    animation: none;
+  }
 `
 const Layer = styled.div`
   z-index: 17;
@@ -36,12 +39,22 @@ const Layer = styled.div`
   right: 100px;
   bottom: 0;
   animation: ${fadeIn} 1s ease-in-out, ${slideUp} 1s ease-in-out;
+  @media (max-width: 768px) {
+    width: auto;
+    animation: none;
+  }
 `
 const ImageContainer = styled.img`
   position: absolute;
   right: 200px;
   bottom: 0;
   animation: ${fadeIn} 1s ease-in-out, ${slideUp} 1s ease-in-out, ${bounce} 2s ease-in-out infinite;
+  @media (max-width: 768px) {
+    width: 300px;
+    position: absolute;
+    right: 20px;
+    /* animation: none; */
+  }
 `
 const Content = styled.div`
   height: 200px;
@@ -51,6 +64,9 @@ const Content = styled.div`
   top: 25%;
   color: #000000;
   animation: ${oscillate} 2s infinite, ${fadeInFromLeft} 1s ease-in-out;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 const Head = styled.h3`
   color: #ff782c;

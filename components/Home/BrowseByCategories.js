@@ -21,6 +21,10 @@ const Title = styled.h2`
   font-size: 2rem;
   margin: 30px 0 20px 100px;
   font-weight: normal;
+  @media (max-width: 768px) {
+    text-align: center;
+    margin: 20px 0;
+  }
 `
 const StyledProductsGrid = styled.div`
   display: flex;
@@ -28,10 +32,19 @@ const StyledProductsGrid = styled.div`
   margin: 0 100px;
   border-radius: 4px;
   padding: 30px 30px 27px;
+  @media (max-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0 10px;
+  }
 `
 const ProductBlock = styled.div`
   width: 227px;
   height: 194.8px;
+  @media (max-width: 768px) {
+    width: auto;
+    margin: 0 auto;
+  }
 `
 const ProductImage = styled.div`
   background-color: #ffffff;

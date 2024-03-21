@@ -36,16 +36,28 @@ const Layer = styled.div`
   right: 100px;
   bottom: 0;
   animation: ${fadeIn} 1s ease-in-out;
+  @media (max-width: 768px) {
+    width: 500px;
+    right: 50px;
+  }
 `
 const ImageContainer = styled.img`
   position: absolute;
   right: 140px;
   bottom: 20px;
+  @media (max-width: 768px) {
+    width: 400px;
+    right: 20px;
+  }
 `
 const LayerContainer = styled.img`
   position: absolute;
   right: 110px;
   bottom: 70px;
+  @media (max-width: 768px) {
+    width: 400px;
+    right: 0px;
+  }
 `
 const Content = styled.div`
   height: 200px;
@@ -55,6 +67,9 @@ const Content = styled.div`
   top: 25%;
   color: #000000;
   animation: ${fadeInFromLeft} 1s ease-in-out;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 const Head = styled.h3`
   color: #ff782c;

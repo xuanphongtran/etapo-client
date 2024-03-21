@@ -14,6 +14,9 @@ const StyledProductsGrid = styled.div`
   border: 1px dashed #e5e5e5;
   padding: 30px 30px 15px;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  @media (max-width: 768px) {
+    display: block;
+  }
 `
 export default function MaybeULike({ products }) {
   return (
