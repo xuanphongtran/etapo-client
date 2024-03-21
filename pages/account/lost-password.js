@@ -26,7 +26,7 @@ const Error = styled.div`
   border-left: 10px solid rgba(0, 0, 0, 0.15);
   background-color: #e2401c;
 `
-const Success = styled.div`
+export const Success = styled.div`
   margin: 20px 0;
   padding: 20px;
   width: 680px;

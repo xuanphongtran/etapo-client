@@ -10,9 +10,6 @@ const BannerContainer = styled.div`
   justify-content: space-between;
   @media (max-width: 768px) {
     display: block;
-    &:last-child {
-      display: none;
-    }
   }
 `
 const Content = styled.div`

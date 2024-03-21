@@ -1,39 +1,8 @@
 import styled from 'styled-components'
-import { useContext, useEffect, useState } from 'react'
-import axios from 'axios'
-import Image from 'next/image'
 import { CloseIcon } from '../icons/Icon'
-import ButtonLink from './ButtonLink'
 import { NavLink } from './NavLink'
+import { CartContainer, CartHeading, CartOverLay } from '../ShoppingCart'
 
-const CartOverLay = styled.div`
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 997;
-`
-const CartContainer = styled.div`
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  overflow: hidden;
-  overflow-y: auto;
-  width: 340px;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  right: 0;
-  z-index: 999999999;
-`
-const CartHeading = styled.div`
-  display: flex;
-  flex: 0 0 auto;
-  padding: 15px;
-`
 const CloseButton = styled.a`
   svg {
     margin-left: 3px;

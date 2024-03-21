@@ -8,9 +8,7 @@ import { Container } from './cart'
 import { useRouter } from 'next/router'
 import DashBoard from '@/components/Account/DashBoard'
 import Orders from '@/components/Account/Orders'
-import Dowloads from '@/components/Account/Dowloads'
 import Addresses from '@/components/Account/Addresses'
-import RegisterForm from '@/components/RegisterForm'
 import { Title } from '@/components/AddressForm'
 import { LoginForm } from '@/components/Login'
 import { TableWishList } from './wishlist'
@@ -21,13 +19,13 @@ import {
   HeartIcon,
   HomeIcon,
   LogOutIcon,
-  OrdersIcon,
 } from '@/components/icons/Icon'
 import ChangePassword from '@/components/Account/AccountDetails'
+import { NavLink } from '@/components/Common/NavLink'
 
 const breadcrumbItems = [
   { label: 'Trang chủ', url: '/' },
-  { label: 'Tài khoản', url: '/cart' },
+  { label: 'Tài khoản', url: '/account' },
 ]
 const ItemValue = [
   { label: 'Tài khoản của tôi', value: 'dashboard', tab: 1, icon: <ChartIcon /> },
@@ -42,6 +40,9 @@ export const Columns = styled.div`
   justify-content: center;
   grid-template-columns: ${(props) => props.$column || '0.4fr 1fr'};
   gap: 80px;
+  @media (max-width: 768px) {
+    display: block;
+  }
 `
 const Navigation = styled.ul`
   margin-left: 0;
@@ -68,9 +69,16 @@ const Label = styled.div`
 `
 const Content = styled.div`
   margin-top: 14px;
-  /* Thêm các style khác cho phần content của bạn */
 `
-const AccountLogin = styled.div``
+const AccountLogin = styled.div`
+  & > h3 {
+    display: flex;
+    justify-content: center;
+  }
+  @media (max-width: 768px) {
+    margin-top: 50px;
+  }
+`
 const Account = () => {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState(1)
@@ -103,10 +111,10 @@ const Account = () => {
         <Header />
         <Container>
           <Breadcrumb items={breadcrumbItems} />
-          <Columns $column="1fr 0.8fr">
-            <RegisterForm width="100%" />
+          <Columns $column="0.5fr">
             <AccountLogin>
               <Title>Đăng Nhập</Title>
+
               <LoginForm />
             </AccountLogin>
           </Columns>

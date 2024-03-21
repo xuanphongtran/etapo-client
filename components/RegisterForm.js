@@ -4,9 +4,20 @@ import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import { Input, Label, Title } from './AddressForm'
 import AXIOS from '@/lib/axios'
+import { NavLink } from './Common/NavLink'
 
+const Wrapper = styled.div`
+  & > h3 {
+    display: flex;
+    justify-content: center;
+  }
+`
 const Form = styled.form`
   width: ${(props) => props.$width || '80%'};
+  & > button {
+    display: block;
+    margin: 10px auto;
+  }
 `
 
 const Error = styled.div`
@@ -43,7 +54,7 @@ const RegisterForm = ({ width }) => {
   }
 
   return (
-    <div>
+    <Wrapper>
       <Title>Đăng ký tài khoản</Title>
       {error && <Error>{error}</Error>}
       <Form $width={width} onSubmit={handleSubmit(onSubmit)}>
@@ -74,11 +85,14 @@ const RegisterForm = ({ width }) => {
           placeholder="Nhập lại mật khẩu"
           {...register('passwordAgain', { required: true })}
         />
+        <NavLink href={'/account'} $color="#999999">
+          Đã có tài khoản, đăng nhập ngay
+        </NavLink>
         <Button $orange $hover="#000000" type="submit" $padding="15px 75px">
           Đăng ký
         </Button>
       </Form>
-    </div>
+    </Wrapper>
   )
 }
 

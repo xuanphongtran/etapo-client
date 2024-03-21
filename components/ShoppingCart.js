@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { CloseIcon } from './icons/Icon'
 import ButtonLink from './Common/ButtonLink'
 
-const CartOverLay = styled.div`
+export const CartOverLay = styled.div`
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -16,7 +16,7 @@ const CartOverLay = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 997;
 `
-const CartContainer = styled.div`
+export const CartContainer = styled.div`
   position: fixed;
   top: 0;
   bottom: 0;
@@ -29,7 +29,7 @@ const CartContainer = styled.div`
   right: 0;
   z-index: 999999999;
 `
-const CartHeading = styled.div`
+export const CartHeading = styled.div`
   display: flex;
   flex: 0 0 auto;
   align-items: center;

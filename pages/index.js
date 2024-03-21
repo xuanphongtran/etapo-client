@@ -31,7 +31,6 @@ export default function HomePage({ bestProducts, categories, likeProducts }) {
         <BestProducts products={bestProducts} />
         <BannerContainer>
           <Banner column={3} />
-          <Banner column={2} />
         </BannerContainer>
         <BrowseByCategories categories={categories} />
         <MaybeULike products={likeProducts} />

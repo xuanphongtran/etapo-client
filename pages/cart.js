@@ -18,6 +18,10 @@ import axios from 'axios'
 export const Container = styled.div`
   margin: 135px 40px 10px 40px;
   padding: 0 60px;
+  @media (max-width: 768px) {
+    padding: 10px;
+    margin: 135px 10px 10px 10px;
+  }
 `
 //EmptyCart
 export const EmptyCart = styled.div`

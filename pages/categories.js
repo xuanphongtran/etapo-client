@@ -7,24 +7,50 @@ import ScrollUp from '@/components/ScrollUp'
 import Breadcrumb from '@/components/Common/BreakCrumb'
 import Dropdown from '@/components/Common/Dropdown'
 import Footer from '@/components/Common/Footer'
-import Header from '@/components/Common/Header'
+import Header, { HeaderButton } from '@/components/Common/Header'
 import { Banner } from '@/components/Common/Banner'
 import { ProductBlock } from '@/components/Common/ProductBlock'
-import { PawPrint } from '@/components/icons/Icon'
+import { CloseIcon, ListIcon, PawPrint } from '@/components/icons/Icon'
 import { useRouter } from 'next/router'
 import Pagination from '@/components/Common/Pagination'
+import { CartContainer, CartHeading } from '@/components/ShoppingCart'
 
+const CloseButton = styled.a`
+  display: none;
+  float: right;
+  svg {
+    height: 24px;
+  }
+  cursor: pointer;
+  &:hover {
+    color: #ff782c !important;
+  }
+  @media (max-width: 768px) {
+    display: block;
+  }
+`
 const CategoriesContainer = styled.div`
   margin-top: 118px;
   padding: 0 110px;
+  @media (max-width: 768px) {
+    padding: 0 10px;
+  }
 `
 const Content = styled.div`
   margin: 15px 0 40px;
   display: grid;
   grid-template-columns: 0.3fr 1fr;
   gap: 30px;
+  @media (max-width: 768px) {
+    display: block;
+  }
 `
 //Left
+const LeftCol = styled.div`
+  @media (max-width: 768px) {
+    display: ${({ $leftCol }) => ($leftCol ? 'block' : 'none')};
+  }
+`
 const WidgetTitle = styled.div`
   font-size: 20px;
   font-weight: 700;
@@ -61,7 +87,23 @@ const ItemLink = styled.div`
   }
 `
 //Right
-const RightCol = styled.div``
+const RightCol = styled.div`
+  @media (max-width: 768px) {
+    display: ${({ $rightCol }) => ($rightCol ? 'none' : 'block')};
+  }
+`
+const ToggleButton = styled.div`
+  display: none;
+  svg {
+    height: 25px;
+  }
+  &:hover {
+    color: #ff782c !important;
+  }
+  @media (max-width: 768px) {
+    display: flex;
+  }
+`
 const Sorting = styled.div`
   display: flex;
   align-items: center;
@@ -81,6 +123,9 @@ const ProductSpacing = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
   grid-gap: 10px;
   margin: 0 auto;
+  @media (max-width: 768px) {
+    display: block;
+  }
 `
 const breadcrumbItems = [
   { label: 'Trang chủ', url: '/' },
@@ -97,6 +142,7 @@ const Categories = ({ brands, categories }) => {
   const [products, setProducts] = useState()
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(12)
+  const [leftCol, setLeftCol] = useState(false)
   const [sort, setSort] = useState({})
   const [search, setSearch] = useState('')
   const [total, setTotal] = useState(0)
@@ -124,6 +170,7 @@ const Categories = ({ brands, categories }) => {
     if (brand == id) setBrand('')
     else setBrand(id)
   }
+
   return (
     <>
       <Head>
@@ -135,8 +182,14 @@ const Categories = ({ brands, categories }) => {
         <Breadcrumb items={breadcrumbItems} />
         <Content>
           {/* Left Column */}
-          <div>
-            <WidgetTitle>Lọc theo danh mục</WidgetTitle>
+          <LeftCol $leftCol={leftCol}>
+            <WidgetTitle>
+              Lọc theo danh mục
+              <CloseButton onClick={() => setLeftCol(false)}>
+                <CloseIcon />
+              </CloseButton>
+            </WidgetTitle>
+
             <WidgetContent>
               <WidgetUl>
                 {categories?.map((cat) => (
@@ -175,10 +228,13 @@ const Categories = ({ brands, categories }) => {
             </WidgetContent>
             {/* <WidgetTitle>Sản phẩm bán chạy</WidgetTitle> */}
             {/* <WidgetTitle>Filter By Tags</WidgetTitle> */}
-          </div>
+          </LeftCol>
           {/* Right Column */}
-          <RightCol>
+          <RightCol $rightCol={leftCol}>
             <Sorting>
+              <ToggleButton href="#" onClick={() => setLeftCol(true)}>
+                <ListIcon />
+              </ToggleButton>
               <Dropdown setSort={setSort} options={options} />
               <ResultCount>Tổng cộng {total} kết quả</ResultCount>
             </Sorting>

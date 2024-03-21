@@ -18,6 +18,9 @@ const HeaderSection = styled.section`
   padding: 0;
   z-index: 980;
   border-bottom: ${(props) => (props.$showheader ? 'none' : '1px dashed #e5e5e5')};
+  @media (max-width: 768px) {
+    position: static !important;
+  }
 `
 const ElementRow = styled.div`
   display: flex;
@@ -69,7 +72,7 @@ export const NavLink = styled(Link)`
     color: #ff782c !important;
   }
 `
-const HeaderButton = styled(Link)`
+export const HeaderButton = styled(Link)`
   background: transparent;
   border: none;
   margin: 0 1rem;

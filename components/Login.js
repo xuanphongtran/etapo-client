@@ -63,8 +63,8 @@ const Input = styled.input`
 `
 const LoginFooter = styled.div`
   display: flex;
-  justify-content: end;
-  margin-top: 10px;
+  justify-content: space-between;
+  margin-bottom: 10px;
 `
 export const LoginForm = () => {
   const [email, setEmail] = useState('')
@@ -113,6 +113,14 @@ export const LoginForm = () => {
         onChange={(e) => setPassword(e.target.value)}
         required
       />
+      <LoginFooter>
+        <NavLink href={'/account'} $color="#999999">
+          Đăng ký tài khoản
+        </NavLink>
+        <NavLink href={'/account/lost-password'} $color="#999999">
+          Quên mật khẩu ?
+        </NavLink>
+      </LoginFooter>
       <Button $orange $width="100%">
         Đăng nhập
       </Button>
@@ -124,16 +132,8 @@ const Login = ({ setLoginActive }) => {
     <LoginContainer>
       <LoginHeader>
         <Title>Đăng nhập</Title>
-        <NavLink href={'/account'} $color="#999999">
-          Đăng ký tài khoản
-        </NavLink>
       </LoginHeader>
       <LoginForm />
-      <LoginFooter>
-        <NavLink href={'/account/lost-password'} $color="#999999">
-          Quên mật khẩu ?
-        </NavLink>
-      </LoginFooter>
     </LoginContainer>
   )
 }
