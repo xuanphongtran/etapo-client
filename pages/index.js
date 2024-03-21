@@ -23,18 +23,8 @@ export default function HomePage({ bestProducts, categories, likeProducts }) {
         <title>Ziggy</title>
       </Head>
       <Header showHeader="static" />
-      <HomeSection>
-        <Featured />
-        <BestProducts products={bestProducts} />
-        <BannerContainer>
-          <Banner column={3} />
-          <Banner column={2} />
-        </BannerContainer>
-        {/* <Collection products={bestProducts} /> */}
-        <BrowseByCategories categories={categories} />
-        <MaybeULike products={likeProducts} />
-      </HomeSection>
-      <Footer />
+      <HomeSection></HomeSection>
+      {/* <Footer /> */}
       <ScrollUp />
     </div>
   )

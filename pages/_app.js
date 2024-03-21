@@ -8,6 +8,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     font-family: 'Quicksand', sans-serif;
     font-size: 14px;
+
   }
 `
 

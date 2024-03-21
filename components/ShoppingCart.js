@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import Button from './Common/Button'
 import { useContext, useEffect, useState } from 'react'
 import { CartContext } from './CartContext'
 import axios from 'axios'

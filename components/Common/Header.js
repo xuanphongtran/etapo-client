@@ -3,12 +3,13 @@ import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '@/components/CartContext'
 import Image from 'next/image'
 import logo from 'public/logo.svg'
-import { AccountIcon, CartIcon, HeartIcon, PhoneIcon, TruckIcon } from '../icons/Icon'
+import { AccountIcon, CartIcon, HeartIcon, ListIcon, PhoneIcon, TruckIcon } from '../icons/Icon'
 import Searchbar from '../SearchBar'
 import ShoppingCart from '../ShoppingCart'
 import Link from 'next/link'
 import Login from '../Login'
 import AccountDialog from '../AccountDialog'
+import HeaderBox from './HeaderBox'
 
 const HeaderSection = styled.section`
   top: 0;
@@ -25,12 +26,22 @@ const ElementRow = styled.div`
   background-color: ${(props) => props.$background || '#ffffff'};
   align-items: center;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 `
 const ElementColumn = styled.div`
   position: relative;
   min-height: 1px;
   display: flex;
+  @media (max-width: 768px) {
+    display: none;
+    &:first-child {
+      display: block;
+    }
+  }
 `
+
 const LayoutMenu = styled.nav`
   /* overflow: visible;
   visibility: inherit; */
@@ -48,7 +59,7 @@ const MenuLi = styled.li`
   padding: 10px 20px;
   display: list-item;
 `
-const NavLink = styled(Link)`
+export const NavLink = styled(Link)`
   text-decoration: none;
   color: #000000 !important;
   svg {
@@ -71,6 +82,12 @@ const HeaderButton = styled(Link)`
   }
   &:hover {
     color: #ff782c !important;
+  }
+`
+const ListButton = styled(HeaderButton)`
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
   }
 `
 const IconSpan = styled.div`
@@ -107,6 +124,7 @@ export default function Header({ showHeader }) {
   const { cartProducts, wishlist } = useContext(CartContext)
   const [login, setLogin] = useState(false)
   const [cartActive, setCartActive] = useState(false)
+  const [list, setList] = useState(false)
   const [loginActive, setLoginActive] = useState(false)
   const [accountActive, setAccountActive] = useState(false)
 
@@ -217,6 +235,10 @@ export default function Header({ showHeader }) {
             <IconSpan>{cartProducts.length}</IconSpan>
           </HeaderButton>
         </ElementColumn>
+        {list && <HeaderBox setCartActive={setList} />}
+        <ListButton href="#" onClick={() => setList(true)}>
+          <ListIcon />
+        </ListButton>
       </ElementRow>
       {cartActive && <ShoppingCart setCartActive={setCartActive} />}
     </HeaderSection>

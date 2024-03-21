@@ -12,6 +12,9 @@ const SearchBarContainer = styled.div`
   &:focus-within {
     border: 1px solid #6839cc;
   }
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 
 const SearchInput = styled.input`
