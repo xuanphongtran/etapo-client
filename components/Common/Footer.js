@@ -8,12 +8,21 @@ const FooterConteiner = styled.div`
   padding: 90px 110px 40px 110px;
   border-top: 1px dashed #e5e5e5;
   height: 260px;
+  @media (max-width: 768px) {
+    padding: 25px 70px 20px 90px;
+  }
 `
 const FooterWrapper = styled.div`
   display: flex;
 `
 const FooterColumn = styled.div`
   padding-right: 30px;
+  @media (max-width: 768px) {
+    display: none;
+    &:first-child {
+      display: block;
+    }
+  }
 `
 const FootetResume = styled.div`
   color: #666;
@@ -73,6 +82,9 @@ const FooterDivider = styled.div`
   display: flex;
   padding: 15px 0;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    border-top: none;
+  }
 `
 const Copyrights = styled.div`
   color: #666;
@@ -143,7 +155,7 @@ const Footer = () => {
           </FooterColumn> */}
         </FooterWrapper>
         <FooterDivider>
-          <Copyrights>Copyright © 2023 XuanPhong. All rights reserved.</Copyrights>
+          <Copyrights>Copyright © 2024 XuanPhong. All rights reserved.</Copyrights>
         </FooterDivider>
       </FooterConteiner>
     </footer>
