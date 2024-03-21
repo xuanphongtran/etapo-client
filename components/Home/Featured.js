@@ -98,7 +98,7 @@ export default function Featured() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % config.length)
-    }, 5000) // Change this value to adjust the interval (in milliseconds)
+    }, 10000) // Change this value to adjust the interval (in milliseconds)
 
     return () => clearInterval(intervalId) // Cleanup the interval on component unmount
   }, [])

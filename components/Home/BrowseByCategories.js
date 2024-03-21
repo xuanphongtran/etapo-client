@@ -59,11 +59,9 @@ const TitleLink = styled(Link)`
   text-decoration: none;
   font-size: 16px;
   font-weight: 700;
+  color: #000000;
   &:hover {
     color: #ff782c !important;
-  }
-  &:visited {
-    color: #000000;
   }
 `
 

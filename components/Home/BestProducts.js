@@ -35,11 +35,9 @@ const ProductImage = styled(Link)`
 const ProductTitle = styled(Link)`
   text-decoration: none;
   font-size: 16px;
+  color: #000000;
   &:hover {
     color: #ff782c !important;
-  }
-  &:visited {
-    color: #000000;
   }
 `
 const Price = styled.div`

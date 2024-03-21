@@ -50,14 +50,12 @@ const MenuLi = styled.li`
 `
 const NavLink = styled(Link)`
   text-decoration: none;
+  color: #000000 !important;
   svg {
     height: 25px;
   }
   &:hover {
     color: #ff782c !important;
-  }
-  &:visited {
-    color: #000000;
   }
 `
 const HeaderButton = styled(Link)`
@@ -67,14 +65,12 @@ const HeaderButton = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
+  color: #000000 !important;
   svg {
     height: 25px;
   }
   &:hover {
     color: #ff782c !important;
-  }
-  &:visited {
-    color: #000000;
   }
 `
 const IconSpan = styled.div`
@@ -183,10 +179,10 @@ export default function Header({ showHeader }) {
                 <NavLink href={'/categories'}>SẢN PHẨM</NavLink>
               </MenuLi>
               <MenuLi>
-                <NavLink href="#">CHÓ</NavLink>
+                <NavLink href="/categories?category=64fb11402a2f54486bdf12ab">CHÓ</NavLink>
               </MenuLi>
               <MenuLi>
-                <NavLink href="#">MÈO</NavLink>
+                <NavLink href="/categories?category=652129ebc774dc4d93239ef5">MÈO</NavLink>
               </MenuLi>
               <MenuLi>
                 <NavLink href="#">BLOG</NavLink>
