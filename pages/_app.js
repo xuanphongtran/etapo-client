@@ -1,4 +1,5 @@
 import { CartContextProvider } from '@/components/CartContext'
+import { wrapper } from '@/redux/store'
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
@@ -11,8 +12,7 @@ const GlobalStyles = createGlobalStyle`
 
   }
 `
-
-export default function App({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyles />
@@ -22,3 +22,4 @@ export default function App({ Component, pageProps }) {
     </>
   )
 }
+export default wrapper.withRedux(App)
