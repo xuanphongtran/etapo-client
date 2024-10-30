@@ -6,7 +6,7 @@ const GlobalStyles = createGlobalStyle`
     background-color: #ffffff;
     padding: 0;
     margin: 0;
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 14px;
 
   }

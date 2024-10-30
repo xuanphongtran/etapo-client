@@ -95,7 +95,7 @@ const CommentForm = styled.textarea`
   overflow: auto;
   min-height: 120px;
   vertical-align: top;
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Roboto', sans-serif;
   border: 1px solid #e5e5e5;
   border-radius: 4px;
   padding: 12px 18px;
