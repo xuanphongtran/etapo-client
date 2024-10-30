@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import logo from 'public/logo.svg'
+import logo from '@/public/logo.svg'
 import Image from 'next/image'
 import { FacebookIcon, InstagramIcon, PhoneIcon, TwitterIcon, ZaloIcon } from '../icons/Icon'
 
